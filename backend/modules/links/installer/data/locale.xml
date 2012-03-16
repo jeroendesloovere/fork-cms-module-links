@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale>
+ <frontend>
+   <links>
+	 <item type="message" name="LinksNoItems">
+	  <translation language="nl"><![CDATA[Er werden nog geen links geplaatst.]]></translation>
+	  <translation language="en"><![CDATA[We haven't posted any links yet.]]></translation>
+	 </item>
+    </links>
+  </frontend>
+	
+  <backend>
+	<core>
+	 <item type="label" name="Links">
+	  <translation language="nl"><![CDATA[Links]]></translation>
+	  <translation language="en"><![CDATA[Links]]></translation>
+	 </item>
+    </core>
+    
+	<links>
+      <item type="label" name="Links">
+        <translation language="nl"><![CDATA[Links]]></translation>
+        <translation language="en"><![CDATA[Links]]></translation>
+      </item>
+	  <item type="label" name="Adress">
+        <translation language="nl"><![CDATA[Adres]]></translation>
+        <translation language="en"><![CDATA[Adress]]></translation>
+      </item>
+	 <item type="label" name="NoLinksInCategory">
+        <translation language="nl"><![CDATA[Deze category bevat nog geen links.]]></translation>
+        <translation language="en"><![CDATA[This category contains no links.]]></translation>
+     </item>
+	 	<item type="label" name="AddLink">
+        <translation language="nl"><![CDATA[Voeg een link toe.]]></translation>
+        <translation language="en"><![CDATA[Insert a link.]]></translation>
+     </item>
+	 <item type="label" name="Title">
+        <translation language="nl"><![CDATA[Titel]]></translation>
+        <translation language="en"><![CDATA[Title]]></translation>
+     </item>
+	 <item type="label" name="Adress">
+        <translation language="nl"><![CDATA[Adres]]></translation>
+        <translation language="en"><![CDATA[Adress]]></translation>
+      </item>
+	 <item type="label" name="Description">
+        <translation language="nl"><![CDATA[Beschrijving]]></translation>
+        <translation language="en"><![CDATA[Description]]></translation>
+      </item>
+	 <item type="label" name="Category">
+        <translation language="nl"><![CDATA[Categorie]]></translation>
+        <translation language="en"><![CDATA[Category]]></translation>
+      </item>
+	 <item type="label" name="AddCategory">
+        <translation language="nl"><![CDATA[Voeg een categorie toe]]></translation>
+        <translation language="en"><![CDATA[Add a category]]></translation>
+      </item>
+	 <item type="label" name="Categories">
+        <translation language="nl"><![CDATA[Categoriën]]></translation>
+        <translation language="en"><![CDATA[Categories]]></translation>
+      </item>
+	 <item type="label" name="Status">
+        <translation language="nl"><![CDATA[Status]]></translation>
+        <translation language="en"><![CDATA[Status]]></translation>
+     </item>
+	<item type="label" name="EditCategory">
+        <translation language="nl"><![CDATA[Bewerk Categorie]]></translation>
+        <translation language="en"><![CDATA[Edit category]]></translation>
+     </item>
+
+	 <item type="message" name="NoCategories">
+        <translation language="nl"><![CDATA[Er zijn nog geen categoriën.]]></translation>
+        <translation language="en"><![CDATA[There are no categories yet.]]></translation>
+      </item>
+	 <item type="message" name="NoLinks">
+        <translation language="nl"><![CDATA[Er zijn nog geen links.]]></translation>
+        <translation language="en"><![CDATA[There are no links yet.]]></translation>
+     </item>
+	</links>
+  </backend>
+</locale>
