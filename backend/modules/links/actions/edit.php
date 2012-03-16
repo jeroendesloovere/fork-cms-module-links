@@ -94,7 +94,8 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->frm->addText('adress', $this->record['adress'])->setAttribute('id', 'title');
 		$this->frm->getField('adress')->setAttribute('class', 'title ' . $this->frm->getField('adress')->getAttribute('class'));
 			
-		$this->frm->addEditor('description', $this->record['description']);
+		$this->frm->addText('description', $this->record['description'])->setAttribute('id', 'title');
+		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		
 		$this->frm->addDropdown('categories', $this->categories, $this->record['category_id']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);

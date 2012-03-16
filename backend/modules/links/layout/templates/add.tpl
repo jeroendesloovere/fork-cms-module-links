@@ -24,11 +24,10 @@
 											{$lblAdress|ucfirst}<br />
 											{$txtAdress} {$txtAdressError}
 										</p>
-										
-										<div class="heading">
-											<h3>{$lblDescription|ucfirst}<abbr title="{$lblRequiredField}"></abbr></h3>
-										</div>
-											{$txtDescription} {$txtDescriptionError}
+										<p>
+										{$lblDescription|ucfirst}<br />
+										{$txtDescription} {$txtDescriptionError}
+										</p>
 										</div>
 								</div>
 							</td>

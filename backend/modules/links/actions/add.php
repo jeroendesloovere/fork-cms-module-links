@@ -79,10 +79,12 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		// create elements
 		$this->frm->addText('title')->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
+		
 		$this->frm->addText('adress')->setAttribute('id', 'adress');
 		$this->frm->getField('adress')->setAttribute('class', 'title ' . $this->frm->getField('adress')->getAttribute('class'));
-
-		$this->frm->addEditor('description');
+		
+		$this->frm->addText('description')->setAttribute('id', 'description');
+		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 				
 		$this->frm->addDropdown('categories', $this->categories);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
