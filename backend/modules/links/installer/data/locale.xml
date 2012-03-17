@@ -6,6 +6,10 @@
 	  <translation language="nl"><![CDATA[Er werden nog geen links geplaatst.]]></translation>
 	  <translation language="en"><![CDATA[We haven't posted any links yet.]]></translation>
 	 </item>
+	 <item type="message" name="LinksNoLinksInCategory">
+	  <translation language="nl"><![CDATA[Er zijn nog geen links in deze categorie.]]></translation>
+	  <translation language="en"><![CDATA[There are no links posted in this category.]]></translation>
+	 </item>
     </links>
   </frontend>
 	
