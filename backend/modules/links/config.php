@@ -8,7 +8,7 @@
  */
 
 /**
- * This is the configuration-object for the tags module
+ * This is the configuration-object for the links module
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
