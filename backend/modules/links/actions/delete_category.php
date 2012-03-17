@@ -33,9 +33,6 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			// delete item
 			BackendLinksModel::deleteCategoryById($this->id);
 
-			// trigger event
-			//BackendModel::triggerEvent($this->getModule(), 'after_delete_category', array('id' => $this->id));
-
 			// item was deleted, so redirect
 			$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' . urlencode($this->record['title']));
 		}
