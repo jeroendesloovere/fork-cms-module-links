@@ -4,7 +4,7 @@
  * This is the edit_category action for the links module
  *
  * @package		backend
- * @subpackage	links
+ * @subpackage		links
  *
  * @author		John Poelman <john.poelman@bloobz.be>
  * @since		1.0.0
