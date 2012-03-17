@@ -17,12 +17,22 @@
 	{iteration:links}
 	
 		<h3>{$links.title}</h3>
-		<ul>
-			{iteration:links.catlinks}
-				<li><a href="{$links.catlinks.adress}" title="{$links.catlinks.description}" target="_blank">{$links.catlinks.title}</a></li>
-			{/iteration:links.catlinks}
-		</ul>
-	
+		{option:links.catlinks}
+		
+			<ul>
+				{iteration:links.catlinks}
+					<li><a href="{$links.catlinks.adress}" title="{$links.catlinks.description}" target="_blank">{$links.catlinks.title}</a></li>
+				{/iteration:links.catlinks}
+			</ul>
+			
+		{/option:links.catlinks}
+		
+		{option:!links.catlinks}
+		
+		<p>{$msgLinksNoLinksInCategory}</p>
+			
+		{/option:!links.catlinks}
+		
 	{/iteration:links}
 </div>	
 {/option:links}
