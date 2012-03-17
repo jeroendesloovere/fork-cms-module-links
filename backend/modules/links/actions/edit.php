@@ -4,10 +4,10 @@
  * This is the edit action for the links module
  *
  * @package		backend
- * @subpackage	links
+ * @subpackage		links
  *
  * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0
+ * @since		1.0.0
  */
 class BackendLinksEdit extends BackendBaseActionEdit
 {
