@@ -16,12 +16,12 @@
 <div class="bd content">
 	{iteration:links}
 	
-		<h3>{$links.title}</h3>
+		<h3>{$links.title|ucfirst}</h3>
 		{option:links.catlinks}
 		
 			<ul>
 				{iteration:links.catlinks}
-					<li><a href="{$links.catlinks.adress}" title="{$links.catlinks.description}" target="_blank">{$links.catlinks.title}</a></li>
+					<li><a href="{$links.catlinks.adress}" title="{$links.catlinks.description}" target="_blank">{$links.catlinks.title|ucfirst}</a></li>
 				{/iteration:links.catlinks}
 			</ul>
 			

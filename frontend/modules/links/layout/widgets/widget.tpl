@@ -16,10 +16,10 @@
 			<p>{$msgLinksNoItems}</p>
 		{/option:!links}
 		{option:links}
-			<h3>{$category.title}</h3>
+			<h3>{$category.title|ucfirst}</h3>
 				<ul>
 					{iteration:links}
-						<li><a href="{$links.adress}" title="{$links.description}" target="_blank">{$links.title}</a></li>
+						<li><a href="{$links.adress}" title="{$links.description}" target="_blank">{$links.title|ucfirst}</a></li>
 					{/iteration:links}
 				</ul>
 		{/option:links}
