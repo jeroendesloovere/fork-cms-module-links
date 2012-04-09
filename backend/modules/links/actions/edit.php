@@ -66,8 +66,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		// get the record
 		$this->record = BackendLinksModel::getLinkById($this->id);
 
-		//spoon::dump($this->record);
-
 		// get categories
 		$this->categories = BackendLinksModel::getCategoriesForDropdown();
 	}
@@ -149,15 +147,13 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				$item['id'] = $this->id;
 				$item['language'] = $this->record['language'];
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
+				$item['adress'] = $this->frm->getField('adress')->getValue();
 				$item['title'] = $this->frm->getField('title')->getValue();
 				$item['description'] = $this->frm->getField('description')->getValue(true);
 				$item['hidden'] = $this->frm->getField('hidden')->getValue();
 				
 				// update link values in database
 				BackendLinksModel::updateLink($item);
-
-				// trigger event
-				//BackendModel::triggerEvent($this->getModule(), 'after_edit', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('index') . '&report=saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);

@@ -37,6 +37,41 @@ const QRY_DATAGRID_BROWSE =
 		 ORDER BY i.id DESC';
 
 /**
+ * Convert the title to a widgetlabel
+ * 
+ * @param string 
+ * @return string $label
+ */
+public static function createWidgetLabel($catname)
+	{
+		//convert the item to camelcase
+		$label 	= preg_replace('/\s+/', '_', $catname);
+		$label	= spoonfilter::toCamelCase($label);
+		
+		return $label;
+	}
+
+/**
+ * Store all ids
+ * 
+ * @param array $ids
+ * @return int 
+ */
+public static function storeAllIds($ids)
+	{
+		// get db
+		$db = BackendModel::getDB(true);
+
+		// insert and return the new id
+		$stored = $db->insert('links_extra_ids', $ids);
+
+		// return the new id
+		return $stored['id'];
+	}
+
+
+
+/**
  * Add a new category.
  *
  * @return	int
@@ -52,6 +87,50 @@ public static function insertCategory(array $item)
 
 		// return the new id
 		return $item['id'];
+	}
+
+/**
+ * Save the widget
+ *
+ * @param array $widget The widget data.
+ * @return int The id
+ */
+public static function insertWidget($widget)
+	{
+		$db = BackendModel::getDB(true);
+
+		$widget['sequence'] =  $db->getVar('SELECT MAX(i.sequence) + 1 FROM modules_extras AS i WHERE i.module = ?', array($widget['module']));
+		if(is_null($widget['sequence'])) $widget['sequence'] = $db->getVar('SELECT CEILING(MAX(i.sequence) / 1000) * 1000 FROM modules_extras AS i');
+
+		// Save widget
+		return $db->insert('modules_extras', $widget);
+	}
+
+/**
+ * update widget by id
+ *
+ * @param array $widget
+ */
+
+public static function updateWidget($widget)
+	{
+		BackendModel::getDB(true)->update('modules_extras', $widget, 'id = ?', array($widget['id']));
+	}
+
+/**
+ * Delete a widget
+ *
+ * @return	void
+ * @param	int $id		The id of the widget to be deleted.
+ */
+
+public static function deleteWidgetById($id)
+	{
+		// get db
+		$db = BackendModel::getDB(true);
+
+		// delete the record
+		$db->delete('modules_extras', 'id = ?', array((int) $id));
 	}
 
 /**
@@ -99,6 +178,24 @@ public static function getCatNameFromId($id)
 		 WHERE i.language = ? AND i.id = ?',
 		 array(BL::getWorkingLanguage(), $id));
 	}
+
+/**
+ * Get extra ids for this category
+ * 
+ * @param int 
+ * @return array
+ */
+
+public static function getExtraIdsForCategory($id)
+	{
+			return (array)BackendModel::getDB()->getRecord(
+			'SELECT i.* 
+			FROM links_extra_ids AS i
+			WHERE i.category_id = ?',
+			array($id));
+	}
+
+
 	
 /**
  * Get category by id
@@ -272,6 +369,22 @@ public static function deleteCategoryById($id)
 
 		// delete the record
 		$db->delete('links_categories', 'id = ?', array((int) $id));
+	}
+
+/**
+ * Delete id's
+ *
+ * @return	void
+ * @param	int $id		The id of the link to be deleted.
+ */
+
+public static function deleteIdsByCatId($id)
+	{
+		// get db
+		$db = BackendModel::getDB(true);
+
+		// delete the record
+		$db->delete('links_extra_ids', 'category_id = ?', array((int) $id));
 	}
 
 

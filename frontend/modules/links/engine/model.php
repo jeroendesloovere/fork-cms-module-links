@@ -25,10 +25,27 @@ class FrontendLinksModel
 			 WHERE i.language = ? AND i.hidden = ?',
 			 array(FRONTEND_LANGUAGE, 'N'));
 		}
+	
+		/**
+		 * Get category
+		 *
+		 * @return	array
+		 */
+
+		public static function getCategory($id)
+			{
+				return (array) FrontendModel::getDB()->getRecord(
+				'SELECT i.*
+				 FROM links_categories AS i
+				 WHERE i.language = ? AND i.hidden = ? AND i.id = ?',
+				 array(FRONTEND_LANGUAGE, 'N', $id));
+			}
+	
 		
 	/**
-	 * Get all categories and their links
+	 * Get all links for a category
 	 *
+	 * @param array
 	 * @return	array
 	 */
 
@@ -40,4 +57,19 @@ class FrontendLinksModel
 				WHERE l.category_id = ? AND l.language = ? AND l.hidden = ?',
 				array($id, FRONTEND_LANGUAGE, 'N'));
 		}
+	
+	/**
+	 * Get categorie by widget_id
+	 *
+	 * @return	array
+	 */
+
+	public static function getCategoryForWidget($id)
+		{
+			return (array) FrontendModel::getDB()->getRecords(
+			'SELECT l.*
+			FROM links_categories AS l
+			WHERE l.widget_id = ? AND l.language = ? AND l.hidden = ?',
+			array($id, FRONTEND_LANGUAGE, 'N'));
+		}	
 }

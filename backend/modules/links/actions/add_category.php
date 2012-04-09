@@ -69,21 +69,58 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 			// no errors?
 			if($this->frm->isCorrect())
 			{
-				// build item
-				$item['language'] = BL::getWorkingLanguage();
-				$item['title'] = $this->frm->getField('title')->getValue();
-
-				// insert the item
-				$item['id'] = BackendLinksModel::insertCategory($item);
-
-				// trigger event
-				//BackendModel::triggerEvent($this->getModule(), 'after_add_category', array('item' => $item));
-
-				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				// build category array
+				$category['language'] = BL::getWorkingLanguage();
+				$category['title'] = $this->frm->getField('title')->getValue();
+				
+				// First, insert the category
+				$cat_id = BackendLinksModel::insertCategory($category);
+				
+				if ($cat_id)
+					
+					{
+						// Then build the widget array...
+						$widget['module'] 	= $this->getModule();
+						$widget['type']		= 'widget';
+						$widget['label']	= BackendLinksModel::createWidgetLabel($category['title']);
+						$widget['action']	= 'widget';
+						$widget['hidden']	= 'N';
+						$widget['data'] 	= serialize(array('id' => $cat_id));
+						
+						// ... to save it in the database
+						$widgetID	= BackendLinksModel::insertWidget($widget);
+						
+						if ($widgetID)
+							
+							{
+								// Then build the locale array ...
+								$locale['user_id']		= "1";
+								$locale['language']		= BL::getWorkingLanguage();
+								$locale['application']	= "backend";
+								$locale['module']		= "pages";
+								$locale['type']			= "lbl";
+								$locale['name']			= BackendLinksModel::createWidgetLabel($category['title']);
+								$locale['value']		= $category['title'];
+								$locale['edited_on']	= BackendModel::getUTCDate();
+								
+								// ... and store it
+								$localeID = BackendLocaleModel::insert($locale);
+								
+								// Build the ids array...
+								$ids['category_id']		= $cat_id;
+								$ids['widget_id']		= $widgetID;
+								$ids['locale_id']		= $localeID;
+								
+								// ... and store it
+								$stored = BackendLinksModel::storeAllIds($ids);
+								
+								// everything is saved, so redirect to the overview
+								$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . 
+								urlencode($category['title']) . '&highlight=row-' . 			$category['id']);
+							}
+					}
 			}
 		}
 	}
 }
-
 ?>

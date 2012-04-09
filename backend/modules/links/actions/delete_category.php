@@ -27,12 +27,27 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			// call parent, this will probably add some general CSS/JS or other required files
 			parent::execute();
 
-			// get item
+			// get category
 			$this->record = BackendLinksModel::getCategoryFromId($this->id);
-
-			// delete item
-			BackendLinksModel::deleteCategoryById($this->id);
-
+			
+			//get id from the locale and widget
+			$ids		= BackendLinksModel::getExtraIdsForCategory($this->id);
+			$localeID 	= array($ids['locale_id']); //BackendLocaleModel::delete needs an array to function
+			
+		//delete all stuff
+			
+			//delete the category
+				BackendLinksModel::deleteCategoryById($this->id);
+				
+			//delete the widget
+				BackendLinksModel::deleteWidgetById($ids['widget_id']);
+				
+			//delete the locale
+				BackendLocaleModel::delete($localeID);
+				
+			//delete the id's
+				BackendLinksModel::deleteIdsByCatId($this->id);
+				
 			// item was deleted, so redirect
 			$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' . urlencode($this->record['title']));
 		}
