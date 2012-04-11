@@ -13,26 +13,26 @@
 class FrontendLinksWidgetWidget extends FrontendBaseWidget
 {
 	
-/**
- * The links
- *
- * @var	array
- */
-private $links;
+	/**
+ 	* The links
+ 	*
+ 	* @var	array
+ 	*/
+	private $links;
 
-/**
- * The category
- *
- * @var	array
- */
-private $category;
+	/**
+ 	* The category
+ 	*
+ 	* @var	array
+ 	*/
+	private $category;
 
-/**
- * Execute the extra
- *
- * @return	void
- */
-public function execute()
+	/**
+ 	* Execute the extra
+ 	*
+ 	* @return	void
+ 	*/
+	public function execute()
 	{
 		// call the parent
 		parent::execute();
@@ -47,40 +47,36 @@ public function execute()
 		$this->parse();
 	}
 
-
-/**
- * Load the data, don't forget to validate the incoming data
- *
- * @return	void
- */
-	
+	/**
+ 	* Load the data, don't forget to validate the incoming data
+ 	*
+ 	* @return	void
+ 	*/
 	private function getData()
 	{
 		//get the category
-		$this->category 	= FrontendLinksModel::getCategory($this->data['id']);
+		$this->category = FrontendLinksModel::getCategory($this->data['id']);
 		
 		if (!empty($this->category))
 			{
 				//grab all images for the selected category
-				$this->links		= FrontendLinksModel::getLinksForCategory($this->category['id']);
+				$this->links = FrontendLinksModel::getLinksForCategory($this->category['id']);
 			}
 		
 		else
 			{
-				$category	= array();
+				$category = array();
 			}
 	}
 	
-/**
- * Parse the data into the template
- *
- * @return	void
- */
-private function parse()
+	/**
+ 	* Parse the data into the template
+ 	*
+ 	* @return	void
+ 	*/
+	private function parse()
 	{
 		$this->tpl->assign('category', $this->category);
 		$this->tpl->assign('links', $this->links);
 	}
 }
-
-?>

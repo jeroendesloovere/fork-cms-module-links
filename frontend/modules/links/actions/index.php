@@ -39,7 +39,6 @@ class FrontendLinksIndex extends FrontendBaseBlock
 		$this->parse();
 	}
 
-
 	/**
 	 * Load the data, don't forget to validate the incoming data
 	 *
@@ -47,26 +46,22 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	 */
 	private function getData()
 	{
-		//load al categories
+		// load al categories
 		$categories = FrontendLinksModel::getCategories();
 		
-		//no categories found? 
-		if(empty($categories)) 
+		// no categories are found
+		if(empty($categories)) $this->categories = array();
 		
-		{
-			$this->categories = array();
-		}
-		
+		// categories are found
 		else
 		{
-			//if there are categories found, grab their links!
-				foreach ($categories as $cat )
-					{
-						$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
-						$this->categories[] = $cat;
-						
-					}
+			// grab the links for each category
+			foreach ($categories as $cat)
+			{	
+				$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
+				$this->categories[] = (array) $cat;		
 			}
+		}
 	}
 	
 	/**
@@ -78,8 +73,5 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	{
 		// assign links
 		$this->tpl->assign('categories', $this->categories);
-		//spoon::dump($this->categories);
 	}
 }
-
-?>

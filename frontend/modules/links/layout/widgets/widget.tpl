@@ -1,13 +1,13 @@
 {*
 	variables that are available:
-	- {$category}	: contains an array with the values of the selected category.
-	- {$links}		: contains an array with all the links of the selected category.
+	- {$category}: contains an array with the values of the selected category.
+	- {$links}: contains an array with all the links of the selected category.
 *}
 
 {option:!category}
-<div class="bd content">
-	<p>{$msgLinksNoItems}</p>
-</div>
+	<div class="bd content">
+		<p>{$msgLinksNoItems}</p>
+	</div>
 {/option:!category}
 
 {option:category}
