@@ -12,11 +12,11 @@
 class FrontendLinksIndex extends FrontendBaseBlock
 {
 	/**
-	 * The links
+	 * The categories
 	 *
 	 * @var	array
 	 */
-	private $links;
+	private $categories;
 
 
 	/**
@@ -52,18 +52,19 @@ class FrontendLinksIndex extends FrontendBaseBlock
 		
 		//no categories found? 
 		if(empty($categories)) 
-			{
-				$this->links = array();
-			}
+		
+		{
+			$this->categories = array();
+		}
 		
 		else
-			{
-			
-				//if there are categories found, grab their links!
+		{
+			//if there are categories found, grab their links!
 				foreach ($categories as $cat )
 					{
-						$cat['catlinks'] = FrontendLinksModel::getLinksForCategory($cat['id']);
-						$this->links[] = $cat;
+						$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
+						$this->categories[] = $cat;
+						
 					}
 			}
 	}
@@ -76,7 +77,8 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	private function parse()
 	{
 		// assign links
-		$this->tpl->assign('links', $this->links);
+		$this->tpl->assign('categories', $this->categories);
+		//spoon::dump($this->categories);
 	}
 }
 

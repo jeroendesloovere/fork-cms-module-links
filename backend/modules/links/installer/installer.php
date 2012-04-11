@@ -45,14 +45,12 @@ class LinksInstaller extends ModuleInstaller
 		
 		$this->setNavigation($navigationLinksId, 'Links', 'links/index', array(
 			'links/add',
-			'links/edit',
-			'links/delete'
+			'links/edit'
 			));
 			
 		$this->setNavigation($navigationLinksId, 'Categories', 'links/categories', array(
 			'links/add_category',
-			'links/edit_category',
-			'links/delete_category'
+			'links/edit_category'
 			));
 
 		// add extra

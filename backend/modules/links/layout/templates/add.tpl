@@ -2,7 +2,7 @@
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_start_module.tpl}
 
 <div class="pageTitle">
-	<h2>{$lblLinks|ucfirst}: {$lblAddLink}</h2>
+	<h2>{$lblLinks|ucfirst}: {$lblAdd}</h2>
 </div>
 
 {form:add}
@@ -21,8 +21,8 @@
 										</p>
 										
 										<p>
-											{$lblAdress|ucfirst}<br />
-											{$txtAdress} {$txtAdressError}
+											{$lblUrl|ucfirst}<br />
+											{$txtUrl} {$txtUrlError}
 										</p>
 										<p>
 										{$lblDescription|ucfirst}<br />
@@ -69,9 +69,11 @@
 			</div>
 		</div>
 		<div class="fullwidthOptions">
+			{option:showLinksAdd}
 			<div class="buttonHolderRight">
 				<input id="addButton" class="inputButton button mainButton" type="submit" name="add" value="Toevoegen" />
 			</div>
+			{/option:showLinksAdd}
 		</div>
 	{/option:categories}
 

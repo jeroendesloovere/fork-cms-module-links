@@ -19,14 +19,13 @@
 							</p>
 							
 							<p>       
-                            {$lblAdress|ucfirst}<br/>
-							{$txtAdress} {$txtAdressError}
+                            {$lblUrl|ucfirst}<br/>
+							{$txtUrl} {$txtUrlError}
 							</p>
 							<p>
 								{$lblDescription|ucfirst}<br />
 								{$txtDescription} {$txtDescriptionError}
 							</p>
-							</div>
 						</td>
 
 						<td id="sidebar">
@@ -66,19 +65,24 @@
 		</div>
 
 		<div class="fullwidthOptions">
+		{option:showLinksDelete}
 			<a href="{$var|geturl:'delete'}&amp;id={$item.id}" data-message-id="confirmDelete" class="askConfirmation button linkButton icon iconDelete">
 				<span>{$lblDelete|ucfirst}</span>
 			</a>
+			
+			<div id="confirmDelete" title="{$lblDelete|ucfirst}?" style="display: none;">
+				<p>
+					{$msgConfirmDeleteLink|sprintf:{$item.title}}
+				</p>
+			</div>
+		{/option:showLinksDelete}
 			<div class="buttonHolderRight">
 				<input id="editButton" class="inputButton button mainButton" type="submit" name="edit" value="{$lblPublish|ucfirst}" />
 			</div>
 		</div>
-
-		<div id="confirmDelete" title="{$lblDelete|ucfirst}?" style="display: none;">
-			<p>
-				Verwijderen? {$item.title}
-			</p>
-		</div>
+		
+		
+		
 	{/option:categories}
 
 {/form:edit}

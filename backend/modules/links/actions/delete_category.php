@@ -30,6 +30,14 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			// get category
 			$this->record = BackendLinksModel::getCategoryFromId($this->id);
 			
+			// is this category allowed to be deleted?
+			if(!BackendLinksModel::deleteCategoryAllowed($this->id))
+			{
+				$this->redirect(BackendModel::createURLForAction('categories') . '&error=category-not-deletable');
+			}
+			
+			else
+			{
 			//get id from the locale and widget
 			$ids		= BackendLinksModel::getExtraIdsForCategory($this->id);
 			$localeID 	= array($ids['locale_id']); //BackendLocaleModel::delete needs an array to function
@@ -50,6 +58,7 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 				
 			// item was deleted, so redirect
 			$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' . urlencode($this->record['title']));
+		}
 		}
 
 		// something went wrong

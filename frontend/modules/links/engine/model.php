@@ -45,7 +45,7 @@ class FrontendLinksModel
 	/**
 	 * Get all links for a category
 	 *
-	 * @param array
+	 * @param int
 	 * @return	array
 	 */
 

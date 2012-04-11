@@ -46,7 +46,7 @@ public static function createWidgetLabel($catname)
 	{
 		//convert the item to camelcase
 		$label 	= preg_replace('/\s+/', '_', $catname);
-		$label	= spoonfilter::toCamelCase($label);
+		$label	= SpoonFilter::toCamelCase($label);
 		
 		return $label;
 	}

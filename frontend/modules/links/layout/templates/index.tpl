@@ -1,40 +1,41 @@
 {*
 	variables that are available:
-	$links - array containing all the data about the links in the db.
-		* $links holds the categories and $links.catlinks holds the links inside each category.
+	$categories - array containing all the data about the links in the db.
+		* $links holds the categories and $categories.links holds the links inside each category.
 		
 *}
 
-{option:!links}
+{option:!categories}
 <div class="bd content">
 	<p>{$msgLinksNoItems}</p>
 </div>
-{/option:!links}
+{/option:!categories}
 
 
-{option:links}	
+{option:categories}	
 <div class="bd content">
-	{iteration:links}
+	{iteration:categories}
 	
-		<h3>{$links.title|ucfirst}</h3>
-		{option:links.catlinks}
+		<h3>{$categories.title|ucfirst}</h3>
+		
+		{option:categories.links}
 		
 			<ul>
-				{iteration:links.catlinks}
-					<li><a href="{$links.catlinks.adress}" title="{$links.catlinks.description}" target="_blank">{$links.catlinks.title|ucfirst}</a></li>
-				{/iteration:links.catlinks}
+				{iteration:categories.links}
+					<li><a href="{$categories.links.adress}" title="{$categories.links.description}" target="_blank">{$categories.links.title|ucfirst}</a></li>
+				{/iteration:categories.links}
 			</ul>
 			
-		{/option:links.catlinks}
+		{/option:categories.links}
 		
-		{option:!links.catlinks}
+		{option:!categories.links}
 		
 		<p>{$msgLinksNoLinksInCategory}</p>
 			
-		{/option:!links.catlinks}
+		{/option:!categories.links}
 		
-	{/iteration:links}
+	{/iteration:categories}
 </div>	
-{/option:links}
+{/option:categories}
 					
 					

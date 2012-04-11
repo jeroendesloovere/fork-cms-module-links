@@ -19,16 +19,18 @@
 	</div>
 
 	<div class="fullwidthOptions">
-		{option:showDelete}
+		{option:showLinksDeleteCategory}
 			<a href="{$var|geturl:'delete_category'}&amp;id={$id}" data-message-id="confirmDelete" class="askConfirmation button linkButton icon iconDelete">
 				<span>{$lblDelete|ucfirst}</span>
 			</a>
+			
 			<div id="confirmDelete" title="{$lblDelete|ucfirst}?" style="display: none;">
 				<p>
 					{$msgConfirmDeleteCategory|sprintf:{$title}}
 				</p>
 			</div>
-		{/option:showDelete}
+		{/option:showLinksDeleteCategory}
+		
 		<div class="buttonHolderRight">
 			<input id="editButton" class="inputButton button mainButton" type="submit" name="edit" value="{$lblSave|ucfirst}" />
 		</div>

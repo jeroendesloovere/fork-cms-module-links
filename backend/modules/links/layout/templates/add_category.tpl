@@ -19,9 +19,11 @@
 	</div>
 
 	<div class="fullwidthOptions">
+		{option:showLinksAddCategory}
 		<div class="buttonHolderRight">
 			<input id="addButton" class="inputButton button mainButton" type="submit" name="addCategory" value="{$lblAddCategory|ucfirst}" />
 		</div>
+		{/option:showLinksAddCategory}
 	</div>
 {/form:add_category}
 

@@ -3,11 +3,13 @@
 
 <div class="pageTitle">
 	<h2>{$lblLinks|ucfirst}: {$lblLinks}</h2>
+	{option:showLinksAdd}
 	<div class="buttonHolderRight">
 		<a href="{$var|geturl:'add'}" class="button icon iconAdd" title="{$lblAdd|ucfirst}">
-			<span>{$lblAddLink|ucfirst}</span>
+			<span>{$lblAdd|ucfirst}</span>
 		</a>
 	</div>
+	{/option:showLinksAdd}
 </div>
 
 <div id="dataGridModelsHolder">

@@ -80,8 +80,8 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->frm->addText('title')->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
 		
-		$this->frm->addText('adress')->setAttribute('id', 'adress');
-		$this->frm->getField('adress')->setAttribute('class', 'title ' . $this->frm->getField('adress')->getAttribute('class'));
+		$this->frm->addText('url')->setAttribute('id', 'url');
+		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
 		
 		$this->frm->addText('description')->setAttribute('id', 'description');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
@@ -121,8 +121,9 @@ class BackendLinksAdd extends BackendBaseActionAdd
 			$this->frm->cleanupFields();
 
 			// validate fields
-			$this->frm->getField('title')->isFilled(BL::err('TitelIsRequired'));
-			$this->frm->getField('adress')->isFilled(BL::err('AdressIsRequired'));
+			$this->frm->getField('title')->isFilled(BL::err('TitleIsRequired'));
+			$this->frm->getField('url')->isFilled(BL::err('urlIsRequired'));
+			$this->frm->getField('description')->isFilled(BL::err('DescriptionIsRequired'));
 			$this->frm->getField('categories')->isFilled(BL::err('CategoryIsRequired'));
 
 			// no errors?
@@ -132,7 +133,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
 				$item['language'] = BL::getWorkingLanguage();
 				$item['title'] = $this->frm->getField('title')->getValue();	
-				$item['adress'] = $this->frm->getField('adress')->getValue();											
+				$item['url'] = $this->frm->getField('url')->getValue();											
 				$item['description'] = $this->frm->getField('description')->getValue(true);
 				
 				$item['hidden'] = $this->frm->getField('hidden')->getValue();
