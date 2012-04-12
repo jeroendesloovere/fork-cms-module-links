@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the add-action for the links module
  *
@@ -44,7 +43,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->display();
 	}
 
-
 	/**
 	 * Get the data for a question
 	 *
@@ -60,7 +58,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 			$this->redirect(BackendModel::createURLForAction('add_category'));
 		}		
 	}
-
 
 	/**
 	 * Load the form
@@ -78,19 +75,17 @@ class BackendLinksAdd extends BackendBaseActionAdd
 
 		// create elements
 		$this->frm->addText('title')->setAttribute('id', 'title');
-		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
-		
+		$this->frm->getField('title')->setAttribute('class', 'title ' . 
+		$this->frm->getField('title')->getAttribute('class'));
 		$this->frm->addText('url')->setAttribute('id', 'url');
-		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
-		
+		$this->frm->getField('url')->setAttribute('class', 'title ' . 
+		$this->frm->getField('url')->getAttribute('class'));
 		$this->frm->addText('description')->setAttribute('id', 'description');
-		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
-				
+		$this->frm->getField('description')->setAttribute('class', 'title ' .
+		$this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
-
 	}
-
 
 	/**
 	 * Parse the form
@@ -105,7 +100,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		// assign categories
 		$this->tpl->assign('categories', $this->categories);
 	}
-
 
 	/**
 	 * Validate the form
@@ -135,21 +129,16 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				$item['title'] = $this->frm->getField('title')->getValue();	
 				$item['url'] = $this->frm->getField('url')->getValue();											
 				$item['description'] = $this->frm->getField('description')->getValue(true);
-				
 				$item['hidden'] = $this->frm->getField('hidden')->getValue();
 				$item['created_on'] = BackendModel::getUTCDate();
 
 				// insert the item
 				$item['id'] = BackendLinksModel::addLink($item);
 
-				// trigger event
-				//BackendModel::triggerEvent($this->getModule(), 'after_add', array('item' => $item));
-
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=added&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('index') . '&report=added&var=' . 
+				urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}
 }
-
-?>

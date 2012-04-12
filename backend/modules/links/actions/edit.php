@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the edit action for the links module
  *
@@ -55,7 +54,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
 	}
 
-
 	/**
 	 * Get the data for a question
 	 *
@@ -69,7 +67,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		// get categories
 		$this->categories = BackendLinksModel::getCategoriesForDropdown();
 	}
-
 
 	/**
 	 * Load the form
@@ -88,17 +85,14 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		// create elements
 		$this->frm->addText('title', $this->record['title'])->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
-		
 		$this->frm->addText('url', $this->record['url'])->setAttribute('id', 'title');
 		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
-			
 		$this->frm->addText('description', $this->record['description'])->setAttribute('id', 'title');
-		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
-		
+		$this->frm->getField('description')->setAttribute('class', 'title ' .
+		$this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories, $this->record['category_id']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
 	}
-
 
 	/**
 	 * Parse the form
@@ -117,7 +111,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->tpl->assign('categories', $this->categories);
 	}
 
-
 	/**
 	 * Validate the form
 	 *
@@ -133,33 +126,29 @@ class BackendLinksEdit extends BackendBaseActionEdit
 
 			// validate fields
 			$this->frm->getField('title')->isFilled(BL::err('TitleIsRequired'));
-
 			$this->frm->getField('url')->isFilled(BL::err('UrlIsRequired'));
-
 			$this->frm->getField('description')->isFilled(BL::err('DescriptionIsRequired'));
-
 			$this->frm->getField('categories')->isFilled(BL::err('CategoryIsRequired'));
 
 			// no errors?
 			if($this->frm->isCorrect())
 			{
 				// build item
-				$item['id'] = $this->id;
-				$item['language'] = $this->record['language'];
-				$item['category_id'] = $this->frm->getField('categories')->getValue();
-				$item['url'] = $this->frm->getField('url')->getValue();
-				$item['title'] = $this->frm->getField('title')->getValue();
-				$item['description'] = $this->frm->getField('description')->getValue(true);
-				$item['hidden'] = $this->frm->getField('hidden')->getValue();
+				$item['id'] = (int) $this->id;
+				$item['language'] = (string) $this->record['language'];
+				$item['category_id'] = (string) $this->frm->getField('categories')->getValue();
+				$item['url'] = (string) $this->frm->getField('url')->getValue();
+				$item['title'] = (string) $this->frm->getField('title')->getValue();
+				$item['description'] = (string) $this->frm->getField('description')->getValue(true);
+				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 				
 				// update link values in database
 				BackendLinksModel::updateLink($item);
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('index') . '&report=saved&var=' . urlencode($item['title']) .
+				'&highlight=row-' . $item['id']);
 			}
 		}
 	}
 }
-
-?>

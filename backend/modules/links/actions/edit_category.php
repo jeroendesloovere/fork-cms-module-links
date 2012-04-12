@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the edit_category action for the links module
  *
@@ -47,7 +46,6 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		else $this->redirect(BackendModel::createURLForAction('categories') . '&error=non-existing');
 	}
 
-
 	/**
 	 * Get the data
 	 *
@@ -57,7 +55,6 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 	{
 		$this->record 	= BackendLinksModel::getCategoryFromId($this->id);
 	}
-
 
 	/**
 	 * Load the form
@@ -72,7 +69,6 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		// create elements
 		$this->frm->addText('title', $this->record['title']);
 	}
-
 
 	/**
 	 * Parse the form
@@ -91,7 +87,6 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		// can the category be deleted?
 		if(BackendLinksModel::deleteCategoryAllowed($this->id)) $this->tpl->assign('showDelete', true);
 	}
-
 
 	/**
 	 * Validate the form
@@ -112,39 +107,39 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 			// no errors?
 			if($this->frm->isCorrect())
 			{	
-				// First, build the category array
-				$category['id'] = $this->id;
-				$category['title'] = $this->frm->getField('title')->getValue();
-				$category['language'] = BL::getWorkingLanguage();
+				// first, build the category array
+				$category['id'] = (int) $this->id;
+				$category['title'] = (string) $this->frm->getField('title')->getValue();
+				$category['language'] = (string) BL::getWorkingLanguage();
 				
 				// ... then, update the category
 				$category_update = BackendLinksModel::updateCategory($category);
 				
-				//Get extra ids for this category
+				// get extra ids for this category
 				$ids = BackendLinksModel::getExtraIdsForCategory($this->id);
 					
-				// Let's build the widget array
-				$widget['id']		= $ids['widget_id'];
-				$widget['label']	= BackendLinksModel::createWidgetLabel($category['title']);
-				$widget['module'] 	= $this->getModule();
-				$widget['type']		= 'widget';
-				$widget['action']	= 'widget';
-				$widget['hidden']	= 'N';
-				$widget['data'] 	= serialize(array('id' => $this->id));
+				// let's build the widget array
+				$widget['id']		= (int) $ids['widget_id'];
+				$widget['label']	= (string) BackendLinksModel::createWidgetLabel($category['title']);
+				$widget['module'] 	= (string) $this->getModule();
+				$widget['type']		= (string) 'widget';
+				$widget['action']	= (string) 'widget';
+				$widget['hidden']	= (string) 'N';
+				$widget['data'] 	= (string) serialize(array('id' => $this->id));
 						
-				//Update the widget
+				// update the widget
 				$update_widget = BackendLinksModel::updateWidget($widget);
 			
-				// Now we'll be building the locale array
-				$locale['id']			= $ids['locale_id'];
-				$locale['name']			= BackendLinksModel::createWidgetLabel($category['title']);
-				$locale['value']		= $category['title'];
+				// now we'll be building the locale array
+				$locale['id']			= (int) $ids['locale_id'];
+				$locale['name']			= (string) BackendLinksModel::createWidgetLabel($category['title']);
+				$locale['value']		= (string) $category['title'];
 				$locale['edited_on']	= BackendModel::getUTCDate();
-				$locale['user_id']		= "1";
-				$locale['language']		= BL::getWorkingLanguage();
-				$locale['application']	= "backend";
-				$locale['module']		= "pages";
-				$locale['type']			= "lbl";
+				$locale['user_id']		= (int) '1';
+				$locale['language']		= (string) BL::getWorkingLanguage();
+				$locale['application']	= (string) 'backend';
+				$locale['module']		= (string) 'pages';
+				$locale['type']			= (string) 'lbl';
 												
 				// ...and store it
 				$updatelocale	= BackendLocaleModel::update($locale);
@@ -157,5 +152,3 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 			}
 		}
 	}
-
-?>

@@ -30,7 +30,6 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		$this->display();
 	}
 
-
 	/**
 	 * Loads the datagrid
 	 *
@@ -44,16 +43,16 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		// disable paging
 		$this->dataGrid->setPaging(false);
 		
-		//set hidden columns
+		// set hidden columns
 		$this->dataGrid->setColumnsHidden(array('language'));
 		
 		// set column URLs
 		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');
 
 		// add edit column
-		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));
+		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . 
+		'&amp;id=[id]', BL::lbl('Edit'));
 	}
-
 
 	/**
 	 * Parse & display the page
@@ -65,5 +64,3 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		$this->tpl->assign('dataGrid', ($this->dataGrid->getNumResults() != 0) ? $this->dataGrid->getContent() : false);
 	}
 }
-
-?>

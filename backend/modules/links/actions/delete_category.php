@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the delete_category action for the links module
  *
@@ -38,32 +37,30 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			
 			else
 			{
-			//get id from the locale and widget
-			$ids		= BackendLinksModel::getExtraIdsForCategory($this->id);
-			$localeID 	= array($ids['locale_id']); //BackendLocaleModel::delete needs an array to function
+				// get id from the locale and widget
+				$ids = BackendLinksModel::getExtraIdsForCategory($this->id);
+				
+				// BackendLocaleModel::delete needs an array to function
+				$localeID = array($ids['locale_id']);
 			
-		//delete all stuff
-			
-			//delete the category
+				// delete the category
 				BackendLinksModel::deleteCategoryById($this->id);
 				
-			//delete the widget
+				// delete the widget
 				BackendLinksModel::deleteWidgetById($ids['widget_id']);
 				
-			//delete the locale
+				// delete the locale
 				BackendLocaleModel::delete($localeID);
 				
-			//delete the id's
+				// delete the id's
 				BackendLinksModel::deleteIdsByCatId($this->id);
 				
-			// item was deleted, so redirect
-			$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' . urlencode($this->record['title']));
+			 	// item was deleted, so redirect
+				$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' .
+				urlencode($this->record['title']));
+			}
 		}
-		}
-
 		// something went wrong
 		else $this->redirect(BackendModel::createURLForAction('categories') . '&error=non-existing');
 	}
 }
-
-?>

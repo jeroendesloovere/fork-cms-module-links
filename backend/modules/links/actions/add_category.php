@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the add category action for the links module
  *
@@ -34,7 +33,6 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		$this->display();
 	}
 
-
 	/**
 	 * Load the form
 	 *
@@ -48,7 +46,6 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		// create elements
 		$this->frm->addText('title');
 	}
-
 
 	/**
 	 * Validate the form
@@ -71,45 +68,43 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 			{
 				// build category array
 				$category['language'] = BL::getWorkingLanguage();
-				$category['title'] = $this->frm->getField('title')->getValue();
+				$category['title'] = (string) $this->frm->getField('title')->getValue();
 				
-				// First, insert the category
+				// first, insert the category
 				$cat_id = BackendLinksModel::insertCategory($category);
 				
 				if ($cat_id)
-					
 					{
-						// Then build the widget array...
-						$widget['module'] 	= $this->getModule();
-						$widget['type']		= 'widget';
-						$widget['label']	= BackendLinksModel::createWidgetLabel($category['title']);
-						$widget['action']	= 'widget';
-						$widget['hidden']	= 'N';
-						$widget['data'] 	= serialize(array('id' => $cat_id));
+						// then build the widget array...
+						$widget['module'] 	= (string) $this->getModule();
+						$widget['type']		= (string) 'widget';
+						$widget['label']	= (string) BackendLinksModel::createWidgetLabel($category['title']);
+						$widget['action']	= (string) 'widget';
+						$widget['hidden']	= (string) 'N';
+						$widget['data'] 	= (string) serialize(array('id' => $cat_id));
 						
-						// ... to save it in the database
+						// ...to save it in the database
 						$widgetID	= BackendLinksModel::insertWidget($widget);
 						
-						if ($widgetID)
-							
+						if ($widgetID)	
 							{
-								// Then build the locale array ...
-								$locale['user_id']		= "1";
-								$locale['language']		= BL::getWorkingLanguage();
-								$locale['application']	= "backend";
-								$locale['module']		= "pages";
-								$locale['type']			= "lbl";
-								$locale['name']			= BackendLinksModel::createWidgetLabel($category['title']);
-								$locale['value']		= $category['title'];
+								// then build the locale array ...
+								$locale['user_id']		= (int) '1';
+								$locale['language']		= (string) BL::getWorkingLanguage();
+								$locale['application']	= (string) 'backend';
+								$locale['module']		= (string) 'pages';
+								$locale['type']			= (string) 'lbl';
+								$locale['name']			= (string)BackendLinksModel::createWidgetLabel($category['title']);
+								$locale['value']		= (string) $category['title'];
 								$locale['edited_on']	= BackendModel::getUTCDate();
 								
 								// ... and store it
 								$localeID = BackendLocaleModel::insert($locale);
 								
-								// Build the ids array...
-								$ids['category_id']		= $cat_id;
-								$ids['widget_id']		= $widgetID;
-								$ids['locale_id']		= $localeID;
+								// build the ids array...
+								$ids['category_id']		= (int) $cat_id;
+								$ids['widget_id']		= (int) $widgetID;
+								$ids['locale_id']		= (int) $localeID;
 								
 								// ... and store it
 								$stored = BackendLinksModel::storeAllIds($ids);
@@ -123,4 +118,3 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		}
 	}
 }
-?>

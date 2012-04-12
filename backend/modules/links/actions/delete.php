@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the delete action for the links module
  *
@@ -33,9 +32,6 @@ class BackendLinksDelete extends BackendBaseActionDelete
 			// delete item
 			BackendLinksModel::deleteLinkById($this->id);
 
-			// trigger event
-			//BackendModel::triggerEvent($this->getModule(), 'after_delete', array('id' => $this->id));
-
 			// item was deleted, so redirect
 			$this->redirect(BackendModel::createURLForAction('index') . '&report=deleted');
 		}
@@ -44,5 +40,3 @@ class BackendLinksDelete extends BackendBaseActionDelete
 		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
 	}
 }
-
-?>

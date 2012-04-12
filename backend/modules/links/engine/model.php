@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of Fork CMS.
  *
@@ -20,21 +19,21 @@ class BackendLinksModel
  * Define constants
  */	
 
-const QRY_DATAGRID_CAT =
-		'SELECT i.*
-		 FROM links_categories AS i
-		 WHERE i.language = ?';
+	const QRY_DATAGRID_CAT =
+		 'SELECT i.*
+		  FROM links_categories AS i
+		  WHERE i.language = ?';
 			
-const QRY_DATAGRID_LINKS =
-		'SELECT i.*
-		 FROM links_links AS i
-		 WHERE i.language = ?';
+	const QRY_DATAGRID_LINKS =
+	 	 'SELECT i.*
+		  FROM links_links AS i
+		  WHERE i.language = ?';
 			
-const QRY_DATAGRID_BROWSE =
-		'SELECT i.*
-		 FROM links_links AS i
-		 WHERE i.language = ? AND i.category_id = ?
-		 ORDER BY i.id DESC';
+	const QRY_DATAGRID_BROWSE =
+		 'SELECT i.*
+		  FROM links_links AS i
+		  WHERE i.language = ? AND i.category_id = ?
+		  ORDER BY i.id DESC';
 
 /**
  * Convert the title to a widgetlabel
@@ -55,7 +54,7 @@ public static function createWidgetLabel($catname)
  * Store all ids
  * 
  * @param array $ids
- * @return int 
+ * @return bool 
  */
 public static function storeAllIds($ids)
 	{
@@ -65,17 +64,14 @@ public static function storeAllIds($ids)
 		// insert and return the new id
 		$stored = $db->insert('links_extra_ids', $ids);
 
-		// return the new id
-		return $stored['id'];
+		return $stored;
 	}
-
-
 
 /**
  * Add a new category.
  *
- * @return	int
  * @param	array $item		The data to insert.
+ * @return	int
  */
 public static function insertCategory(array $item)
 	{
@@ -92,16 +88,23 @@ public static function insertCategory(array $item)
 /**
  * Save the widget
  *
- * @param array $widget The widget data.
+ * @param array $widget
  * @return int The id
  */
 public static function insertWidget($widget)
 	{
 		$db = BackendModel::getDB(true);
-
-		$widget['sequence'] =  $db->getVar('SELECT MAX(i.sequence) + 1 FROM modules_extras AS i WHERE i.module = ?', array($widget['module']));
-		if(is_null($widget['sequence'])) $widget['sequence'] = $db->getVar('SELECT CEILING(MAX(i.sequence) / 1000) * 1000 FROM modules_extras AS i');
-
+		
+		// get widget sequence
+		$widget['sequence'] =  $db->getVar('SELECT MAX(i.sequence) + 1 FROM modules_extras AS i WHERE i.module = ?',
+		array($widget['module']));
+		
+		if(is_null($widget['sequence']))
+		{
+			$widget['sequence'] = $db->getVar('SELECT CEILING(MAX(i.sequence) 
+			/ 1000) * 1000 FROM modules_extras AS i');
+		}
+		
 		// Save widget
 		return $db->insert('modules_extras', $widget);
 	}
@@ -111,7 +114,6 @@ public static function insertWidget($widget)
  *
  * @param array $widget
  */
-
 public static function updateWidget($widget)
 	{
 		BackendModel::getDB(true)->update('modules_extras', $widget, 'id = ?', array($widget['id']));
