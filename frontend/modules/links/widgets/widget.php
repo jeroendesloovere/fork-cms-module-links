@@ -6,8 +6,8 @@
  * @package		frontend
  * @subpackage	links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		2.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 2.0.0
  */
 
 class FrontendLinksWidgetWidget extends FrontendBaseWidget
@@ -54,21 +54,21 @@ class FrontendLinksWidgetWidget extends FrontendBaseWidget
  	*/
 	private function getData()
 	{
-		//get the category
+		// get the category
 		$this->category = FrontendLinksModel::getCategory($this->data['id']);
 		
-		if (!empty($this->category))
-			{
-				//grab all images for the selected category
-				$this->links = FrontendLinksModel::getLinksForCategory($this->category['id']);
-			}
+		if(!empty($this->category))
+		{
+			// grab all images for the selected category
+			$this->links = FrontendLinksModel::getLinksForCategory($this->category['id']);
+		}
 		
 		else
-			{
-				$category = array();
-			}
+		{
+			$category = array();
+		}
 	}
-	
+
 	/**
  	* Parse the data into the template
  	*

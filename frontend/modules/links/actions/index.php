@@ -3,11 +3,11 @@
 /**
  * This is the index -action
  *
- * @package		frontend
- * @subpackage	links
+ * @package frontend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class FrontendLinksIndex extends FrontendBaseBlock
 {
@@ -22,7 +22,7 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	/**
 	 * Execute the extra
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{
@@ -42,32 +42,36 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	/**
 	 * Load the data, don't forget to validate the incoming data
 	 *
-	 * @return	void
+	 * @return void
 	 */
+
 	private function getData()
 	{
-		// load al categories
+		// get the categories
 		$categories = FrontendLinksModel::getCategories();
 		
 		// no categories are found
-		if(empty($categories)) $this->categories = array();
+		if(empty($categories))
+		{
+			$this->categories = array();
+		}
 		
 		// categories are found
 		else
 		{
 			// grab the links for each category
-			foreach ($categories as $cat)
-			{	
+			foreach($categories as $cat) 
+			{
 				$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
-				$this->categories[] = (array) $cat;		
+				$this->categories[] = (array) $cat;	
 			}
 		}
 	}
-	
+
 	/**
 	 * Parse the data into the template
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function parse()
 	{

@@ -3,18 +3,18 @@
 /**
  * This is the frontend model
  *
- * @package		frontend
- * @subpackage	links
+ * @package frontend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class FrontendLinksModel
 {
 	/**
 	 * Get all categories
 	 *
-	 * @return	array
+	 * @return array
 	 */
 	public static function getCategories()
 	{
@@ -25,13 +25,13 @@ class FrontendLinksModel
 		 		array(FRONTEND_LANGUAGE, 'N')
 		);
 		return $items;
-	 }
-	
+	}
+
 	/**
 	 * Get a category
 	 *
 	 * @param int $id
-	 * @return	array
+	 * @return array
 	 */
  	public static function getCategory($id)
 	{
@@ -42,13 +42,30 @@ class FrontendLinksModel
 		 		array(FRONTEND_LANGUAGE, 'N', $id)
 		);
 		return $item;
-	 }
-		
+	}
+
+	/**
+	 * Get category by widget_id
+	 * 
+	 * @param int $id
+	 * @return array
+	 */
+	public static function getCategoryForWidget($id)
+	{
+		$item = (array) FrontendModel::getDB()->getRecords(
+				'SELECT l.*
+				 FROM links_categories AS l
+				 WHERE l.widget_id = ? AND l.language = ? AND l.hidden = ?',
+				array($id, FRONTEND_LANGUAGE, 'N')
+		);
+		return $item;
+	}	
+
 	/**
 	 * Get all links for a category
 	 *
 	 * @param int $id
-	 * @return	array
+	 * @return array
 	 */
 	public static function getLinksForCategory($id)
 	{
@@ -61,20 +78,5 @@ class FrontendLinksModel
 		return $items;		
 	}
 	
-	/**
-	 * Get category by widget_id
-	 * 
-	 * @param int $id
-	 * @return	array
-	 */
-	public static function getCategoryForWidget($id)
-	{
-		$item = (array) FrontendModel::getDB()->getRecords(
-				'SELECT l.*
-				 FROM links_categories AS l
-				 WHERE l.widget_id = ? AND l.language = ? AND l.hidden = ?',
-				array($id, FRONTEND_LANGUAGE, 'N')
-		);
-		return $item;
-	}	
+	
 }
