@@ -37,23 +37,23 @@ class BackendLinksModel
 		  ORDER BY i.id DESC';
 
 	/**
- 	* Add a new link.
- 	*
- 	* @param array $item
- 	* @return int
- 	*/
+ 	 * Add a new link.
+ 	 *
+ 	 * @param array $item
+ 	 * @return int
+ 	 */
 	public static function addLink(array $item)
 		{
-			$id = BackendModel::getDB(true)->insert('links_links', $item);
+			$id = BackendModel::getDB(true)->insert('links_links', (array) $item);
 			return (int) $id;
 		}
 
 	/**
-	* Convert the title to a widgetlabel
-	* 
-	* @param string $catname
-	* @return string $label
-	*/
+	 * Convert the title to a widgetlabel
+	 * 
+	 * @param string $catname
+	 * @return string $label
+	 */
 	public static function createWidgetLabel($catname)
 		{
 			// convert the item to camelcase
@@ -64,11 +64,11 @@ class BackendLinksModel
 		}
 
 	/**
-	* Is the deletion of a category allowed?
-	*
-	* @param int $id
-	* @return bool
-	*/
+	 * Is the deletion of a category allowed?
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
 	public static function deleteCategoryAllowed($id)
 	{
 		return (BackendModel::getDB()->getVar(
@@ -79,11 +79,11 @@ class BackendLinksModel
 	}
 
 	/**
- 	* Delete a category
- 	*
- 	* @return	void
- 	* @param	int $id		The id of the category to be deleted.
- 	*/
+ 	 * Delete a category
+ 	 *
+ 	 * @return	void
+ 	 * @param	int $id		The id of the category to be deleted.
+ 	 */
 	public static function deleteCategoryById($id)
 	{
 		// get db
@@ -94,11 +94,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Delete id's
-	*
-	* @return void
-	* @param int $id ÒThe id of the link to be deleted.
-	*/
+	 * Delete id's
+	 *
+	 * @return void
+	 * @param int $id ÒThe id of the link to be deleted.
+	 */
 
 	public static function deleteIdsByCatId($id)
 	{
@@ -110,11 +110,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Is the deletion of a link allowed?
-	*
-	* @param int $id
-	* @return bool
-	*/
+	 * Is the deletion of a link allowed?
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
 	public static function deleteLinkAllowed($id)
 	{
 		return (BackendModel::getDB()->getVar(
@@ -125,11 +125,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Delete a link
-	*
-	* @return	void
-	* @param	int $id		The id of the link to be deleted.
-	*/
+	 * Delete a link
+	 *
+	 * @return	void
+	 * @param	int $id		The id of the link to be deleted.
+	 */
 	public static function deleteLinkById($id)
 	{
 		// get db
@@ -140,11 +140,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Delete a widget
-	*
-	* @return	void
-	* @param	int $id		The id of the widget to be deleted.
-	*/
+	 * Delete a widget
+	 *
+	 * @return	void
+	 * @param	int $id		The id of the widget to be deleted.
+	 */
 	public static function deleteWidgetById($id)
 	{
 		// get db
@@ -155,11 +155,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Does the category exist?
-	*
-	* @param int $id
-	* @return bool
-	*/
+	 * Does the category exist?
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
 	public static function existsCategory($id)
 	{
 		return (bool) BackendModel::getDB()->getVar(
@@ -170,11 +170,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Does the link exist?
-	*
-	* @param int $id
-	* @return bool
-	*/
+	 * Does the link exist?
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
 	public static function existsLink($id)
 	{
 		return (bool) BackendModel::getDB()->getVar(
@@ -185,10 +185,10 @@ class BackendLinksModel
 	}
 
 	/**
-	* Get all categories
-	*
-	* @return	array
-	*/		
+	 * Get all categories
+	 *
+	 * @return	array
+	 */		
 	public static function getCategories()
 	{
 		return (array) BackendModel::getDB()->getRecords(
@@ -199,10 +199,10 @@ class BackendLinksModel
 	}
 
 	/**
-	* Get all category names for dropdown
-	*
-	* @return	array
-	*/
+	 * Get all category names for dropdown
+	 *
+	 * @return	array
+	 */
 	public static function getCategoriesForDropdown()
 	{
 		return (array) BackendModel::getDB()->getPairs(
@@ -214,11 +214,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Get category by id
-	*
-	* @param int $id
-	* @return	string
-	*/
+	 * Get category by id
+	 *
+	 * @param int $id
+	 * @return	string
+	 */
 	public static function getCategoryFromId($id)
 	{
 		return (array) BackendModel::getDB()->getRecord(
@@ -229,11 +229,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Get categoryname by id
-	*
-	* @param int $id
-	* @return	string
-	*/
+	 * Get categoryname by id
+	 *
+	 * @param int $id
+	 * @return	string
+	 */
 	public static function getCatNameFromId($id)
 	{
 		BackendModel::getDB()->getRecord(
@@ -244,11 +244,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Get extra ids for this category
-	* 
-	* @param int 
-	* @return array
-	*/
+	 * Get extra ids for this category
+	 * 
+	 * @param int 
+	 * @return array
+	 */
 	public static function getExtraIdsForCategory($id)
 	{
 		return (array) BackendModel::getDB()->getRecord(
@@ -259,11 +259,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Fetch a link
-	*
-	* @param int $id
-	* @return array
-	*/
+	 * Fetch a link
+	 *
+	 * @param int $id
+	 * @return array
+	 */
 	public static function getLinkById($id)
 	{
 		return (array) BackendModel::getDB()->getRecord(
@@ -274,10 +274,10 @@ class BackendLinksModel
 	}
 
 	/**
-	* Get all links
-	*
-	* @return	array
-	*/
+	 * Get all links
+	 *
+	 * @return	array
+	 */
 	public static function getLinks()
 	{
 		return (array) BackendModel::getDB()->getRecords(
@@ -288,11 +288,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Add a new category.
-	*
-	* @param	array $item		The data to insert.
-	* @return	int
-	*/
+	 * Add a new category.
+	 *
+	 * @param	array $item		The data to insert.
+	 * @return	int
+	 */
 	public static function insertCategory(array $item)
 	{
 		// get db
@@ -306,11 +306,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Save the widget
-	*
-	* @param array $widget
-	* @return int The id
-	*/
+	 * Save the widget
+	 *
+	 * @param array $widget
+	 * @return int The id
+	 */
 	public static function insertWidget($widget)
 	{
 		$db = BackendModel::getDB(true);
@@ -330,11 +330,11 @@ class BackendLinksModel
 	}
 
 	/**
-	* Store all ids
-	* 
-	* @param array $ids
-	* @return bool 
-	*/
+	 * Store all ids
+	 * 
+	 * @param array $ids
+	 * @return bool 
+	 */
 	public static function storeAllIds($ids)
 	{
 		// get db
@@ -347,10 +347,10 @@ class BackendLinksModel
 	}
 
 	/**
-	* Update a certain category
-	*
-	* @param array $item
-	*/
+	 * Update a certain category
+	 *
+	 * @param array $item
+	 */
 	public static function updateCategory(array $item)
 	{
 		BackendModel::getDB(true)->update('links_categories', $item, 'id = ?', array($item['id']));
@@ -358,10 +358,10 @@ class BackendLinksModel
 	}
 
 	/**
-	* Update a certain link
-	*
-	* @param array $item
-	*/
+	 * Update a certain link
+	 *
+	 * @param array $item
+	 */
 	public static function updateLink(array $item)
 	{
 		BackendModel::getDB(true)->update('links_links', $item, 'id = ?', array($item['id']));
@@ -369,10 +369,10 @@ class BackendLinksModel
 	}
 
 	/**
-	* update widget by id
-	*
-	* @param array $widget
-	*/
+	 * update widget by id
+	 *
+	 * @param array $widget
+	 */
 	public static function updateWidget($widget)
 	{
 		BackendModel::getDB(true)->update('modules_extras', $widget, 'id = ?', array($widget['id']));
