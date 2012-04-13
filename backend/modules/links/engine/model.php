@@ -36,17 +36,17 @@ class BackendLinksModel
 		  WHERE i.language = ? AND i.category_id = ?
 		  ORDER BY i.id DESC';
 
-	/**
- 	 * Add a new link.
- 	 *
- 	 * @param array $item
- 	 * @return int
- 	 */
+	 /**
+	 * Add a new link.
+	 *
+	 * @param array $item
+	 * @return int
+	 */
 	public static function addLink(array $item)
-		{
-			$id = BackendModel::getDB(true)->insert('links_links', (array) $item);
-			return (int) $id;
-		}
+	{
+		$id = BackendModel::getDB(true)->insert('links_links', (array) $item);
+		return (int) $id;
+	}
 
 	/**
 	 * Convert the title to a widgetlabel
@@ -55,13 +55,13 @@ class BackendLinksModel
 	 * @return string $label
 	 */
 	public static function createWidgetLabel($catname)
-		{
-			// convert the item to camelcase
-			$label 	= preg_replace('/\s+/', '_', $catname);
-			$label	= SpoonFilter::toCamelCase($label);
+	{
+		// convert the item to camelcase
+		$label 	= preg_replace('/\s+/', '_', $catname);
+		$label	= SpoonFilter::toCamelCase($label);
 		
-			return $label;
-		}
+		return $label;
+	}
 
 	/**
 	 * Is the deletion of a category allowed?
@@ -78,26 +78,23 @@ class BackendLinksModel
 		 array((int) $id, BL::getWorkingLanguage())) == 0);
 	}
 
-	/**
- 	 * Delete a category
- 	 *
- 	 * @return	void
- 	 * @param	int $id		The id of the category to be deleted.
- 	 */
+	 /**
+	 * Delete a category
+	 *
+	 * @param int $id		The id of the category to be deleted.
+	 * @return void
+	 */
 	public static function deleteCategoryById($id)
 	{
-		// get db
-		$db = BackendModel::getDB(true);
-
 		// delete the record
-		$db->delete('links_categories', 'id = ?', array((int) $id));
+		BackendModel::getDB(true)->delete('links_categories', 'id = ?', array((int) $id));
 	}
 
-	/**
+	 /**
 	 * Delete id's
 	 *
-	 * @return void
 	 * @param int $id ÒThe id of the link to be deleted.
+	 * @return void
 	 */
 
 	public static function deleteIdsByCatId($id)
@@ -124,11 +121,11 @@ class BackendLinksModel
 		 array((int) $id, BL::getWorkingLanguage())) == 0);
 	}
 
-	/**
+	 /**
 	 * Delete a link
 	 *
-	 * @return	void
-	 * @param	int $id		The id of the link to be deleted.
+	 * @param int $id		The id of the link to be deleted.
+	 * @return void
 	 */
 	public static function deleteLinkById($id)
 	{
@@ -139,11 +136,11 @@ class BackendLinksModel
 		$db->delete('links_links', 'id = ?', array((int) $id));
 	}
 
-	/**
+	 /**
 	 * Delete a widget
 	 *
-	 * @return	void
-	 * @param	int $id		The id of the widget to be deleted.
+	 * @param int $id		The id of the widget to be deleted.
+	 * @return void
 	 */
 	public static function deleteWidgetById($id)
 	{
@@ -154,7 +151,7 @@ class BackendLinksModel
 		$db->delete('modules_extras', 'id = ?', array((int) $id));
 	}
 
-	/**
+	 /**
 	 * Does the category exist?
 	 *
 	 * @param int $id
@@ -169,7 +166,7 @@ class BackendLinksModel
 		 array((int) $id, BL::getWorkingLanguage()));
 	}
 
-	/**
+	 /**
 	 * Does the link exist?
 	 *
 	 * @param int $id
@@ -184,10 +181,10 @@ class BackendLinksModel
 		 array((int) $id, BL::getWorkingLanguage()));
 	}
 
-	/**
+	 /**
 	 * Get all categories
 	 *
-	 * @return	array
+	 * @return array
 	 */		
 	public static function getCategories()
 	{
@@ -198,10 +195,10 @@ class BackendLinksModel
 		 array(BL::getWorkingLanguage(), 'N'));
 	}
 
-	/**
+	 /**
 	 * Get all category names for dropdown
 	 *
-	 * @return	array
+	 * @return array
 	 */
 	public static function getCategoriesForDropdown()
 	{
@@ -213,11 +210,11 @@ class BackendLinksModel
 		array(BL::getWorkingLanguage()));
 	}
 
-	/**
+	 /**
 	 * Get category by id
 	 *
 	 * @param int $id
-	 * @return	string
+	 * @return string
 	 */
 	public static function getCategoryFromId($id)
 	{
@@ -228,11 +225,11 @@ class BackendLinksModel
 		 array(BL::getWorkingLanguage(), $id));
 	}
 
-	/**
+	 /**
 	 * Get categoryname by id
 	 *
 	 * @param int $id
-	 * @return	string
+	 * @return string
 	 */
 	public static function getCatNameFromId($id)
 	{
@@ -243,10 +240,10 @@ class BackendLinksModel
 		 array(BL::getWorkingLanguage(), $id));
 	}
 
-	/**
+	 /**
 	 * Get extra ids for this category
 	 * 
-	 * @param int 
+	 * @param int $id
 	 * @return array
 	 */
 	public static function getExtraIdsForCategory($id)
@@ -258,7 +255,7 @@ class BackendLinksModel
 		array($id));
 	}
 
-	/**
+	 /**
 	 * Fetch a link
 	 *
 	 * @param int $id
@@ -273,10 +270,10 @@ class BackendLinksModel
 		 array((int) $id, BL::getWorkingLanguage()));
 	}
 
-	/**
+	 /**
 	 * Get all links
 	 *
-	 * @return	array
+	 * @return array
 	 */
 	public static function getLinks()
 	{
@@ -287,11 +284,11 @@ class BackendLinksModel
 		 array(BL::getWorkingLanguage(), 'N'));
 	}
 
-	/**
+	 /**
 	 * Add a new category.
 	 *
-	 * @param	array $item		The data to insert.
-	 * @return	int
+	 * @param array $item		The data to insert.
+	 * @return int
 	 */
 	public static function insertCategory(array $item)
 	{
@@ -305,7 +302,7 @@ class BackendLinksModel
 		return $item['id'];
 	}
 
-	/**
+	 /**
 	 * Save the widget
 	 *
 	 * @param array $widget
@@ -329,7 +326,7 @@ class BackendLinksModel
 		return $db->insert('modules_extras', $widget);
 	}
 
-	/**
+	 /**
 	 * Store all ids
 	 * 
 	 * @param array $ids
@@ -346,7 +343,7 @@ class BackendLinksModel
 		return $stored;
 	}
 
-	/**
+	 /**
 	 * Update a certain category
 	 *
 	 * @param array $item
@@ -357,7 +354,7 @@ class BackendLinksModel
 		BackendModel::invalidateFrontendCache('links', BL::getWorkingLanguage());
 	}
 
-	/**
+	 /**
 	 * Update a certain link
 	 *
 	 * @param array $item
@@ -368,7 +365,7 @@ class BackendLinksModel
 		BackendModel::invalidateFrontendCache('links', BL::getWorkingLanguage());
 	}
 
-	/**
+	 /**
 	 * update widget by id
 	 *
 	 * @param array $widget
