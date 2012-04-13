@@ -1,19 +1,20 @@
 <?php
+
 /**
  * This is the delete_category action for the links module
  *
- * @package		backend
- * @subpackage	links
+ * @package backend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class BackendLinksDeleteCategory extends BackendBaseActionDelete
 {
 	/**
 	 * Execute the action
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{
@@ -56,8 +57,7 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 				BackendLinksModel::deleteIdsByCatId($this->id);
 				
 			 	// item was deleted, so redirect
-				$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' .
-				urlencode($this->record['title']));
+				$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' . urlencode($this->record['title']));
 			}
 		}
 		// something went wrong

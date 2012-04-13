@@ -1,19 +1,20 @@
 <?php
+
 /**
  * This is the configuration-object for the slideshow module
  *
- * @package		backend
- * @subpackage	links
+ * @package backend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class BackendLinksCategories extends BackendBaseActionIndex
 {
 	/**
 	 * Execute the action
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{
@@ -33,7 +34,7 @@ class BackendLinksCategories extends BackendBaseActionIndex
 	/**
 	 * Loads the datagrid
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function loadDataGrid()
 	{
@@ -50,14 +51,13 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');
 
 		// add edit column
-		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . 
-		'&amp;id=[id]', BL::lbl('Edit'));
+		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));
 	}
 
 	/**
 	 * Parse & display the page
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	protected function parse()
 	{

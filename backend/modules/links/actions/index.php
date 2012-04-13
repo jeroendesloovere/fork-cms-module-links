@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Fork CMS.
  *
@@ -42,43 +43,42 @@ class BackendLinksIndex extends BackendBaseActionIndex
 		
 		// no categories are found
 		if(!$categories)
-			{
-				$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'), 'edit' => '')));
-			}
+		{
+			$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'), 'edit' => '')));
+		}
 		
 		// categories are found
 		else
+		{
+			// loop all categories and create a datagrid containing the links
+			foreach($categories as $cat)
 			{
-				// loop all categories and create a datagrid containing the links
-				foreach ($categories as $cat)
-					{
-						// create a datagrid for every category to display its links
-						$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE, 
-						array(BL::getWorkingLanguage(), $cat['id']));
-						$dataGrid->setColumnsHidden(array('id','language','category_id','created_on'));
-						$dataGrid->setRowAttributes(array('id' => '[id]'));
+				// create a datagrid for every category to display its links
+				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE, 
+				array(BL::getWorkingLanguage(), $cat['id']));
+				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on'));
+				$dataGrid->setRowAttributes(array('id' => '[id]'));
 					
-						// check if this action is allowed
-						if(BackendAuthentication::isAllowedAction('edit'))
-							{
-								$dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit') . '&amp;id=[id]');
+				// check if this action is allowed
+				if(BackendAuthentication::isAllowedAction('edit'))
+				{
+					$dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit') . '&amp;id=[id]');
 				
-								//add column with edit button
-								$dataGrid->addColumn('edit', null, BL::lbl('Edit'), 
-								BackendModel::createURLForAction('edit') . '&amp;id=[id]', BL::lbl('Edit'));
-							}
+					// add column with edit button
+					$dataGrid->addColumn('edit', null, BL::lbl('Edit'), 
+					BackendModel::createURLForAction('edit') . '&amp;id=[id]', BL::lbl('Edit'));
+				}
 					
-							// add dataGrid to list
-							$this->dataGrids[] = array(	'id'=>$cat['id'],
-												'catname'=>$cat['title'],
-												'content' => $dataGrid->getContent()
-												);
+				// add dataGrid to list
+				$this->dataGrids[] = array(	'id' => $cat['id'],
+									'catname' => $cat['title'],
+									'content' => $dataGrid->getContent()
+									);
 			
-							// set empty datagrid
-							$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'),
-							'edit' => '')));	
-					}
+				// set empty datagrid
+				$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'),'edit' => '')));
 			}
+		}
 	}
 
 	/**

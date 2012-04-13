@@ -1,19 +1,20 @@
 <?php
+
 /**
  * This is the delete action for the links module
  *
- * @package		backend
- * @subpackage	links
+ * @package backend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class BackendLinksDelete extends BackendBaseActionDelete
 {
 	/**
 	 * Execute the action
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{

@@ -80,4 +80,3 @@ class LinksInstaller extends ModuleInstaller
 		}
 	}
 }
-?>

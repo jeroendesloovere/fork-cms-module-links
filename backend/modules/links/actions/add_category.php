@@ -1,19 +1,20 @@
 <?php
+
 /**
  * This is the add category action for the links module
  *
- * @package		backend
- * @subpackage	links
+ * @package backend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class BackendLinksAddCategory extends BackendBaseActionAdd
 {
 	/**
 	 * Execute the action
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{
@@ -36,7 +37,7 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 	/**
 	 * Load the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function loadForm()
 	{
@@ -50,7 +51,7 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 	/**
 	 * Validate the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function validateForm()
 	{
@@ -73,47 +74,46 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 				// first, insert the category
 				$cat_id = BackendLinksModel::insertCategory($category);
 				
-				if ($cat_id)
+				if($cat_id)
+				{
+					// then build the widget array...
+					$widget['module'] = (string) $this->getModule();
+					$widget['type'] = (string) 'widget';
+					$widget['label'] = (string) BackendLinksModel::createWidgetLabel($category['title']);
+					$widget['action'] = (string) 'widget';
+					$widget['hidden'] = (string) 'N';
+					$widget['data'] = (string) serialize(array('id' => $cat_id));
+						
+					// ...to save it in the database
+					$widgetID	= BackendLinksModel::insertWidget($widget);
+						
+					if($widgetID)
 					{
-						// then build the widget array...
-						$widget['module'] 	= (string) $this->getModule();
-						$widget['type']		= (string) 'widget';
-						$widget['label']	= (string) BackendLinksModel::createWidgetLabel($category['title']);
-						$widget['action']	= (string) 'widget';
-						$widget['hidden']	= (string) 'N';
-						$widget['data'] 	= (string) serialize(array('id' => $cat_id));
-						
-						// ...to save it in the database
-						$widgetID	= BackendLinksModel::insertWidget($widget);
-						
-						if ($widgetID)	
-							{
-								// then build the locale array ...
-								$locale['user_id']		= (int) '1';
-								$locale['language']		= (string) BL::getWorkingLanguage();
-								$locale['application']	= (string) 'backend';
-								$locale['module']		= (string) 'pages';
-								$locale['type']			= (string) 'lbl';
-								$locale['name']			= (string)BackendLinksModel::createWidgetLabel($category['title']);
-								$locale['value']		= (string) $category['title'];
-								$locale['edited_on']	= BackendModel::getUTCDate();
+						// then build the locale array ...
+						$locale['user_id'] = (int) '1';
+						$locale['language'] = (string) BL::getWorkingLanguage();
+						$locale['application'] = (string) 'backend';
+						$locale['module'] = (string) 'pages';
+						$locale['type'] = (string) 'lbl';
+						$locale['name'] = (string) BackendLinksModel::createWidgetLabel($category['title']);
+						$locale['value'] = (string) $category['title'];
+						$locale['edited_on'] = BackendModel::getUTCDate();
 								
-								// ... and store it
-								$localeID = BackendLocaleModel::insert($locale);
+						// ... and store it
+						$localeID = BackendLocaleModel::insert($locale);
 								
-								// build the ids array...
-								$ids['category_id']		= (int) $cat_id;
-								$ids['widget_id']		= (int) $widgetID;
-								$ids['locale_id']		= (int) $localeID;
+						// build the ids array...
+						$ids['category_id'] = (int) $cat_id;
+						$ids['widget_id'] = (int) $widgetID;
+						$ids['locale_id'] = (int) $localeID;
 								
-								// ... and store it
-								$stored = BackendLinksModel::storeAllIds($ids);
+						// ... and store it
+						$stored = BackendLinksModel::storeAllIds($ids);
 								
-								// everything is saved, so redirect to the overview
-								$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . 
-								urlencode($category['title']) . '&highlight=row-' . 			$category['id']);
-							}
+						// everything is saved, so redirect to the overview
+						$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . urlencode($category['title']) . '&highlight=row-' . $category['id']);
 					}
+				}
 			}
 		}
 	}

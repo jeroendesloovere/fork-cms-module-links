@@ -1,19 +1,20 @@
 <?php
+
 /**
  * This is the edit_category action for the links module
  *
- * @package		backend
- * @subpackage		links
+ * @package backend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class BackendLinksEditCategory extends BackendBaseActionEdit
 {
 	/**
 	 * Execute the action
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{
@@ -49,7 +50,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 	/**
 	 * Get the data
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function getData()
 	{
@@ -59,7 +60,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 	/**
 	 * Load the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function loadForm()
 	{
@@ -73,7 +74,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 	/**
 	 * Parse the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	protected function parse()
 	{
@@ -91,7 +92,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 	/**
 	 * Validate the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function validateForm()
 	{
@@ -106,7 +107,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 
 			// no errors?
 			if($this->frm->isCorrect())
-			{	
+			{
 				// first, build the category array
 				$category['id'] = (int) $this->id;
 				$category['title'] = (string) $this->frm->getField('title')->getValue();
@@ -146,9 +147,8 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 				$buildcache		= BackendLocaleModel::buildCache(BL::getWorkingLanguage(),$locale['application']);
 		
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('categories') . '&report=edited-category&var=' . 
-				urlencode($category['title']) . '&highlight=row-' . $category['id']);			
-				}	
-			}
+				$this->redirect(BackendModel::createURLForAction('categories') . '&report=edited-category&var=' . urlencode($category['title']) . '&highlight=row-' . $category['id']);			
+			}	
 		}
 	}
+}

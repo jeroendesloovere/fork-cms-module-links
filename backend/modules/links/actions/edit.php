@@ -1,12 +1,13 @@
 <?php
+
 /**
  * This is the edit action for the links module
  *
- * @package		backend
- * @subpackage		links
+ * @package backend
+ * @subpackage links
  *
- * @author		John Poelman <john.poelman@bloobz.be>
- * @since		1.0.0
+ * @author John Poelman <john.poelman@bloobz.be>
+ * @since 1.0.0
  */
 class BackendLinksEdit extends BackendBaseActionEdit
 {
@@ -21,7 +22,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 	/**
 	 * Execute the action
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function execute()
 	{
@@ -57,7 +58,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 	/**
 	 * Get the data for a question
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function getData()
 	{
@@ -71,7 +72,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 	/**
 	 * Load the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function loadForm()
 	{
@@ -88,8 +89,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->frm->addText('url', $this->record['url'])->setAttribute('id', 'title');
 		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
 		$this->frm->addText('description', $this->record['description'])->setAttribute('id', 'title');
-		$this->frm->getField('description')->setAttribute('class', 'title ' .
-		$this->frm->getField('description')->getAttribute('class'));
+		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories, $this->record['category_id']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
 	}
@@ -97,7 +97,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 	/**
 	 * Parse the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	protected function parse()
 	{
@@ -114,7 +114,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 	/**
 	 * Validate the form
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	private function validateForm()
 	{
@@ -146,8 +146,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				BackendLinksModel::updateLink($item);
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=saved&var=' . urlencode($item['title']) .
-				'&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('index') . '&report=saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}
