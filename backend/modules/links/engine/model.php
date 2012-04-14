@@ -16,7 +16,7 @@
 class BackendLinksModel
 {
 	
-/**
+ /**
  * Define constants
  */	
 
@@ -40,7 +40,7 @@ class BackendLinksModel
 	 * Add a new link.
 	 *
 	 * @param array $item
-	 * @return int
+	 * @return int $id
 	 */
 	public static function addLink(array $item)
 	{
@@ -54,13 +54,12 @@ class BackendLinksModel
 	 * @param string $catname
 	 * @return string $label
 	 */
-	public static function createWidgetLabel($catname)
+	public static function createWidgetLabel(string $catname)
 	{
 		// convert the item to camelcase
 		$label 	= preg_replace('/\s+/', '_', $catname);
 		$label	= SpoonFilter::toCamelCase($label);
-		
-		return $label;
+		return (string) $label;
 	}
 
 	/**
@@ -71,7 +70,7 @@ class BackendLinksModel
 	 */
 	public static function deleteCategoryAllowed($id)
 	{
-		return (BackendModel::getDB()->getVar(
+		return (bool) (BackendModel::getDB()->getVar(
 		'SELECT COUNT(id)
 		 FROM links_links AS i
 		 WHERE i.category_id = ? AND i.language = ?',
@@ -82,28 +81,25 @@ class BackendLinksModel
 	 * Delete a category
 	 *
 	 * @param int $id		The id of the category to be deleted.
-	 * @return void
+	 * @return bool
 	 */
 	public static function deleteCategoryById($id)
 	{
 		// delete the record
-		BackendModel::getDB(true)->delete('links_categories', 'id = ?', array((int) $id));
+		return (bool) BackendModel::getDB(true)->delete('links_categories', 'id = ?', array((int) $id));
 	}
 
 	 /**
 	 * Delete id's
 	 *
-	 * @param int $id ÒThe id of the link to be deleted.
-	 * @return void
+	 * @param int $id The id of the link to be deleted.
+	 * @return bool
 	 */
 
 	public static function deleteIdsByCatId($id)
 	{
-		// get db
-		$db = BackendModel::getDB(true);
-
 		// delete the record
-		$db->delete('links_extra_ids', 'category_id = ?', array((int) $id));
+		return (bool) BackendModel::getDB(true)->delete('links_extra_ids', 'category_id = ?', array((int) $id));
 	}
 
 	/**
@@ -114,7 +110,7 @@ class BackendLinksModel
 	 */
 	public static function deleteLinkAllowed($id)
 	{
-		return (BackendModel::getDB()->getVar(
+		return (bool) (BackendModel::getDB()->getVar(
 		'SELECT COUNT(id)
 		 FROM links_links AS i
 		 WHERE i.category_id = ? AND i.language = ?',
@@ -124,31 +120,25 @@ class BackendLinksModel
 	 /**
 	 * Delete a link
 	 *
-	 * @param int $id		The id of the link to be deleted.
-	 * @return void
+	 * @param int $id The id of the link to be deleted.
+	 * @return bool
 	 */
 	public static function deleteLinkById($id)
 	{
-		// get db
-		$db = BackendModel::getDB(true);
-
-		// delete the record
-		$db->delete('links_links', 'id = ?', array((int) $id));
+		// delete the link
+		return (bool) BackendModel::getDB(true)->delete('links_links', 'id = ?', array((int) $id));
 	}
 
 	 /**
 	 * Delete a widget
 	 *
-	 * @param int $id		The id of the widget to be deleted.
-	 * @return void
+	 * @param int $id The id of the widget to be deleted.
+	 * @return bool
 	 */
 	public static function deleteWidgetById($id)
 	{
-		// get db
-		$db = BackendModel::getDB(true);
-
-		// delete the record
-		$db->delete('modules_extras', 'id = ?', array((int) $id));
+		// delete the widget
+		return (bool) BackendModel::getDB(true)->delete('modules_extras', 'id = ?', array((int) $id));
 	}
 
 	 /**
@@ -214,7 +204,7 @@ class BackendLinksModel
 	 * Get category by id
 	 *
 	 * @param int $id
-	 * @return string
+	 * @return array
 	 */
 	public static function getCategoryFromId($id)
 	{
@@ -222,7 +212,7 @@ class BackendLinksModel
 		'SELECT i.*
 		 FROM links_categories AS i
 		 WHERE i.language = ? AND i.id = ?',
-		 array(BL::getWorkingLanguage(), $id));
+		 array(BL::getWorkingLanguage(),(int) $id));
 	}
 
 	 /**
@@ -233,11 +223,11 @@ class BackendLinksModel
 	 */
 	public static function getCatNameFromId($id)
 	{
-		BackendModel::getDB()->getRecord(
+		return (string) BackendModel::getDB()->getRecord(
 		'SELECT i.title
 		 FROM links_categories AS i
 		 WHERE i.language = ? AND i.id = ?',
-		 array(BL::getWorkingLanguage(), $id));
+		 array(BL::getWorkingLanguage(),(int) $id));
 	}
 
 	 /**
@@ -252,7 +242,7 @@ class BackendLinksModel
 		'SELECT i.* 
 		FROM links_extra_ids AS i
 		WHERE i.category_id = ?',
-		array($id));
+		array((int) $id));
 	}
 
 	 /**
@@ -287,19 +277,13 @@ class BackendLinksModel
 	 /**
 	 * Add a new category.
 	 *
-	 * @param array $item		The data to insert.
+	 * @param array $item The data to insert.
 	 * @return int
 	 */
 	public static function insertCategory(array $item)
 	{
-		// get db
-		$db = BackendModel::getDB(true);
-
-		// insert and return the new id
-		$item['id'] = $db->insert('links_categories', $item);
-
-		// return the new id
-		return $item['id'];
+		// insert the category
+		return (int) $item['id'] = BackendModel::getDB(true)->insert('links_categories', $item);
 	}
 
 	 /**
@@ -308,7 +292,7 @@ class BackendLinksModel
 	 * @param array $widget
 	 * @return int The id
 	 */
-	public static function insertWidget($widget)
+	public static function insertWidget(array $widget)
 	{
 		$db = BackendModel::getDB(true);
 		
@@ -323,7 +307,7 @@ class BackendLinksModel
 		}
 		
 		// Save widget
-		return $db->insert('modules_extras', $widget);
+		return (int) $db->insert('modules_extras', $widget);
 	}
 
 	 /**
@@ -332,25 +316,20 @@ class BackendLinksModel
 	 * @param array $ids
 	 * @return bool 
 	 */
-	public static function storeAllIds($ids)
+	public static function storeAllIds(array $ids)
 	{
-		// get db
-		$db = BackendModel::getDB(true);
-
-		// insert and return the new id
-		$stored = $db->insert('links_extra_ids', $ids);
-
-		return $stored;
+		return (bool) $stored = BackendModel::getDB(true)->insert('links_extra_ids',(array) $ids);
 	}
 
 	 /**
 	 * Update a certain category
 	 *
 	 * @param array $item
+	 * @return bool
 	 */
 	public static function updateCategory(array $item)
 	{
-		BackendModel::getDB(true)->update('links_categories', $item, 'id = ?', array($item['id']));
+		return (bool) BackendModel::getDB(true)->update('links_categories',(array) $item, 'id = ?', array($item['id']));
 		BackendModel::invalidateFrontendCache('links', BL::getWorkingLanguage());
 	}
 
@@ -358,10 +337,11 @@ class BackendLinksModel
 	 * Update a certain link
 	 *
 	 * @param array $item
+	 * @return bool
 	 */
 	public static function updateLink(array $item)
 	{
-		BackendModel::getDB(true)->update('links_links', $item, 'id = ?', array($item['id']));
+		return (bool) BackendModel::getDB(true)->update('links_links',(array) $item, 'id = ?', array($item['id']));
 		BackendModel::invalidateFrontendCache('links', BL::getWorkingLanguage());
 	}
 
@@ -369,9 +349,10 @@ class BackendLinksModel
 	 * update widget by id
 	 *
 	 * @param array $widget
+	 * @return bool
 	 */
-	public static function updateWidget($widget)
+	public static function updateWidget(array $widget)
 	{
-		BackendModel::getDB(true)->update('modules_extras', $widget, 'id = ?', array($widget['id']));
+		return (bool) BackendModel::getDB(true)->update('modules_extras',(array) $widget, 'id = ?', array($widget['id']));
 	}
 }
