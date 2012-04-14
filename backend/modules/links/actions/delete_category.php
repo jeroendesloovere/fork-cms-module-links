@@ -57,7 +57,7 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 				BackendLinksModel::deleteIdsByCatId($this->id);
 				
 			 	// item was deleted, so redirect
-				$this->redirect(BackendModel::createURLForAction('categories') . '&report=deleted&var=' . urlencode($this->record['title']));
+				$this->redirect(BackendModel::createURLForAction('categories') . '&report=category-deleted&var=' . urlencode($this->record['title']));
 			}
 		}
 		// something went wrong

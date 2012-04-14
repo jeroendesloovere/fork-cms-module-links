@@ -34,7 +34,7 @@ class BackendLinksDelete extends BackendBaseActionDelete
 			BackendLinksModel::deleteLinkById($this->id);
 
 			// item was deleted, so redirect
-			$this->redirect(BackendModel::createURLForAction('index') . '&report=deleted');
+			$this->redirect(BackendModel::createURLForAction('index') . '&report=link-deleted');
 		}
 
 		// something went wrong

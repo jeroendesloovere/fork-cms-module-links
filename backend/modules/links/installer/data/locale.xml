@@ -80,6 +80,18 @@
         <translation language="nl"><![CDATA[deze categorie bevat nog steeds links en is daardoor niet verwijderbaar]]></translation>
         <translation language="en"><![CDATA[this category still contains links which makes it undeletable]]></translation>
      </item>
+	 <item type="error" name="LinkSaved">
+        <translation language="nl"><![CDATA[de link is opgeslagen]]></translation>
+        <translation language="en"><![CDATA[the link is saved]]></translation>
+     </item>
+	 <item type="error" name="LinkDeleted">
+        <translation language="nl"><![CDATA[de link is verwijderd]]></translation>
+        <translation language="en"><![CDATA[the link is deleted]]></translation>
+     </item>
+	 <item type="error" name="CategoryDeleted">
+        <translation language="nl"><![CDATA[de categorie is verwijderd]]></translation>
+        <translation language="en"><![CDATA[the category is deleted]]></translation>
+     </item>
 	 <item type="error" name="TitleIsRequired">
         <translation language="nl"><![CDATA[een titel is vereist]]></translation>
         <translation language="en"><![CDATA[a title is required]]></translation>
