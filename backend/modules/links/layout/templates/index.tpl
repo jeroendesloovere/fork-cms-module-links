@@ -30,7 +30,7 @@
 </div>
 
 {option:!dataGrids}
-	<p>{$msgNoLinks}</p>
+	<p>{$msgNoLinks|ucfirst}</p>
 {/option:!dataGrids}
 
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_end_module.tpl}
