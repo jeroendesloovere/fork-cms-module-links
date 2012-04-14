@@ -54,11 +54,11 @@ class BackendLinksModel
 	 * @param string $catname
 	 * @return string $label
 	 */
-	public static function createWidgetLabel(string $catname)
+	public static function createWidgetLabel($catname)
 	{
 		// convert the item to camelcase
 		$label 	= preg_replace('/\s+/', '_', $catname);
-		$label	= SpoonFilter::toCamelCase($label);
+		$label	= SpoonFilter::toCamelCase((string) $label);
 		return (string) $label;
 	}
 
