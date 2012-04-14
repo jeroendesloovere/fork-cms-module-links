@@ -6,7 +6,7 @@
 
 {option:!categories}
 	<div class="bd content">
-		<p>{$msgLinksNoItems}</p>
+		<p>{$msgLinksNoItems|ucfirst}</p>
 	</div>
 {/option:!categories}
 
@@ -23,7 +23,7 @@
 					</ul>
 				{/option:categories.links}
 					{option:!categories.links}
-						<p>{$msgLinksNoLinksInCategory}</p>
+						<p>{$msgLinksNoLinksInCategory|ucfirst}</p>
 				{/option:!categories.links}
 		{/iteration:categories}
 	</div>	
