@@ -67,8 +67,13 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		// create form
 		$this->frm = new BackendForm('edit_category');
 
+		// get values for the form
+		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
+		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+		
 		// create elements
 		$this->frm->addText('title', $this->record['title']);
+		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
 	}
 
 	/**
@@ -81,9 +86,8 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		// call parent
 		parent::parse();
 
-		// assign id, title
-		$this->tpl->assign('id', $this->record['id']);
-		$this->tpl->assign('title', $this->record['title']);
+		// assign the category
+		$this->tpl->assign('category', $this->record);
 
 		// can the category be deleted?
 		if(BackendLinksModel::deleteCategoryAllowed($this->id)) $this->tpl->assign('showDelete', true);
@@ -112,6 +116,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 				$category['id'] = (int) $this->id;
 				$category['title'] = (string) $this->frm->getField('title')->getValue();
 				$category['language'] = (string) BL::getWorkingLanguage();
+				$category['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 				
 				// ... then, update the category
 				$category_update = BackendLinksModel::updateCategory($category);
@@ -125,7 +130,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 				$widget['module'] 	= (string) $this->getModule();
 				$widget['type']		= (string) 'widget';
 				$widget['action']	= (string) 'widget';
-				$widget['hidden']	= (string) 'N';
+				$widget['hidden']	= (string) $category['hidden'];
 				$widget['data'] 	= (string) serialize(array('id' => $this->id));
 						
 				// update the widget

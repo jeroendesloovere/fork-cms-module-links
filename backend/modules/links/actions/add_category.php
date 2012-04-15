@@ -44,8 +44,13 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		// create form
 		$this->frm = new BackendForm('add_category');
 
+		// set hidden values
+		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden', $this->URL->getModule()), 'value' => 'Y');
+		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+
 		// create elements
 		$this->frm->addText('title');
+		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
 	}
 
 	/**
@@ -70,6 +75,8 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 				// build category array
 				$category['language'] = BL::getWorkingLanguage();
 				$category['title'] = (string) $this->frm->getField('title')->getValue();
+				$category['sequence'] = (int) BackendLinksModel::getMaximumCategorySequence() + 1;
+				$category['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 				
 				// first, insert the category
 				$cat_id = BackendLinksModel::insertCategory($category);

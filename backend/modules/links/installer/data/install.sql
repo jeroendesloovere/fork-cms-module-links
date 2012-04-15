@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `links_categories` (
  `language` VARCHAR (5) NOT NULL,
  `title` VARCHAR (255) NOT NULL,
  `hidden` VARCHAR ( 1 ) NOT NULL DEFAULT  'N',
+ `sequence` INT (11) NOT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

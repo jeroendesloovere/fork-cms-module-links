@@ -45,10 +45,15 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		$this->dataGrid->setPaging(false);
 		
 		// set hidden columns
-		$this->dataGrid->setColumnsHidden(array('language'));
+		$this->dataGrid->setColumnsHidden(array('language','sequence'));
 		
 		// set column URLs
 		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');
+		
+		// add drag and dropp stuff
+		$this->dataGrid->enableSequenceByDragAndDrop();
+		$this->dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
+		$this->dataGrid->setColumnsSequence('dragAndDropHandle');
 
 		// add edit column
 		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));

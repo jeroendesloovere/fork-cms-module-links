@@ -20,7 +20,7 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 	{
 		// get parameters
 		$this->id = $this->getParameter('id', 'int');
-
+		
 		// does the item exist
 		if($this->id !== null && BackendLinksModel::existsCategory($this->id))
 		{

@@ -1,26 +1,49 @@
 {include:{$BACKEND_CORE_PATH}/layout/templates/head.tpl}
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_start_module.tpl}
-
+<div class="pageTitle">
+	<h2>{$lblLinks|ucfirst}: {$lblEditCategory}</h2>
+</div>
 {form:edit_category}
-	<div class="pageTitle">
-		<h2>{$lblLinks|ucfirst}: {$lblEditCategory|sprintf:{$title}}</h2>
-	</div>
-
-	<div class="box horizontal">
-		<div class="heading">
-			<h3>{$lblLinks|ucfirst}: {$lblEditCategory|sprintf:{$title}}</h3>
-		</div>
+<div class="ui-tabs">
+	<div class="ui-tabs-panel">
 		<div class="options">
-			<p>
-				<label for="name">{$lblCategory|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
-				{$txtTitle} {$txtTitleError}
-			</p>
+			<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr>
+					<td id="leftColumn">
+						<div class="box">
+							<div class="optionsRTE">
+								<p>
+									<label for="title">{$lblTitle|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
+									{$txtTitle} {$txtTitleError}
+								</p>
+							</div>
+						</div>
+					</td>
+					<td id="sidebar">
+						<div id="publishOptions" class="box">
+							<div class="heading">
+								<h3>{$lblStatus|ucfirst}</h3>
+							</div>
+							<div class="options">
+								<ul class="inputList">
+									{iteration:hidden}
+										<li>
+											{$hidden.rbtHidden}
+											<label for="{$hidden.id}">{$hidden.label}</label>
+										</li>
+									{/iteration:hidden}
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
-
-	<div class="fullwidthOptions">
+</div>
+<div class="fullwidthOptions">
 		{option:showLinksDeleteCategory}
-			<a href="{$var|geturl:'delete_category'}&amp;id={$id}" data-message-id="confirmDelete" class="askConfirmation button linkButton icon iconDelete">
+			<a href="{$var|geturl:'delete_category'}&amp;id={$category.id}" data-message-id="confirmDelete" class="askConfirmation button linkButton icon iconDelete">
 				<span>{$lblDelete|ucfirst}</span>
 			</a>
 			

@@ -23,7 +23,7 @@ class BackendLinksModel
 	const QRY_DATAGRID_CAT =
 		 'SELECT i.*
 		  FROM links_categories AS i
-		  WHERE i.language = ?';
+		  WHERE i.language = ? ORDER BY i.sequence ASC';
 			
 	const QRY_DATAGRID_LINKS =
 	 	 'SELECT i.*
@@ -181,7 +181,7 @@ class BackendLinksModel
 		return (array) BackendModel::getDB()->getRecords(
 		'SELECT i.*
 		 FROM links_categories AS i
-		 WHERE i.language = ? AND i.hidden = ?',
+		 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence',
 		 array(BL::getWorkingLanguage(), 'N'));
 	}
 
@@ -272,6 +272,20 @@ class BackendLinksModel
 		 FROM links_links AS i
 		 WHERE i.language = ? AND hidden = ?',
 		 array(BL::getWorkingLanguage(), 'N'));
+	}
+
+	 /**
+	 * Get the maximum sequence for a category
+	 *
+	 * @return int
+	 */
+	public static function getMaximumCategorySequence()
+	{
+		return (int) BackendModel::getDB()->getVar(
+			'SELECT MAX(i.sequence)
+			 FROM links_categories AS i
+			 WHERE i.language = ? AND hidden = ?',
+			 array(BL::getWorkingLanguage(), 'N'));
 	}
 
 	 /**

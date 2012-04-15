@@ -56,9 +56,10 @@ class BackendLinksIndex extends BackendBaseActionIndex
 				// create a datagrid for every category to display its links
 				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE, 
 				array(BL::getWorkingLanguage(), $cat['id']));
+				$dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
 				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on'));
 				$dataGrid->setRowAttributes(array('id' => '[id]'));
-					
+				
 				// check if this action is allowed
 				if(BackendAuthentication::isAllowedAction('edit'))
 				{
