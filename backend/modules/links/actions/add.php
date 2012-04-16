@@ -81,7 +81,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->frm->addText('title')->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
 		$this->frm->addText('url')->setAttribute('id', 'url');
-		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
 		$this->frm->addText('description')->setAttribute('id', 'description');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories);
@@ -121,6 +120,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 			$this->frm->getField('url')->isFilled(BL::err('urlIsRequired'));
 			$this->frm->getField('description')->isFilled(BL::err('DescriptionIsRequired'));
 			$this->frm->getField('categories')->isFilled(BL::err('CategoryIsRequired'));
+			$this->frm->getField('protocol')->isFilled(BL::err('ProtocolIsRequired'));
 
 			// no errors?
 			if($this->frm->isCorrect())
@@ -129,6 +129,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
 				$item['language'] = BL::getWorkingLanguage();
 				$item['title'] = $this->frm->getField('title')->getValue();	
+				$item['protocol'] = $this->frm->getField('protocol')->getValue();
 				$item['url'] = $this->frm->getField('url')->getValue();
 				$item['description'] = $this->frm->getField('description')->getValue(true);
 				$item['hidden'] = $this->frm->getField('hidden')->getValue();

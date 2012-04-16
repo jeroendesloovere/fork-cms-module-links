@@ -57,7 +57,6 @@ class BackendLinksIndex extends BackendBaseActionIndex
 				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE, 
 				array(BL::getWorkingLanguage(), $cat['id']));
 				$dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
-				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on'));
 				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on','protocol'));
 				$dataGrid->setRowAttributes(array('id' => '[id]'));
 				
