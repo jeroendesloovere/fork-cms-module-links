@@ -58,6 +58,7 @@ class BackendLinksIndex extends BackendBaseActionIndex
 				array(BL::getWorkingLanguage(), $cat['id']));
 				$dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
 				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on'));
+				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on','protocol'));
 				$dataGrid->setRowAttributes(array('id' => '[id]'));
 				
 				// check if this action is allowed

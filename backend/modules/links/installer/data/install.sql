@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `links_links` (
  `language` VARCHAR (5) NOT NULL,
  `created_on` DATETIME NOT NULL,
  `title` VARCHAR (255) NOT NULL,
+ `protocol` VARCHAR (255) NOT NULL,
  `url` VARCHAR (255) NOT NULL,
  `description` VARCHAR (255) NOT NULL,
  `hidden` VARCHAR ( 1 ) NOT NULL DEFAULT  'N',

@@ -83,6 +83,10 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
 
+		
+		// protocols
+		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
+		
 		// create elements
 		$this->frm->addText('title', $this->record['title'])->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));

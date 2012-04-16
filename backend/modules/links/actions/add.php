@@ -73,6 +73,9 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		// set hidden values
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden', $this->URL->getModule()), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+		
+		// protocols
+		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
 
 		// create elements
 		$this->frm->addText('title')->setAttribute('id', 'title');
@@ -82,6 +85,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->frm->addText('description')->setAttribute('id', 'description');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories);
+		$this->frm->addDropdown('protocol', $protocols);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
 	}
 

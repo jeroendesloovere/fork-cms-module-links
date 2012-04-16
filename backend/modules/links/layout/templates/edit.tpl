@@ -21,6 +21,9 @@
 							<p>       
                             {$lblUrl|ucfirst}<br/>
 							{$txtUrl} {$txtUrlError}
+							<p> {$lblUrl|ucfirst}<br />
+								{$ddmProtocol}{$txtUrl}
+								{$ddmProtocolError}{$txtUrlError}
 							</p>
 							<p>
 								{$lblDescription|ucfirst}<br />

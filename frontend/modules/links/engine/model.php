@@ -22,6 +22,7 @@ class FrontendLinksModel
 				'SELECT i.*
 		 		 FROM links_categories AS i
 		 		 WHERE i.language = ? AND i.hidden = ?',
+		 		 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence ASC',
 		 		array(FRONTEND_LANGUAGE, 'N')
 		);
 		return $items;
