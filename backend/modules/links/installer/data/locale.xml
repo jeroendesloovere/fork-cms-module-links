@@ -109,6 +109,9 @@
         <translation language="en"><![CDATA[a category is required]]></translation>
      </item>
 	 <item type="error" name="ProtocolIsRequired">
+        <translation language="nl"><![CDATA[een protocol is vereist]]></translation>
+        <translation language="en"><![CDATA[a protocol is required]]></translation>
+     </item>
 	</links>
   </backend>
 </locale>

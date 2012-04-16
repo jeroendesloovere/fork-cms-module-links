@@ -20,9 +20,6 @@
 											{$txtTitle} {$txtTitleError}
 										</p>
 										
-										<p>
-											{$lblUrl|ucfirst}<br />
-											{$txtUrl} {$txtUrlError}
 										<p> {$lblUrl|ucfirst}<br />
 											{$ddmProtocol}{$txtUrl}
 											{$ddmProtocolError}{$txtUrlError}

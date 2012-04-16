@@ -6,14 +6,13 @@
 
 {option:!category}
 	<div class="bd content">
-		<p>{$msgLinksNoItems}</p>
+		<p>{$msgLinksNoItems|ucfirst}</p>
 	</div>
 {/option:!category}
 
 {option:category}
 	<div class="bd content">
 		{option:!links}
-			<p>{$msgLinksNoItems}</p>
 			<h3>{$category.title|ucfirst}</h3>
 			<p>{$msgLinksNoItems|ucfirst}</p>
 		{/option:!links}
@@ -21,7 +20,6 @@
 			<h3>{$category.title|ucfirst}</h3>
 				<ul>
 					{iteration:links}
-						<li><a href="{$links.url}" title="{$links.description}" target="_blank">{$links.title|ucfirst}</a></li>
 						<li><a href="{$links.protocol}{$links.url}" title="{$links.description|ucfirst}" target="_blank">{$links.title|ucfirst}</a></li>
 					{/iteration:links}
 				</ul>

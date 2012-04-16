@@ -82,7 +82,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		// set hidden values
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
-
 		
 		// protocols
 		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
@@ -91,11 +90,11 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->frm->addText('title', $this->record['title'])->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
 		$this->frm->addText('url', $this->record['url'])->setAttribute('id', 'title');
-		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
 		$this->frm->addText('description', $this->record['description'])->setAttribute('id', 'title');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories, $this->record['category_id']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
+		$this->frm->addDropdown('protocol', $protocols, $this->record['protocol']);
 	}
 
 	/**
@@ -133,6 +132,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 			$this->frm->getField('url')->isFilled(BL::err('UrlIsRequired'));
 			$this->frm->getField('description')->isFilled(BL::err('DescriptionIsRequired'));
 			$this->frm->getField('categories')->isFilled(BL::err('CategoryIsRequired'));
+			$this->frm->getField('protocol')->isFilled(BL::err('ProtocolIsRequired'));
 
 			// no errors?
 			if($this->frm->isCorrect())
@@ -141,6 +141,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				$item['id'] = (int) $this->id;
 				$item['language'] = (string) $this->record['language'];
 				$item['category_id'] = (string) $this->frm->getField('categories')->getValue();
+				$item['protocol'] = (string) $this->frm->getField('protocol')->getValue();
 				$item['url'] = (string) $this->frm->getField('url')->getValue();
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['description'] = (string) $this->frm->getField('description')->getValue(true);
