@@ -18,8 +18,7 @@
 										<p>
 											{$lblTitle|ucfirst}<br />
 											{$txtTitle} {$txtTitleError}
-										</p>
-										
+										</p>		
 										<p> {$lblUrl|ucfirst}<br />
 											{$ddmProtocol}{$txtUrl}
 											{$ddmProtocolError}{$txtUrlError}
@@ -28,29 +27,24 @@
 										{$lblDescription|ucfirst}<br />
 										{$txtDescription} {$txtDescriptionError}
 										</p>
-										</div>
+									</div>
 								</div>
 							</td>
-
 							<td id="sidebar">
-
 								<div id="LinksCategory" class="box">
 									<div class="heading">
 										<h3>{$lblCategory|ucfirst}</h3>
 									</div>
-
 									<div class="options">
 										<p>
 											{$ddmCategories} {$ddmCategoriesError}
 										</p>
 									</div>
 								</div>
-
 								<div id="publishOptions" class="box">
 									<div class="heading">
 										<h3>{$lblStatus|ucfirst}</h3>
 									</div>
-
 									<div class="options">
 										<ul class="inputList">
 											{iteration:hidden}
@@ -76,7 +70,6 @@
 			{/option:showLinksAdd}
 		</div>
 	{/option:categories}
-
 {/form:add}
 
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_end_module.tpl}

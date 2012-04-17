@@ -1,6 +1,5 @@
 {include:{$BACKEND_CORE_PATH}/layout/templates/head.tpl}
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_start_module.tpl}
-
 <div class="pageTitle">
 	<h2>{$lblLinks|ucfirst}: {$lblLinks}</h2>
 	{option:showLinksAdd}
@@ -11,7 +10,6 @@
 	</div>
 	{/option:showLinksAdd}
 </div>
-
 <div id="dataGridModelsHolder">
 	{option:dataGrids}
 		{iteration:dataGrids}
@@ -25,13 +23,10 @@
 				{/option:!dataGrids.content}
 			</div>
 		{/iteration:dataGrids}
-		
 	{/option:dataGrids}
 </div>
-
 {option:!dataGrids}
 	<p>{$msgNoLinks|ucfirst}</p>
 {/option:!dataGrids}
-
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_end_module.tpl}
 {include:{$BACKEND_CORE_PATH}/layout/templates/footer.tpl}

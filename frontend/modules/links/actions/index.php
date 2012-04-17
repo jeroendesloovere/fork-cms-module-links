@@ -18,7 +18,6 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	 */
 	private $categories;
 
-
 	/**
 	 * Execute the extra
 	 *

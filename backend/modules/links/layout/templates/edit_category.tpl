@@ -46,7 +46,6 @@
 			<a href="{$var|geturl:'delete_category'}&amp;id={$category.id}" data-message-id="confirmDelete" class="askConfirmation button linkButton icon iconDelete">
 				<span>{$lblDelete|ucfirst}</span>
 			</a>
-			
 			<div id="confirmDelete" title="{$lblDelete|ucfirst}?" style="display: none;">
 				<p>
 					{$msgConfirmDeleteCategory|sprintf:{$title}}
@@ -59,6 +58,5 @@
 		</div>
 	</div>
 {/form:edit_category}
-
 {include:{$BACKEND_CORE_PATH}/layout/templates/structure_end_module.tpl}
 {include:{$BACKEND_CORE_PATH}/layout/templates/footer.tpl}

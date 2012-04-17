@@ -17,16 +17,15 @@
 				{option:categories.links}
 					<ul>
 						{iteration:categories.links}
-							<li><a href="{$categories.links.protocol}{$categories.links.url}" title="{$categories.links.description|ucfirst}"
-								 target="_blank">{$categories.links.title|ucfirst}</a></li>
+							<li>
+								<a href="{$categories.links.protocol}{$categories.links.url}" title="{$categories.links.description|ucfirst}"target="_blank">{$categories.links.title|ucfirst}</a>
+							</li>
 						{/iteration:categories.links}
 					</ul>
 				{/option:categories.links}
-					{option:!categories.links}
-						<p>{$msgLinksNoLinksInCategory|ucfirst}</p>
+				{option:!categories.links}
+					<p>{$msgLinksNoLinksInCategory|ucfirst}</p>
 				{/option:!categories.links}
 		{/iteration:categories}
 	</div>	
 {/option:categories}
-					
-					
