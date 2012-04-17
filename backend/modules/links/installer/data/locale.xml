@@ -92,6 +92,7 @@
         <translation language="nl"><![CDATA[de categorie is verwijderd]]></translation>
         <translation language="en"><![CDATA[the category is deleted]]></translation>
      </item>
+     </item>
 	 <item type="error" name="TitleIsRequired">
         <translation language="nl"><![CDATA[een titel is vereist]]></translation>
         <translation language="en"><![CDATA[a title is required]]></translation>

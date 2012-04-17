@@ -48,7 +48,7 @@
 			</a>
 			<div id="confirmDelete" title="{$lblDelete|ucfirst}?" style="display: none;">
 				<p>
-					{$msgConfirmDeleteCategory|sprintf:{$title}}
+					{$msgConfirmDeleteCategory|sprintf:{$category.title}|ucfirst}
 				</p>
 			</div>
 		{/option:showLinksDeleteCategory}
