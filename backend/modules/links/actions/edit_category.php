@@ -121,6 +121,9 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 				// ... then, update the category
 				$category_update = BackendLinksModel::updateCategory($category);
 				
+				// trigger event
+				BackendModel::triggerEvent($this->getModule(), 'after_edit_category', array('item' => $category));
+				
 				// get extra ids for this category
 				$ids = BackendLinksModel::getExtraIdsForCategory($this->id);
 					

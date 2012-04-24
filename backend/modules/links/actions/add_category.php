@@ -81,6 +81,9 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 				// first, insert the category
 				$cat_id = BackendLinksModel::insertCategory($category);
 				
+				// trigger event
+				BackendModel::triggerEvent($this->getModule(), 'after_add_category', array('item' => $category));
+				
 				if($cat_id)
 				{
 					// then build the widget array...

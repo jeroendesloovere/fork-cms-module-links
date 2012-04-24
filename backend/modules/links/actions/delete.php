@@ -32,6 +32,9 @@ class BackendLinksDelete extends BackendBaseActionDelete
 
 			// delete item
 			BackendLinksModel::deleteLinkById($this->id);
+			
+			// trigger event
+			BackendModel::triggerEvent($this->getModule(), 'after_delete', array('id' => $this->id));
 
 			// item was deleted, so redirect
 			$this->redirect(BackendModel::createURLForAction('index') . '&report=link-deleted');
