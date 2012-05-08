@@ -7,7 +7,7 @@
 * Website: [www.bloobz.be (dutch blog)](http://www.bloobz.be) 
 
 ## Installation
-* You can install the module through the backend by uploading the downloaded zipball.
+* You can install the module through the backend by uploading the downloaded zipball (first unpak and remove the readme file and repack the backend and frontend folders).
 * You can unpack the zipball and upload the links folders in the /backend/modules and /frontend/modules files manually. After that you need to click install in the backend settings/modules page.
 
 ## Information
