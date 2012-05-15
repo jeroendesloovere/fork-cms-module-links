@@ -48,16 +48,19 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	 */
 
 	private function getData()
-	{
+	{	
+		// make sure $this->categories is an array
+		$this->categories = array();
+		
 		// get the categories
 		$categories = FrontendLinksModel::getCategories();
-		
+				
 		// grab links for the categories
-		foreach($categories as $cat)
+		foreach($categories as $category)
 		{
 			// get links for category
-			$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
-			$this->categories[] = (array) $cat;
+			$category['links'] = FrontendLinksModel::getLinksForCategory($category['id']);
+			$this->categories[] = (array) $category;
 		}
 	}
 
