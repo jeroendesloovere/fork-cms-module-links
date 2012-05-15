@@ -298,7 +298,7 @@ class BackendLinksModel
 		$extra['id'] = $item['extra_id'];
 
                 // insert and return the id
-		$item['catID'] = $db->insert('links_categories', $item);
+		$item['id'] = $db->insert('links_categories', $item);
 
 
 		// update extra (item id is now known)

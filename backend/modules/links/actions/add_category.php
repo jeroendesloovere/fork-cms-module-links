@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Fork CMS.
  *
@@ -82,7 +83,7 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 				$item['sequence'] = (int) BackendLinksModel::getMaximumCategorySequence() + 1;
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 
-                                //insert the item
+                                // insert the item
                                 $insert = BackendLinksModel::insertCategory($item);
 
 				// everything is saved, so redirect to the overview

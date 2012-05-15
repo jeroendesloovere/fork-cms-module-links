@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Fork CMS.
  *
@@ -37,9 +38,8 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			{
 				$this->redirect(BackendModel::createURLForAction('categories') . '&error=category-not-deletable');
 			}
-
 			else
-			{   
+			{
                             // delete the item
                             BackendLinksModel::deleteCategoryById($this->id);
 

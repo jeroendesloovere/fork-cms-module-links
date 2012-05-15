@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Fork CMS.
  * 
@@ -51,21 +52,12 @@ class FrontendLinksIndex extends FrontendBaseBlock
 		// get the categories
 		$categories = FrontendLinksModel::getCategories();
 		
-		// no categories are found
-		if(empty($categories))
+		// grab links for the categories
+		foreach($categories as $cat)
 		{
-			$this->categories = array();
-		}
-		
-		// categories are found
-		else
-		{
-			// grab the links for each category
-			foreach($categories as $cat) 
-			{
-				$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
-				$this->categories[] = (array) $cat;	
-			}
+			// get links for category
+			$cat['links'] = FrontendLinksModel::getLinksForCategory($cat['id']);
+			$this->categories[] = (array) $cat;
 		}
 	}
 

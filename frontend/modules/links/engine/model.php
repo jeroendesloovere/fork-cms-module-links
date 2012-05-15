@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Fork CMS.
  * 
@@ -42,23 +43,6 @@ class FrontendLinksModel
 		 		 FROM links_categories AS i
 		 		 WHERE i.language = ? AND i.hidden = ? AND i.id = ?',
 		 		array(FRONTEND_LANGUAGE, 'N', $id)
-		);
-		return $item;
-	}
-
-	/**
-	 * Get category by widget_id
-	 * 
-	 * @param int $id
-	 * @return array
-	 */
-	public static function getCategoryForWidget($id)
-	{
-		$item = (array) FrontendModel::getDB()->getRecords(
-				'SELECT l.*
-				 FROM links_categories AS l
-				 WHERE l.widget_id = ? AND l.language = ? AND l.hidden = ?',
-				array($id, FRONTEND_LANGUAGE, 'N')
 		);
 		return $item;
 	}	
