@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ *
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the delete action for the links module
  *
- * @package backend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class BackendLinksDelete extends BackendBaseActionDelete
 {
@@ -32,9 +34,6 @@ class BackendLinksDelete extends BackendBaseActionDelete
 
 			// delete item
 			BackendLinksModel::deleteLinkById($this->id);
-			
-			// trigger event
-			BackendModel::triggerEvent($this->getModule(), 'after_delete', array('id' => $this->id));
 
 			// item was deleted, so redirect
 			$this->redirect(BackendModel::createURLForAction('index') . '&report=link-deleted');

@@ -40,13 +40,13 @@ class BackendLinksIndex extends BackendBaseActionIndex
 	{
 		// load all categories
 		$categories = BackendLinksModel::getCategories();
-		
+
 		// no categories are found
 		if(!$categories)
 		{
 			$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'), 'edit' => '')));
 		}
-		
+
 		// categories are found
 		else
 		{
@@ -54,28 +54,28 @@ class BackendLinksIndex extends BackendBaseActionIndex
 			foreach($categories as $cat)
 			{
 				// create a datagrid for every category to display its links
-				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE, 
+				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE,
 				array(BL::getWorkingLanguage(), $cat['id']));
 				$dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
 				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on','protocol'));
 				$dataGrid->setRowAttributes(array('id' => '[id]'));
-				
+
 				// check if this action is allowed
 				if(BackendAuthentication::isAllowedAction('edit'))
 				{
 					$dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit') . '&amp;id=[id]');
-				
+
 					// add column with edit button
-					$dataGrid->addColumn('edit', null, BL::lbl('Edit'), 
+					$dataGrid->addColumn('edit', null, BL::lbl('Edit'),
 					BackendModel::createURLForAction('edit') . '&amp;id=[id]', BL::lbl('Edit'));
 				}
-					
+
 				// add dataGrid to list
 				$this->dataGrids[] = array(	'id' => $cat['id'],
 									'catname' => $cat['title'],
 									'content' => $dataGrid->getContent()
 									);
-			
+
 				// set empty datagrid
 				$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'),'edit' => '')));
 			}
@@ -88,7 +88,7 @@ class BackendLinksIndex extends BackendBaseActionIndex
 	protected function parse()
 		{
 			parent::parse();
-		
+
 			// parse dataGrids
 			if(!empty($this->dataGrids)) $this->tpl->assign('dataGrids', $this->dataGrids);
 			$this->tpl->assign('emptyDatagrid', $this->emptyDatagrid->getContent());

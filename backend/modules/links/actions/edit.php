@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ *
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the edit action for the links module
  *
- * @package backend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class BackendLinksEdit extends BackendBaseActionEdit
 {
@@ -82,10 +84,10 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		// set hidden values
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
-		
+
 		// protocols
 		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
-		
+
 		// create elements
 		$this->frm->addText('title', $this->record['title'])->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
@@ -146,12 +148,9 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['description'] = (string) $this->frm->getField('description')->getValue(true);
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
-				
+
 				// update link values in database
 				BackendLinksModel::updateLink($item);
-				
-				// trigger event
-				BackendModel::triggerEvent($this->getModule(), 'after_edit', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);

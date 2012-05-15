@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ *
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the add category action for the links module
  *
- * @package backend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class BackendLinksAddCategory extends BackendBaseActionAdd
 {
@@ -45,6 +47,7 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		$this->frm = new BackendForm('add_category');
 
 		// set hidden values
+                $rbtHiddenValues = array();
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden', $this->URL->getModule()), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
 
@@ -73,57 +76,17 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 			if($this->frm->isCorrect())
 			{
 				// build category array
-				$category['language'] = BL::getWorkingLanguage();
-				$category['title'] = (string) $this->frm->getField('title')->getValue();
-				$category['sequence'] = (int) BackendLinksModel::getMaximumCategorySequence() + 1;
-				$category['hidden'] = (string) $this->frm->getField('hidden')->getValue();
-				
-				// first, insert the category
-				$cat_id = BackendLinksModel::insertCategory($category);
-				
-				// trigger event
-				BackendModel::triggerEvent($this->getModule(), 'after_add_category', array('item' => $category));
-				
-				if($cat_id)
-				{
-					// then build the widget array...
-					$widget['module'] = (string) $this->getModule();
-					$widget['type'] = (string) 'widget';
-					$widget['label'] = (string) BackendLinksModel::createWidgetLabel($category['title']);
-					$widget['action'] = (string) 'widget';
-					$widget['hidden'] = (string) 'N';
-					$widget['data'] = (string) serialize(array('id' => $cat_id));
-						
-					// ...to save it in the database
-					$widgetID	= BackendLinksModel::insertWidget($widget);
-						
-					if($widgetID)
-					{
-						// then build the locale array ...
-						$locale['user_id'] = (int) '1';
-						$locale['language'] = (string) BL::getWorkingLanguage();
-						$locale['application'] = (string) 'backend';
-						$locale['module'] = (string) 'pages';
-						$locale['type'] = (string) 'lbl';
-						$locale['name'] = (string) BackendLinksModel::createWidgetLabel($category['title']);
-						$locale['value'] = (string) $category['title'];
-						$locale['edited_on'] = BackendModel::getUTCDate();
-								
-						// ... and store it
-						$localeID = BackendLocaleModel::insert($locale);
-								
-						// build the ids array...
-						$ids['category_id'] = (int) $cat_id;
-						$ids['widget_id'] = (int) $widgetID;
-						$ids['locale_id'] = (int) $localeID;
-								
-						// ... and store it
-						$stored = BackendLinksModel::storeAllIds($ids);
-								
-						// everything is saved, so redirect to the overview
-						$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . urlencode($category['title']) . '&highlight=row-' . $category['id']);
-					}
-				}
+                                $item = array();
+                                $item['language'] = BL::getWorkingLanguage();
+				$item['title'] = (string) $this->frm->getField('title')->getValue();
+				$item['sequence'] = (int) BackendLinksModel::getMaximumCategorySequence() + 1;
+				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
+
+                                //insert the item
+                                $insert = BackendLinksModel::insertCategory($item);
+
+				// everything is saved, so redirect to the overview
+				$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);
 			}
 		}
 	}

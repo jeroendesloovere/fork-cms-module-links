@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ *
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the edit_category action for the links module
  *
- * @package backend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class BackendLinksEditCategory extends BackendBaseActionEdit
 {
@@ -54,7 +56,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 	 */
 	private function getData()
 	{
-		$this->record 	= BackendLinksModel::getCategoryFromId($this->id);
+		$this->category = BackendLinksModel::getCategoryFromId($this->id);
 	}
 
 	/**
@@ -68,12 +70,13 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		$this->frm = new BackendForm('edit_category');
 
 		// get values for the form
+                $rbtHiddenValues = array();
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
-		
+
 		// create elements
-		$this->frm->addText('title', $this->record['title']);
-		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
+		$this->frm->addText('title', $this->category['title']);
+		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->category['hidden']);
 	}
 
 	/**
@@ -87,7 +90,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		parent::parse();
 
 		// assign the category
-		$this->tpl->assign('category', $this->record);
+		$this->tpl->assign('category', $this->category);
 
 		// can the category be deleted?
 		if(BackendLinksModel::deleteCategoryAllowed($this->id)) $this->tpl->assign('showDelete', true);
@@ -113,50 +116,19 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 			if($this->frm->isCorrect())
 			{
 				// first, build the category array
-				$category['id'] = (int) $this->id;
-				$category['title'] = (string) $this->frm->getField('title')->getValue();
-				$category['language'] = (string) BL::getWorkingLanguage();
-				$category['hidden'] = (string) $this->frm->getField('hidden')->getValue();
-				
-				// ... then, update the category
-				$category_update = BackendLinksModel::updateCategory($category);
-				
-				// trigger event
-				BackendModel::triggerEvent($this->getModule(), 'after_edit_category', array('item' => $category));
-				
-				// get extra ids for this category
-				$ids = BackendLinksModel::getExtraIdsForCategory($this->id);
-					
-				// let's build the widget array
-				$widget['id']		= (int) $ids['widget_id'];
-				$widget['label']	= (string) BackendLinksModel::createWidgetLabel($category['title']);
-				$widget['module'] 	= (string) $this->getModule();
-				$widget['type']		= (string) 'widget';
-				$widget['action']	= (string) 'widget';
-				$widget['hidden']	= (string) $category['hidden'];
-				$widget['data'] 	= (string) serialize(array('id' => $this->id));
-						
-				// update the widget
-				$update_widget = BackendLinksModel::updateWidget($widget);
-			
-				// now we'll be building the locale array
-				$locale['id']			= (int) $ids['locale_id'];
-				$locale['name']			= (string) BackendLinksModel::createWidgetLabel($category['title']);
-				$locale['value']		= (string) $category['title'];
-				$locale['edited_on']	= BackendModel::getUTCDate();
-				$locale['user_id']		= (int) '1';
-				$locale['language']		= (string) BL::getWorkingLanguage();
-				$locale['application']	= (string) 'backend';
-				$locale['module']		= (string) 'pages';
-				$locale['type']			= (string) 'lbl';
-												
-				// ...and store it
-				$updatelocale	= BackendLocaleModel::update($locale);
-				$buildcache		= BackendLocaleModel::buildCache(BL::getWorkingLanguage(),$locale['application']);
-		
+                                $item = array();
+				$item['id'] = (int) $this->id;
+                                $item['extra_id'] = (int) $this->category['extra_id'];
+				$item['title'] = (string) $this->frm->getField('title')->getValue();
+				$item['language'] = (string) BL::getWorkingLanguage();
+				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
+
+                                // update the item
+                                $update = BackendLinksModel::updateCategory($item);
+
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('categories') . '&report=edited-category&var=' . urlencode($category['title']) . '&highlight=row-' . $category['id']);			
-			}	
+				$this->redirect(BackendModel::createURLForAction('categories') . '&report=edited-category&var=' . urlencode($item['title']) . '&highlight=row-' . $update);
+			}
 		}
 	}
 }

@@ -12,31 +12,28 @@
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-
 class BackendLinksModel
 {
-	
- /**
+/**
  * Define constants
- */	
-
+ */
 	const QRY_DATAGRID_CAT =
 		 'SELECT i.*
 		  FROM links_categories AS i
 		  WHERE i.language = ? ORDER BY i.sequence ASC';
-			
+
 	const QRY_DATAGRID_LINKS =
 	 	 'SELECT i.*
-		  FROM links_links AS i
+		  FROM links AS i
 		  WHERE i.language = ?';
-			
+
 	const QRY_DATAGRID_BROWSE =
 		 'SELECT i.*
-		  FROM links_links AS i
+		  FROM links AS i
 		  WHERE i.language = ? AND i.category_id = ?
 		  ORDER BY i.id DESC';
 
-	 /**
+	/**
 	 * Add a new link.
 	 *
 	 * @param array $item
@@ -44,21 +41,21 @@ class BackendLinksModel
 	 */
 	public static function addLink(array $item)
 	{
-		$id = BackendModel::getDB(true)->insert('links_links', (array) $item);
+		$id = BackendModel::getDB(true)->insert('links', $item);
 		return (int) $id;
 	}
 
 	/**
 	 * Convert the title to a widgetlabel
-	 * 
+	 *
 	 * @param string $catname
 	 * @return string $label
 	 */
 	public static function createWidgetLabel($catname)
 	{
 		// convert the item to camelcase
-		$label 	= preg_replace('/\s+/', '_', $catname);
-		$label	= SpoonFilter::toCamelCase((string) $label);
+		$label = preg_replace('/\s+/', '_', $catname);
+		$label = SpoonFilter::toCamelCase((string) $label);
 		return (string) $label;
 	}
 
@@ -71,35 +68,39 @@ class BackendLinksModel
 	public static function deleteCategoryAllowed($id)
 	{
 		return (bool) (BackendModel::getDB()->getVar(
-		'SELECT COUNT(id)
-		 FROM links_links AS i
-		 WHERE i.category_id = ? AND i.language = ?',
-		 array((int) $id, BL::getWorkingLanguage())) == 0);
+                    'SELECT COUNT(id)
+                     FROM links AS i
+                     WHERE i.category_id = ? AND i.language = ?',
+                    array((int) $id, BL::getWorkingLanguage())) == 0);
 	}
 
-	 /**
-	 * Delete a category
+	/**
+	 * Delete a category.
 	 *
-	 * @param int $id		The id of the category to be deleted.
-	 * @return bool
+	 * @param int $id The id of the category to delete.
 	 */
 	public static function deleteCategoryById($id)
 	{
-		// delete the record
-		return (bool) BackendModel::getDB(true)->delete('links_categories', 'id = ?', array((int) $id));
-	}
+		$id = (int) $id;
+		$db = BackendModel::getDB(true);
 
-	 /**
-	 * Delete id's
-	 *
-	 * @param int $id The id of the link to be deleted.
-	 * @return bool
-	 */
+		// get item
+		$item = self::getCategoryFromId($id);
 
-	public static function deleteIdsByCatId($id)
-	{
-		// delete the record
-		return (bool) BackendModel::getDB(true)->delete('links_extra_ids', 'category_id = ?', array((int) $id));
+		// build extra
+		$extra = array('id' => $item['extra_id'],
+                                             'module' => 'links',
+                                             'type' => 'widget',
+                                             'action' => 'widget');
+
+		// delete extra
+		$db->delete('modules_extras', 'id = ? AND module = ? AND type = ? AND action = ?', array($extra['id'], $extra['module'], $extra['type'], $extra['action']));
+
+		// update blocks with this item linked
+		$db->update('pages_blocks', array('extra_id' => null, 'html' => ''), 'extra_id = ?', array($item['extra_id']));
+
+		// delete all records
+		$db->delete('links_categories', 'id = ? AND language = ?', array($id, BL::getWorkingLanguage()));
 	}
 
 	/**
@@ -111,13 +112,13 @@ class BackendLinksModel
 	public static function deleteLinkAllowed($id)
 	{
 		return (bool) (BackendModel::getDB()->getVar(
-		'SELECT COUNT(id)
-		 FROM links_links AS i
-		 WHERE i.category_id = ? AND i.language = ?',
-		 array((int) $id, BL::getWorkingLanguage())) == 0);
+                    'SELECT COUNT(id)
+                     FROM links AS i
+                     WHERE i.category_id = ? AND i.language = ?',
+                    array((int) $id, BL::getWorkingLanguage())) == 0);
 	}
 
-	 /**
+	/**
 	 * Delete a link
 	 *
 	 * @param int $id The id of the link to be deleted.
@@ -126,22 +127,10 @@ class BackendLinksModel
 	public static function deleteLinkById($id)
 	{
 		// delete the link
-		return (bool) BackendModel::getDB(true)->delete('links_links', 'id = ?', array((int) $id));
+		return (bool) BackendModel::getDB(true)->delete('links', 'id = ?', array((int) $id));
 	}
 
-	 /**
-	 * Delete a widget
-	 *
-	 * @param int $id The id of the widget to be deleted.
-	 * @return bool
-	 */
-	public static function deleteWidgetById($id)
-	{
-		// delete the widget
-		return (bool) BackendModel::getDB(true)->delete('modules_extras', 'id = ?', array((int) $id));
-	}
-
-	 /**
+	/**
 	 * Does the category exist?
 	 *
 	 * @param int $id
@@ -150,13 +139,13 @@ class BackendLinksModel
 	public static function existsCategory($id)
 	{
 		return (bool) BackendModel::getDB()->getVar(
-		'SELECT COUNT(i.id)
-		 FROM links_categories AS i
-		 WHERE i.id = ? AND i.language = ?',
-		 array((int) $id, BL::getWorkingLanguage()));
+                    'SELECT COUNT(i.id)
+                     FROM links_categories AS i
+                     WHERE i.id = ? AND i.language = ?',
+                    array((int) $id, BL::getWorkingLanguage()));
 	}
 
-	 /**
+	/**
 	 * Does the link exist?
 	 *
 	 * @param int $id
@@ -165,27 +154,27 @@ class BackendLinksModel
 	public static function existsLink($id)
 	{
 		return (bool) BackendModel::getDB()->getVar(
-		'SELECT COUNT(i.id)
-		 FROM links_links AS i
-		 WHERE i.id = ? AND i.language = ?',
-		 array((int) $id, BL::getWorkingLanguage()));
+                    'SELECT COUNT(i.id)
+                     FROM links AS i
+                     WHERE i.id = ? AND i.language = ?',
+                    array((int) $id, BL::getWorkingLanguage()));
 	}
 
-	 /**
+	/**
 	 * Get all categories
 	 *
 	 * @return array
-	 */		
+	 */
 	public static function getCategories()
 	{
 		return (array) BackendModel::getDB()->getRecords(
-		'SELECT i.*
-		 FROM links_categories AS i
-		 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence',
-		 array(BL::getWorkingLanguage(), 'N'));
+                    'SELECT i.*
+                     FROM links_categories AS i
+                     WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence',
+                    array(BL::getWorkingLanguage(), 'N'));
 	}
 
-	 /**
+	/**
 	 * Get all category names for dropdown
 	 *
 	 * @return array
@@ -193,14 +182,14 @@ class BackendLinksModel
 	public static function getCategoriesForDropdown()
 	{
 		return (array) BackendModel::getDB()->getPairs(
-		'SELECT i.id, i.title
-		FROM links_categories AS i
-		WHERE i.language = ?
-		ORDER BY i.id ASC',
-		array(BL::getWorkingLanguage()));
+                    'SELECT i.id, i.title
+                     FROM links_categories AS i
+                     WHERE i.language = ?
+                     ORDER BY i.id ASC',
+                    array(BL::getWorkingLanguage()));
 	}
 
-	 /**
+	/**
 	 * Get category by id
 	 *
 	 * @param int $id
@@ -209,13 +198,13 @@ class BackendLinksModel
 	public static function getCategoryFromId($id)
 	{
 		return (array) BackendModel::getDB()->getRecord(
-		'SELECT i.*
-		 FROM links_categories AS i
-		 WHERE i.language = ? AND i.id = ?',
-		 array(BL::getWorkingLanguage(),(int) $id));
+                    'SELECT i.*
+                     FROM links_categories AS i
+                     WHERE i.language = ? AND i.id = ?',
+                    array(BL::getWorkingLanguage(),(int) $id));
 	}
 
-	 /**
+	/**
 	 * Get categoryname by id
 	 *
 	 * @param int $id
@@ -224,28 +213,13 @@ class BackendLinksModel
 	public static function getCatNameFromId($id)
 	{
 		return (string) BackendModel::getDB()->getRecord(
-		'SELECT i.title
-		 FROM links_categories AS i
-		 WHERE i.language = ? AND i.id = ?',
-		 array(BL::getWorkingLanguage(),(int) $id));
+                    'SELECT i.title
+                     FROM links_categories AS i
+                     WHERE i.language = ? AND i.id = ?',
+                    array(BL::getWorkingLanguage(),(int) $id));
 	}
 
-	 /**
-	 * Get extra ids for this category
-	 * 
-	 * @param int $id
-	 * @return array
-	 */
-	public static function getExtraIdsForCategory($id)
-	{
-		return (array) BackendModel::getDB()->getRecord(
-		'SELECT i.* 
-		FROM links_extra_ids AS i
-		WHERE i.category_id = ?',
-		array((int) $id));
-	}
-
-	 /**
+	/**
 	 * Fetch a link
 	 *
 	 * @param int $id
@@ -254,13 +228,13 @@ class BackendLinksModel
 	public static function getLinkById($id)
 	{
 		return (array) BackendModel::getDB()->getRecord(
-		'SELECT i.*
-		 FROM links_links AS i
-		 WHERE i.id = ? AND i.language = ?',
-		 array((int) $id, BL::getWorkingLanguage()));
+                    'SELECT i.*
+                     FROM links AS i
+                     WHERE i.id = ? AND i.language = ?',
+                    array((int) $id, BL::getWorkingLanguage()));
 	}
 
-	 /**
+	/**
 	 * Get all links
 	 *
 	 * @return array
@@ -268,13 +242,13 @@ class BackendLinksModel
 	public static function getLinks()
 	{
 		return (array) BackendModel::getDB()->getRecords(
-		'SELECT i.*
-		 FROM links_links AS i
-		 WHERE i.language = ? AND hidden = ?',
-		 array(BL::getWorkingLanguage(), 'N'));
+                    'SELECT i.*
+                     FROM links AS i
+                     WHERE i.language = ? AND hidden = ?',
+                    array(BL::getWorkingLanguage(), 'N'));
 	}
 
-	 /**
+	/**
 	 * Get the maximum sequence for a category
 	 *
 	 * @return int
@@ -282,72 +256,104 @@ class BackendLinksModel
 	public static function getMaximumCategorySequence()
 	{
 		return (int) BackendModel::getDB()->getVar(
-			'SELECT MAX(i.sequence)
-			 FROM links_categories AS i
-			 WHERE i.language = ? AND hidden = ?',
-			 array(BL::getWorkingLanguage(), 'N'));
+                    'SELECT MAX(i.sequence)
+                     FROM links_categories AS i
+                     WHERE i.language = ? AND hidden = ?',
+                    array(BL::getWorkingLanguage(), 'N'));
 	}
 
-	 /**
-	 * Add a new category.
+        /**
+	 * Add a new item.
 	 *
 	 * @param array $item The data to insert.
 	 * @return int
 	 */
 	public static function insertCategory(array $item)
 	{
-		// insert the category
-		return (int) $item['id'] = BackendModel::getDB(true)->insert('links_categories', $item);
-	}
-
-	 /**
-	 * Save the widget
-	 *
-	 * @param array $widget
-	 * @return int The id
-	 */
-	public static function insertWidget(array $widget)
-	{
 		$db = BackendModel::getDB(true);
-		
-		// get widget sequence
-		$widget['sequence'] =  $db->getVar('SELECT MAX(i.sequence) + 1 FROM modules_extras AS i WHERE i.module = ?',
-		array($widget['module']));
-		
-		if(is_null($widget['sequence']))
-		{
-			$widget['sequence'] = $db->getVar('SELECT CEILING(MAX(i.sequence) 
-			/ 1000) * 1000 FROM modules_extras AS i');
-		}
-		
-		// Save widget
-		return (int) $db->insert('modules_extras', $widget);
+
+		// build extra
+		$extra = array(
+			'module' => 'links',
+			'type' => 'widget',
+			'label' => BackendLinksModel::createWidgetLabel($item['title']),
+			'action' => 'widget',
+			'data' => NULL,
+			'hidden' => 'N',
+			'sequence' => $db->getVar(
+				'SELECT MAX(i.sequence) + 1
+				 FROM modules_extras AS i
+				 WHERE i.module = ?',
+				array('links')
+			)
+		);
+
+		if(is_null($extra['sequence'])) $extra['sequence'] = $db->getVar(
+			'SELECT CEILING(MAX(i.sequence) / 1000) * 1000
+			 FROM modules_extras AS i'
+		);
+
+		// insert extra
+		$item['extra_id'] = $db->insert('modules_extras', $extra);
+		$extra['id'] = $item['extra_id'];
+
+                // insert and return the id
+		$item['catID'] = $db->insert('links_categories', $item);
+
+
+		// update extra (item id is now known)
+		$extra['data'] = serialize(array(
+			'id' => $item['id'],
+			'extra_label' => $item['title'],
+			'language' => $item['language'],
+                        'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])
+		);
+		$db->update(
+			'modules_extras',
+			$extra,
+			'id = ? AND module = ? AND type = ? AND action = ?',
+			array($extra['id'], $extra['module'], $extra['type'], $extra['action'])
+		);
+
+		return $item['catID'];
 	}
 
-	 /**
-	 * Store all ids
-	 * 
-	 * @param array $ids
-	 * @return bool 
-	 */
-	public static function storeAllIds(array $ids)
-	{
-		return (bool) $stored = BackendModel::getDB(true)->insert('links_extra_ids',(array) $ids);
-	}
-
-	 /**
-	 * Update a certain category
+        /**
+	 * Update an existing item.
 	 *
-	 * @param array $item
-	 * @return bool
+	 * @param array $item The new data.
+	 * @return int
 	 */
 	public static function updateCategory(array $item)
 	{
-		return (bool) BackendModel::getDB(true)->update('links_categories',(array) $item, 'id = ?', array($item['id']));
-		BackendModel::invalidateFrontendCache('links', BL::getWorkingLanguage());
+		$db = BackendModel::getDB(true);
+
+		// build extra
+		$extra = array(
+			'id' => $item['extra_id'],
+			'module' => 'links',
+			'type' => 'widget',
+			'label' => BackendLinksModel::createWidgetLabel($item['title']),
+			'action' => 'widget',
+			'data' => serialize(array(
+				'id' => $item['id'],
+				'extra_label' => $item['title'],
+				'language' => $item['language'],
+                                'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])
+				),
+			'hidden' => 'N');
+
+		// update extra
+		$db->update('modules_extras', $extra, 'id = ? ', array($item['extra_id']));
+
+		// update the category
+		$update = $db->update('links_categories', $item, 'id = ?', array($item['id']));
+
+		// return the id
+		return $update;
 	}
 
-	 /**
+	/**
 	 * Update a certain link
 	 *
 	 * @param array $item
@@ -355,18 +361,7 @@ class BackendLinksModel
 	 */
 	public static function updateLink(array $item)
 	{
-		return (bool) BackendModel::getDB(true)->update('links_links',(array) $item, 'id = ?', array($item['id']));
-		BackendModel::invalidateFrontendCache('links', BL::getWorkingLanguage());
-	}
-
-	 /**
-	 * update widget by id
-	 *
-	 * @param array $widget
-	 * @return bool
-	 */
-	public static function updateWidget(array $widget)
-	{
-		return (bool) BackendModel::getDB(true)->update('modules_extras',(array) $widget, 'id = ?', array($widget['id']));
+		$update = BackendModel::getDB(true)->update('links',(array) $item, 'id = ?', array($item['id']));
+		return $update;
 	}
 }

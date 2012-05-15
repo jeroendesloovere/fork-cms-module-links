@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ *
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the configuration-object for the slideshow module
  *
- * @package backend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class BackendLinksCategories extends BackendBaseActionIndex
 {
@@ -43,17 +45,15 @@ class BackendLinksCategories extends BackendBaseActionIndex
 
 		// disable paging
 		$this->dataGrid->setPaging(false);
-		
+
 		// set hidden columns
-		$this->dataGrid->setColumnsHidden(array('language','sequence'));
-		
+		$this->dataGrid->setColumnsHidden(array('language','sequence','extra_id'));
+
 		// set column URLs
 		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');
-		
+
 		// add drag and dropp stuff
 		$this->dataGrid->enableSequenceByDragAndDrop();
-		$this->dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
-		$this->dataGrid->setColumnsSequence('dragAndDropHandle');
 
 		// add edit column
 		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));

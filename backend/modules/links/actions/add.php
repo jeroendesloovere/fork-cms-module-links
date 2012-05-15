@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ *
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the add-action for the links module
  *
- * @package backend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class BackendLinksAdd extends BackendBaseActionAdd
 {
@@ -50,14 +52,14 @@ class BackendLinksAdd extends BackendBaseActionAdd
 	 * @return void
 	 */
 	private function getData()
-	{	
+	{
 		// get categories
 		$this->categories = BackendLinksModel::getCategoriesForDropdown();
 
 		if(empty($this->categories))
 		{
 			$this->redirect(BackendModel::createURLForAction('add_category'));
-		}		
+		}
 	}
 
 	/**
@@ -73,7 +75,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		// set hidden values
 		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden', $this->URL->getModule()), 'value' => 'Y');
 		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
-		
+
 		// protocols
 		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
 
@@ -128,7 +130,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				// build item
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
 				$item['language'] = BL::getWorkingLanguage();
-				$item['title'] = $this->frm->getField('title')->getValue();	
+				$item['title'] = $this->frm->getField('title')->getValue();
 				$item['protocol'] = $this->frm->getField('protocol')->getValue();
 				$item['url'] = $this->frm->getField('url')->getValue();
 				$item['description'] = $this->frm->getField('description')->getValue(true);
@@ -137,9 +139,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 
 				// insert the item
 				$item['id'] = BackendLinksModel::addLink($item);
-				
-				// trigger event
-				BackendModel::triggerEvent($this->getModule(), 'after_add', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);

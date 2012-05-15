@@ -1,13 +1,15 @@
 <?php
+/*
+ * This file is part of Fork CMS.
+ * 
+ * For the full copyright and license information, please view the license
+ * file that was distributed with this source code.
+ */
 
 /**
  * This is the frontend model
  *
- * @package frontend
- * @subpackage links
- *
  * @author John Poelman <john.poelman@bloobz.be>
- * @since 1.0.0
  */
 class FrontendLinksModel
 {
@@ -71,7 +73,7 @@ class FrontendLinksModel
 	{
 		$items = (array) FrontendModel::getDB()->getRecords(
 				'SELECT l.*
-				 FROM links_links AS l
+				 FROM links AS l
 				 WHERE l.category_id = ? AND l.language = ? AND l.hidden = ?',
 				array($id, FRONTEND_LANGUAGE, 'N')
 		);
