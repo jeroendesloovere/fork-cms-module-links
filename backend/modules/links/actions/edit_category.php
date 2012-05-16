@@ -71,9 +71,15 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		$this->frm = new BackendForm('edit_category');
 
 		// get values for the form
-                $rbtHiddenValues = array();
-		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
-		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+		$rbtHiddenValues = array();
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Hidden'),
+					'value' => 'Y'
+		);
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Published'),
+					'value' => 'N'
+		);
 
 		// create elements
 		$this->frm->addText('title', $this->category['title']);
@@ -117,15 +123,15 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 			if($this->frm->isCorrect())
 			{
 				// first, build the category array
-                                $item = array();
+				$item = array();
 				$item['id'] = (int) $this->id;
-                                $item['extra_id'] = (int) $this->category['extra_id'];
+				$item['extra_id'] = (int) $this->category['extra_id'];
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['language'] = (string) BL::getWorkingLanguage();
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 
-                                // update the item
-                                $update = BackendLinksModel::updateCategory($item);
+				// update the item
+				$update = BackendLinksModel::updateCategory($item);
 
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('categories') . '&report=edited-category&var=' . urlencode($item['title']) . '&highlight=row-' . $update);

@@ -48,9 +48,15 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		$this->frm = new BackendForm('add_category');
 
 		// set hidden values
-                $rbtHiddenValues = array();
-		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden', $this->URL->getModule()), 'value' => 'Y');
-		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+		$rbtHiddenValues = array();
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Hidden', $this->URL->getModule()),
+					'value' => 'Y'
+		);
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Published'),
+					'value' => 'N'
+		);
 
 		// create elements
 		$this->frm->addText('title');
@@ -77,14 +83,14 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 			if($this->frm->isCorrect())
 			{
 				// build category array
-                                $item = array();
-                                $item['language'] = BL::getWorkingLanguage();
+				$item = array();
+				$item['language'] = BL::getWorkingLanguage();
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['sequence'] = (int) BackendLinksModel::getMaximumCategorySequence() + 1;
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 
-                                // insert the item
-                                $insert = BackendLinksModel::insertCategory($item);
+				// insert the item
+				$insert = BackendLinksModel::insertCategory($item);
 
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);

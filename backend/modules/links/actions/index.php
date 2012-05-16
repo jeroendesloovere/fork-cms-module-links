@@ -44,21 +44,40 @@ class BackendLinksIndex extends BackendBaseActionIndex
 		// no categories are found
 		if(!$categories)
 		{
-			$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'), 'edit' => '')));
+			$this->emptyDatagrid = new BackendDataGridArray(array(
+									    array(
+										'title' => BL::lbl('NoLinksInCategory'),
+										'edit' => ''
+									    )
+									)
+			);
 		}
 
 		// categories are found
 		else
 		{
 			// loop all categories and create a datagrid containing the links
-			foreach($categories as $cat)
+			foreach($categories as $category)
 			{
 				// create a datagrid for every category to display its links
 				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE,
-				array(BL::getWorkingLanguage(), $cat['id']));
-				$dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
-				$dataGrid->setColumnsHidden(array('id','language','category_id','created_on','protocol'));
-				$dataGrid->setRowAttributes(array('id' => '[id]'));
+				array(BL::getWorkingLanguage(), $category['id']));
+				$dataGrid->setAttributes(array(
+							    'class' => 'dataGrid sequenceByDragAndDrop'
+							)
+				);
+				$dataGrid->setColumnsHidden(array(
+								'id',
+								'language',
+								'category_id',
+								'created_on',
+								'protocol'
+							    )
+				);
+				$dataGrid->setRowAttributes(array(
+								'id' => '[id]'
+							    )
+				);
 
 				// check if this action is allowed
 				if(BackendAuthentication::isAllowedAction('edit'))
@@ -71,13 +90,20 @@ class BackendLinksIndex extends BackendBaseActionIndex
 				}
 
 				// add dataGrid to list
-				$this->dataGrids[] = array(	'id' => $cat['id'],
-									'catname' => $cat['title'],
-									'content' => $dataGrid->getContent()
-									);
+				$this->dataGrids[] = array(
+							'id' => $category['id'],
+							'catname' => $category['title'],
+							'content' => $dataGrid->getContent()
+				);
 
 				// set empty datagrid
-				$this->emptyDatagrid = new BackendDataGridArray(array(array('title' => BL::lbl('NoLinksInCategory'),'edit' => '')));
+				$this->emptyDatagrid = new BackendDataGridArray(array(
+										    array(
+											'title' => BL::lbl('NoLinksInCategory'),
+											'edit' => ''
+										    )
+										)
+				);
 			}
 		}
 	}
@@ -86,12 +112,12 @@ class BackendLinksIndex extends BackendBaseActionIndex
 	 * Parse the dataGrids and the reports
 	 */
 	protected function parse()
-		{
-			parent::parse();
+	{
+		parent::parse();
 
-			// parse dataGrids
-			if(!empty($this->dataGrids)) $this->tpl->assign('dataGrids', $this->dataGrids);
-			$this->tpl->assign('emptyDatagrid', $this->emptyDatagrid->getContent());
+		// parse dataGrids
+		if(!empty($this->dataGrids)) $this->tpl->assign('dataGrids', $this->dataGrids);
+		$this->tpl->assign('emptyDatagrid', $this->emptyDatagrid->getContent());
 
-		}
+	}
 }

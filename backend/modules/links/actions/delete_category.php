@@ -36,18 +36,18 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			// is this category allowed to be deleted?
 			if(!BackendLinksModel::deleteCategoryAllowed($this->id))
 			{
-				$this->redirect(BackendModel::createURLForAction('categories') . '&error=category-not-deletable');
+			    $this->redirect(BackendModel::createURLForAction('categories') . '&error=category-not-deletable');
 			}
 			else
 			{
-                            // delete the item
-                            BackendLinksModel::deleteCategoryById($this->id);
+			    // delete the item
+			    BackendLinksModel::deleteCategoryById($this->id);
 
-                            // trigger event
-                            BackendModel::triggerEvent($this->getModule(), 'after_delete', array('id' => $this->id));
+			    // trigger event
+			    BackendModel::triggerEvent($this->getModule(), 'after_delete', array('id' => $this->id));
 
-                            // item was deleted, so redirect
-                            $this->redirect(BackendModel::createURLForAction('categories') . '&report=category-deleted&var=' . urlencode($this->category['title']));
+			    // item was deleted, so redirect
+			    $this->redirect(BackendModel::createURLForAction('categories') . '&report=category-deleted&var=' . urlencode($this->category['title']));
 			}
 		}
 		// something went wrong

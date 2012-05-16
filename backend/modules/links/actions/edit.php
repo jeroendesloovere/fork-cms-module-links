@@ -83,11 +83,23 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->frm = new BackendForm('edit');
 
 		// set hidden values
-		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden'), 'value' => 'Y');
-		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+		$rbtHiddenValues = array();
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Hidden'),
+					'value' => 'Y'
+		);
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Published'),
+					'value' => 'N'
+		);
 
 		// protocols
-		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
+		$protocols = array(
+				'http://' => 'http://',
+				'https://' => 'https://',
+				'news://' => 'news://',
+				'ftp://' => 'ftp://'
+		);
 
 		// create elements
 		$this->frm->addText('title', $this->record['title'])->setAttribute('id', 'title');
@@ -141,6 +153,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 			if($this->frm->isCorrect())
 			{
 				// build item
+				$item = array();
 				$item['id'] = (int) $this->id;
 				$item['language'] = (string) $this->record['language'];
 				$item['category_id'] = (string) $this->frm->getField('categories')->getValue();
@@ -151,10 +164,10 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
 
 				// update link values in database
-				BackendLinksModel::updateLink($item);
+				$update = BackendLinksModel::updateLink($item);
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $update);
 			}
 		}
 	}

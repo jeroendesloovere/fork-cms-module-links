@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
 	<name>links</name>
-	<version>2.0.0</version>
+	<version>1.0</version>
 	<requirements>
 		<minimum_version>3.0.0</minimum_version>
 	</requirements>
 	<description>
 		<![CDATA[
-			The links module is used to display your favourite links in a categorised way.
+			This module is used to display your favourite links in a categorised way.
 		]]>
 	</description>
 	<authors>

@@ -48,7 +48,12 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		$this->dataGrid->setPaging(false);
 
 		// set hidden columns
-		$this->dataGrid->setColumnsHidden(array('language','sequence','extra_id'));
+		$this->dataGrid->setColumnsHidden(array(
+						    'language',
+						    'sequence',
+						    'extra_id'
+						 )
+		);
 
 		// set column URLs
 		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');

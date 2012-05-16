@@ -74,11 +74,23 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->frm = new BackendForm('add');
 
 		// set hidden values
-		$rbtHiddenValues[] = array('label' => BL::lbl('Hidden', $this->URL->getModule()), 'value' => 'Y');
-		$rbtHiddenValues[] = array('label' => BL::lbl('Published'), 'value' => 'N');
+		$rbtHiddenValues = array();
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Hidden', $this->URL->getModule()),
+					'value' => 'Y'
+		);
+		$rbtHiddenValues[] = array(
+					'label' => BL::lbl('Published'),
+					'value' => 'N'
+		);
 
 		// protocols
-		$protocols = array('http://' => 'http://','https://' => 'https://','news://' => 'news://','ftp://' => 'ftp://');
+		$protocols = array(
+				'http://' => 'http://',
+				'https://' => 'https://',
+				'news://' => 'news://',
+				'ftp://' => 'ftp://'
+		);
 
 		// create elements
 		$this->frm->addText('title')->setAttribute('id', 'title');
@@ -129,6 +141,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 			if($this->frm->isCorrect())
 			{
 				// build item
+				$item = array();
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
 				$item['language'] = BL::getWorkingLanguage();
 				$item['title'] = $this->frm->getField('title')->getValue();
@@ -139,10 +152,10 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				$item['created_on'] = BackendModel::getUTCDate();
 
 				// insert the item
-				$item['id'] = BackendLinksModel::addLink($item);
+				$add = BackendLinksModel::addLink($item);
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $add);
 			}
 		}
 	}

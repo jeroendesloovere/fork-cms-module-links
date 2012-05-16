@@ -42,12 +42,12 @@ class LinksInstaller extends ModuleInstaller
 		// set navigation
 		$navigationModulesId = $this->setNavigation(null, 'Modules');
 		$navigationLinksId = $this->setNavigation($navigationModulesId, 'Links');
-		
+
 		$this->setNavigation($navigationLinksId, 'Links', 'links/index', array(
 			'links/add',
 			'links/edit'
 		));
-			
+
 		$this->setNavigation($navigationLinksId, 'Categories', 'links/categories', array(
 			'links/add_category',
 			'links/edit_category'
@@ -64,7 +64,7 @@ class LinksInstaller extends ModuleInstaller
 			if((int) $this->getDB()->getVar('SELECT COUNT(id)
 							FROM pages AS p
 							INNER JOIN pages_blocks AS b ON b.revision_id = p.revision_id
-							WHERE b.extra_id = ? AND p.language = ?', 
+							WHERE b.extra_id = ? AND p.language = ?',
 							array($linksID, $language)) == 0)
 			{
 				// insert links page
