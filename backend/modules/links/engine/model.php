@@ -103,15 +103,18 @@ class BackendLinksModel
                                 $extra['module'],
                                 $extra['type'],
 				$extra['action']
-		));
+			    )
+		);
 
 		// update blocks with this item linked
 		$db->update('pages_blocks', array(
                                             'extra_id' => null,
                                             'html' => ''),
-                                            'extra_id = ?', array(
-                                                            $item['extra_id']
-                                            ));
+                                            'extra_id = ?',
+						array(
+						    $item['extra_id']
+						)
+		);
 
 		// delete all records
 		$db->delete('links_categories', 'id = ? AND language = ?', array($id, BL::getWorkingLanguage()));
@@ -317,20 +320,22 @@ class BackendLinksModel
 
 		// update extra (item id is now known)
 		$extra['data'] = serialize(array(
-                                            'id' => $item['id'],
+					    'id' => $item['id'],
                                             'extra_label' => $item['title'],
                                             'language' => $item['language'],
-                                            'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])
+                                            'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id']
+					   )
 		);
 		$db->update(
 			'modules_extras',
                         $extra,
 			'id = ? AND module = ? AND type = ? AND action = ?',
 			array(
-                        $extra['id'],
-                        $extra['module'],
-                        $extra['type'],
-                        $extra['action'])
+			    $extra['id'],
+			    $extra['module'],
+			    $extra['type'],
+			    $extra['action']
+			)
 		);
 
 		return $item['id'];
@@ -348,17 +353,18 @@ class BackendLinksModel
 
 		// build extra
 		$extra = array(
-			'id' => $item['extra_id'],
-			'module' => 'links',
-			'type' => 'widget',
-			'label' => BackendLinksModel::createWidgetLabel($item['title']),
-			'action' => 'widget',
-			'data' => serialize(array(
-                                            'id' => $item['id'],
-                                            'extra_label' => $item['title'],
-                                            'language' => $item['language'],
-                                            'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])),
-                                            'hidden' => 'N');
+			    'id' => $item['extra_id'],
+			    'module' => 'links',
+			    'type' => 'widget',
+			    'label' => BackendLinksModel::createWidgetLabel($item['title']),
+			    'action' => 'widget',
+			    'data' => serialize(array(
+						'id' => $item['id'],
+						'extra_label' => $item['title'],
+					        'language' => $item['language'],
+						'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])),
+					        'hidden' => 'N'
+	        );
 
 		// update extra
 		$db->update('modules_extras', $extra, 'id = ? ', array($item['extra_id']));
