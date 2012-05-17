@@ -76,20 +76,20 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		// set hidden values
 		$rbtHiddenValues = array();
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Hidden', $this->URL->getModule()),
-					'value' => 'Y'
+			'label' => BL::lbl('Hidden', $this->URL->getModule()), 
+			'value' => 'Y'
 		);
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Published'),
-					'value' => 'N'
+			'label' => BL::lbl('Published'), 
+			'value' => 'N'
 		);
 
 		// protocols
 		$protocols = array(
-				'http://' => 'http://',
-				'https://' => 'https://',
-				'news://' => 'news://',
-				'ftp://' => 'ftp://'
+			'http://' => 'http://', 
+			'https://' => 'https://', 
+			'news://' => 'news://', 
+			'ftp://' => 'ftp://'
 		);
 
 		// create elements

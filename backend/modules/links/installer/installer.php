@@ -61,20 +61,19 @@ class LinksInstaller extends ModuleInstaller
 		{
 			// check if a page for links already exists in this language
 			// @todo refactor this if statement
-			if((int) $this->getDB()->getVar('SELECT COUNT(id)
-							FROM pages AS p
-							INNER JOIN pages_blocks AS b ON b.revision_id = p.revision_id
-							WHERE b.extra_id = ? AND p.language = ?',
-							array($linksID, $language)) == 0)
+			if((int) $this->getDB()->getVar(
+									'SELECT COUNT(id)
+									 FROM pages AS p
+									 INNER JOIN pages_blocks AS b ON b.revision_id = p.revision_id
+									 WHERE b.extra_id = ? AND p.language = ?', 
+									array($linksID, $language)) == 0)
 			{
 				// insert links page
-				$this->insertPage(
-					array(
-						'title' => 'Links',
-						'type' => 'root',
-						'language' => $language
-					),
-					null,
+				$this->insertPage(array(
+					'title' => 'Links', 
+					'type' => 'root', 
+					'language' => $language), 
+					null, 
 					array('extra_id' => $linksID, 'position' => 'main'));
 			}
 		}

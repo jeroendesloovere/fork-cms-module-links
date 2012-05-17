@@ -50,12 +50,12 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		// set hidden values
 		$rbtHiddenValues = array();
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Hidden', $this->URL->getModule()),
-					'value' => 'Y'
+			'label' => BL::lbl('Hidden', $this->URL->getModule()), 
+			'value' => 'Y'
 		);
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Published'),
-					'value' => 'N'
+			'label' => BL::lbl('Published'), 
+			'value' => 'N'
 		);
 
 		// create elements

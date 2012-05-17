@@ -2,7 +2,7 @@
 
 /*
  * This file is part of Fork CMS.
- * 
+ *
  * For the full copyright and license information, please view the license
  * file that was distributed with this source code.
  */
@@ -21,11 +21,11 @@ class FrontendLinksModel
 	 */
 	public static function getCategories()
 	{
-		$items =(array) FrontendModel::getDB()->getRecords(
+		$items = (array) FrontendModel::getDB()->getRecords(
 				'SELECT i.*
-		 		 FROM links_categories AS i
-		 		 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence ASC',
-		 		array(FRONTEND_LANGUAGE, 'N')
+				 FROM links_categories AS i
+				 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence ASC', 
+				array(FRONTEND_LANGUAGE, 'N')
 		);
 		return $items;
 	}
@@ -38,14 +38,14 @@ class FrontendLinksModel
 	 */
  	public static function getCategory($id)
 	{
-		$item =	(array) FrontendModel::getDB()->getRecord(
+		$item = (array) FrontendModel::getDB()->getRecord(
 				'SELECT i.*
-		 		 FROM links_categories AS i
-		 		 WHERE i.language = ? AND i.hidden = ? AND i.id = ?',
-		 		array(FRONTEND_LANGUAGE, 'N', $id)
+				 FROM links_categories AS i
+				 WHERE i.language = ? AND i.hidden = ? AND i.id = ?', 
+				array(FRONTEND_LANGUAGE, 'N', $id)
 		);
 		return $item;
-	}	
+	}
 
 	/**
 	 * Get all links for a category
@@ -58,11 +58,9 @@ class FrontendLinksModel
 		$items = (array) FrontendModel::getDB()->getRecords(
 				'SELECT l.*
 				 FROM links AS l
-				 WHERE l.category_id = ? AND l.language = ? AND l.hidden = ?',
+				 WHERE l.category_id = ? AND l.language = ? AND l.hidden = ?', 
 				array($id, FRONTEND_LANGUAGE, 'N')
 		);
-		return $items;		
+		return $items;
 	}
-	
-	
 }

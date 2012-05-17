@@ -21,7 +21,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 	 */
 	private $categories;
 
-
 	/**
 	 * Execute the action
 	 *
@@ -85,20 +84,20 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		// set hidden values
 		$rbtHiddenValues = array();
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Hidden'),
-					'value' => 'Y'
+			'label' => BL::lbl('Hidden'), 
+			'value' => 'Y'
 		);
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Published'),
-					'value' => 'N'
+			'label' => BL::lbl('Published'), 
+			'value' => 'N' 
 		);
 
 		// protocols
 		$protocols = array(
-				'http://' => 'http://',
-				'https://' => 'https://',
-				'news://' => 'news://',
-				'ftp://' => 'ftp://'
+			'http://' => 'http://', 
+			'https://' => 'https://', 
+			'news://' => 'news://', 
+			'ftp://' => 'ftp://'
 		);
 
 		// create elements

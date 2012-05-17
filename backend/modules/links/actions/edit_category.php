@@ -73,12 +73,12 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		// get values for the form
 		$rbtHiddenValues = array();
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Hidden'),
-					'value' => 'Y'
+			'label' => BL::lbl('Hidden'), 
+			'value' => 'Y'
 		);
 		$rbtHiddenValues[] = array(
-					'label' => BL::lbl('Published'),
-					'value' => 'N'
+			'label' => BL::lbl('Published'), 
+			'value' => 'N'
 		);
 
 		// create elements

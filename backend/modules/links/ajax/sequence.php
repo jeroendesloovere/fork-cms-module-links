@@ -38,7 +38,7 @@ class BackendLinksAjaxSequence extends BackendBaseAJAXAction
 			$item['sequence'] = $i + 1;
 
 			// update sequence
-			if(BackendLinksModel::existsCategory($item['id'])) BackendLinksModel::updateCategory($item);
+			if(BackendLinksModel::existsCategory($item['id'])) BackendLinksModel::updateCategorySequence($item);
 		}
 
 		// success output

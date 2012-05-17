@@ -28,7 +28,6 @@ class BackendLinksIndex extends BackendBaseActionIndex
 	{
 		parent::execute();
 		$this->loadDatagrids();
-
 		$this->parse();
 		$this->display();
 	}
@@ -45,12 +44,11 @@ class BackendLinksIndex extends BackendBaseActionIndex
 		if(!$categories)
 		{
 			$this->emptyDatagrid = new BackendDataGridArray(array(
-									    array(
-										'title' => BL::lbl('NoLinksInCategory'),
-										'edit' => ''
-									    )
-									)
-			);
+				array(
+					'title' => BL::lbl('NoLinksInCategory'), 
+					'edit' => ''
+				)
+			));
 		}
 
 		// categories are found
@@ -62,22 +60,15 @@ class BackendLinksIndex extends BackendBaseActionIndex
 				// create a datagrid for every category to display its links
 				$dataGrid = new BackendDataGridDB(BackendLinksModel::QRY_DATAGRID_BROWSE,
 				array(BL::getWorkingLanguage(), $category['id']));
-				$dataGrid->setAttributes(array(
-							    'class' => 'dataGrid sequenceByDragAndDrop'
-							)
-				);
+				$dataGrid->setAttributes(array('class' => 'dataGrid sequenceByDragAndDrop'));
 				$dataGrid->setColumnsHidden(array(
-								'id',
-								'language',
-								'category_id',
-								'created_on',
-								'protocol'
-							    )
-				);
-				$dataGrid->setRowAttributes(array(
-								'id' => '[id]'
-							    )
-				);
+					'id', 
+					'language', 
+					'category_id', 
+					'created_on', 
+					'protocol'
+				));
+				$dataGrid->setRowAttributes(array('id' => '[id]'));
 
 				// check if this action is allowed
 				if(BackendAuthentication::isAllowedAction('edit'))
@@ -91,19 +82,18 @@ class BackendLinksIndex extends BackendBaseActionIndex
 
 				// add dataGrid to list
 				$this->dataGrids[] = array(
-							'id' => $category['id'],
-							'catname' => $category['title'],
-							'content' => $dataGrid->getContent()
+					'id' => $category['id'], 
+					'catname' => $category['title'], 
+					'content' => $dataGrid->getContent()
 				);
 
 				// set empty datagrid
 				$this->emptyDatagrid = new BackendDataGridArray(array(
-										    array(
-											'title' => BL::lbl('NoLinksInCategory'),
-											'edit' => ''
-										    )
-										)
-				);
+					array(
+						'title' => BL::lbl('NoLinksInCategory'), 
+						'edit' => ''
+					)
+				));
 			}
 		}
 	}

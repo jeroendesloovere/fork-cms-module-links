@@ -2,7 +2,7 @@
 
 /*
  * This file is part of Fork CMS.
- * 
+ *
  * For the full copyright and license information, please view the license
  * file that was distributed with this source code.
  */
@@ -14,7 +14,7 @@
  */
 class FrontendLinksWidgetWidget extends FrontendBaseWidget
 {
-	
+
 	/**
  	* The links
  	*
@@ -64,10 +64,10 @@ class FrontendLinksWidgetWidget extends FrontendBaseWidget
 			// grab all images for the selected category
 			$this->links = FrontendLinksModel::getLinksForCategory($this->category['id']);
 		}
-		
+
 		else
 		{
-			$category = array();
+			$this->category = array();
 		}
 	}
 

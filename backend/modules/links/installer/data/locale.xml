@@ -1,121 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
- <frontend>
-   <links>
-	 <item type="message" name="LinksNoItems">
-	  <translation language="nl"><![CDATA[er werden nog geen links geplaatst]]></translation>
-	  <translation language="en"><![CDATA[we haven't posted any links yet]]></translation>
-	 </item>
-	 <item type="message" name="LinksNoLinksInCategory">
-	  <translation language="nl"><![CDATA[er zijn nog geen links in deze categorie.]]></translation>
-	  <translation language="en"><![CDATA[there are no links posted in this category]]></translation>
-	 </item>
-    </links>
-  </frontend>	
-  <backend>
-	<core>
-	 <item type="label" name="Links">
-	  <translation language="nl"><![CDATA[links]]></translation>
-	  <translation language="en"><![CDATA[links]]></translation>
-	 </item>
-    </core>
+<frontend>
 	<links>
-      <item type="label" name="Links">
-        <translation language="nl"><![CDATA[links]]></translation>
-        <translation language="en"><![CDATA[links]]></translation>
-      </item>
-	  <item type="label" name="Url">
-        <translation language="nl"><![CDATA[url]]></translation>
-        <translation language="en"><![CDATA[url]]></translation>
-      </item>
-	 <item type="label" name="NoLinksInCategory">
-        <translation language="nl"><![CDATA[deze categorie bevat nog geen links]]></translation>
-        <translation language="en"><![CDATA[this category contains no links]]></translation>
-     </item>
-	 	<item type="label" name="Add">
-        <translation language="nl"><![CDATA[voeg een link toe]]></translation>
-        <translation language="en"><![CDATA[insert a link]]></translation>
-     </item>
-	 <item type="label" name="Title">
-        <translation language="nl"><![CDATA[titel]]></translation>
-        <translation language="en"><![CDATA[title]]></translation>
-     </item>
-	 <item type="label" name="Description">
-        <translation language="nl"><![CDATA[beschrijving]]></translation>
-        <translation language="en"><![CDATA[description]]></translation>
-      </item>
-	 <item type="label" name="Category">
-        <translation language="nl"><![CDATA[categorie]]></translation>
-        <translation language="en"><![CDATA[category]]></translation>
-      </item>
-	 <item type="label" name="AddCategory">
-        <translation language="nl"><![CDATA[voeg een categorie toe]]></translation>
-        <translation language="en"><![CDATA[add a category]]></translation>
-      </item>
-	 <item type="label" name="Categories">
-        <translation language="nl"><![CDATA[categoriën]]></translation>
-        <translation language="en"><![CDATA[categories]]></translation>
-      </item>
-	 <item type="label" name="Status">
-        <translation language="nl"><![CDATA[status]]></translation>
-        <translation language="en"><![CDATA[status]]></translation>
-     </item>
-	 <item type="label" name="EditCategory">
-        <translation language="nl"><![CDATA[bewerk Categorie]]></translation>
-        <translation language="en"><![CDATA[edit category]]></translation>
-     </item>
-	 <item type="message" name="NoCategories">
-        <translation language="nl"><![CDATA[er zijn nog geen categoriën]]></translation>
-        <translation language="en"><![CDATA[there are no categories yet]]></translation>
-      </item>
-	 <item type="message" name="NoLinks">
-        <translation language="nl"><![CDATA[er zijn nog geen links]]></translation>
-        <translation language="en"><![CDATA[there are no links yet]]></translation>
-     </item>
-	 <item type="message" name="ConfirmDeleteLink">
-        <translation language="nl"><![CDATA[bent u zeker dat u de link "%1$s" wil verwijderen?]]></translation>
-        <translation language="en"><![CDATA[are you sure you want to delete the link "%1$s"?]]></translation>
-     </item>
-	 <item type="message" name="ConfirmDeleteCategory">
-        <translation language="nl"><![CDATA[bent u zeker dat u de categorie "%1$s" wil verwijderen?]]></translation>
-        <translation language="en"><![CDATA[are you sure you want to delete the category "%1$s"?]]></translation>
-     </item>
-	 <item type="message" name="LinkSaved">
-        <translation language="nl"><![CDATA[de link is opgeslagen]]></translation>
-        <translation language="en"><![CDATA[the link is saved]]></translation>
-     </item>
-	 <item type="message" name="LinkDeleted">
-        <translation language="nl"><![CDATA[de link is verwijderd]]></translation>
-        <translation language="en"><![CDATA[the link is deleted]]></translation>
-     </item>
-	 <item type="message" name="CategoryDeleted">
-        <translation language="nl"><![CDATA[de categorie is verwijderd]]></translation>
-        <translation language="en"><![CDATA[the category is deleted]]></translation>
-     </item>
-	 <item type="error" name="CategoryNotDeletable">
-        <translation language="nl"><![CDATA[deze categorie bevat nog steeds links en is daardoor niet verwijderbaar]]></translation>
-        <translation language="en"><![CDATA[this category still contains links which makes it undeletable]]></translation>
-     </item>
-	 <item type="error" name="TitleIsRequired">
-        <translation language="nl"><![CDATA[een titel is vereist]]></translation>
-        <translation language="en"><![CDATA[a title is required]]></translation>
-     </item>
-	 <item type="error" name="UrlIsRequired">
-        <translation language="nl"><![CDATA[een url is vereist]]></translation>
-        <translation language="en"><![CDATA[an url is required]]></translation>
-     </item>
-	 <item type="error" name="DescriptionIsRequired">
-        <translation language="nl"><![CDATA[een beschrijving is vereist]]></translation>
-        <translation language="en"><![CDATA[a description is required]]></translation>
-     </item>
-	 <item type="error" name="CategoryIsRequired">
-        <translation language="nl"><![CDATA[een categorie is vereist]]></translation>
-        <translation language="en"><![CDATA[a category is required]]></translation>
-     </item>
-	 <item type="error" name="ProtocolIsRequired">
-        <translation language="nl"><![CDATA[een protocol is vereist]]></translation>
-        <translation language="en"><![CDATA[a protocol is required]]></translation>
-     </item>
+		<item type="message" name="LinksNoItems">
+			<translation language="nl"><![CDATA[er werden nog geen links geplaatst]]></translation>
+			<translation language="en"><![CDATA[we haven't posted any links yet]]></translation>
+		</item>
+		<item type="message" name="LinksNoLinksInCategory">
+			<translation language="nl"><![CDATA[er zijn nog geen links in deze categorie.]]></translation>
+			<translation language="en"><![CDATA[there are no links posted in this category]]></translation>
+		</item>
 	</links>
-  </backend>
+</frontend>	
+<backend>
+	<core>
+		<item type="label" name="Links">
+			<translation language="nl"><![CDATA[links]]></translation>
+			<translation language="en"><![CDATA[links]]></translation>
+		</item>
+	</core>
+	<links>
+		<item type="label" name="Links">
+			<translation language="nl"><![CDATA[links]]></translation>
+			<translation language="en"><![CDATA[links]]></translation>
+		</item>
+		<item type="label" name="Url">
+			<translation language="nl"><![CDATA[url]]></translation>
+			<translation language="en"><![CDATA[url]]></translation>
+		</item>
+		<item type="label" name="NoLinksInCategory">
+			<translation language="nl"><![CDATA[deze categorie bevat nog geen links]]></translation>
+			<translation language="en"><![CDATA[this category contains no links]]></translation>
+		</item>
+		<item type="label" name="Add">
+			<translation language="nl"><![CDATA[voeg een link toe]]></translation>
+			<translation language="en"><![CDATA[insert a link]]></translation>
+		</item>
+		<item type="label" name="Title">
+			<translation language="nl"><![CDATA[titel]]></translation>
+			<translation language="en"><![CDATA[title]]></translation>
+		</item>
+		<item type="label" name="Description">
+			<translation language="nl"><![CDATA[beschrijving]]></translation>
+			<translation language="en"><![CDATA[description]]></translation>
+		</item>
+		<item type="label" name="Category">
+			<translation language="nl"><![CDATA[categorie]]></translation>
+			<translation language="en"><![CDATA[category]]></translation>
+		</item>
+		<item type="label" name="AddCategory">
+			<translation language="nl"><![CDATA[voeg een categorie toe]]></translation>
+			<translation language="en"><![CDATA[add a category]]></translation>
+		</item>
+		<item type="label" name="Categories">
+			<translation language="nl"><![CDATA[categoriën]]></translation>
+			<translation language="en"><![CDATA[categories]]></translation>
+		</item>
+		<item type="label" name="Status">
+			<translation language="nl"><![CDATA[status]]></translation>
+			<translation language="en"><![CDATA[status]]></translation>
+		</item>
+		<item type="label" name="EditCategory">
+			<translation language="nl"><![CDATA[bewerk Categorie]]></translation>
+			<translation language="en"><![CDATA[edit category]]></translation>
+		</item>
+		<item type="message" name="NoCategories">
+			<translation language="nl"><![CDATA[er zijn nog geen categoriën]]></translation>
+			<translation language="en"><![CDATA[there are no categories yet]]></translation>
+		</item>
+		<item type="message" name="NoLinks">
+			<translation language="nl"><![CDATA[er zijn nog geen links]]></translation>
+			<translation language="en"><![CDATA[there are no links yet]]></translation>
+		</item>
+		<item type="message" name="ConfirmDeleteLink">
+			<translation language="nl"><![CDATA[bent u zeker dat u de link "%1$s" wil verwijderen?]]></translation>
+			<translation language="en"><![CDATA[are you sure you want to delete the link "%1$s"?]]></translation>
+		</item>
+		<item type="message" name="ConfirmDeleteCategory">
+			<translation language="nl"><![CDATA[bent u zeker dat u de categorie "%1$s" wil verwijderen?]]></translation>
+			<translation language="en"><![CDATA[are you sure you want to delete the category "%1$s"?]]></translation>
+		</item>
+		<item type="message" name="LinkSaved">
+			<translation language="nl"><![CDATA[de link is opgeslagen]]></translation>
+			<translation language="en"><![CDATA[the link is saved]]></translation>
+		</item>
+		<item type="message" name="LinkDeleted">
+			<translation language="nl"><![CDATA[de link is verwijderd]]></translation>
+			<translation language="en"><![CDATA[the link is deleted]]></translation>
+		</item>
+		<item type="message" name="CategoryDeleted">
+			<translation language="nl"><![CDATA[de categorie is verwijderd]]></translation>
+			<translation language="en"><![CDATA[the category is deleted]]></translation>
+		</item>
+		<item type="error" name="CategoryNotDeletable">
+			<translation language="nl"><![CDATA[deze categorie bevat nog steeds links en is daardoor niet verwijderbaar]]></translation>
+			<translation language="en"><![CDATA[this category still contains links which makes it undeletable]]></translation>
+		</item>
+		<item type="error" name="TitleIsRequired">
+			<translation language="nl"><![CDATA[een titel is vereist]]></translation>
+			<translation language="en"><![CDATA[a title is required]]></translation>
+		</item>
+		<item type="error" name="UrlIsRequired">
+			<translation language="nl"><![CDATA[een url is vereist]]></translation>
+			<translation language="en"><![CDATA[an url is required]]></translation>
+		</item>
+		<item type="error" name="DescriptionIsRequired">
+			<translation language="nl"><![CDATA[een beschrijving is vereist]]></translation>
+			<translation language="en"><![CDATA[a description is required]]></translation>
+		</item>
+		<item type="error" name="CategoryIsRequired">
+			<translation language="nl"><![CDATA[een categorie is vereist]]></translation>
+			<translation language="en"><![CDATA[a category is required]]></translation>
+		</item>
+		<item type="error" name="ProtocolIsRequired">
+			<translation language="nl"><![CDATA[een protocol is vereist]]></translation>
+			<translation language="en"><![CDATA[a protocol is required]]></translation>
+		</item>
+	</links>
+	</backend>
 </locale>
