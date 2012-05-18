@@ -20,7 +20,7 @@
 			<h3>{$category.title|ucfirst}</h3>
 				<ul>
 					{iteration:links}
-						<li><a href="{$links.protocol}{$links.url}" title="{$links.description|ucfirst}" target="_blank">{$links.title|ucfirst}</a></li>
+						<li><a href="{$links.protocol}{$links.url}" title="{$links.description|ucfirst}">{$links.title|ucfirst}</a></li>
 					{/iteration:links}
 				</ul>
 		{/option:links}

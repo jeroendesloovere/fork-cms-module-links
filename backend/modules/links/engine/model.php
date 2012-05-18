@@ -34,32 +34,6 @@ class BackendLinksModel
 		  ORDER BY i.id DESC';
 
 	/**
-	 * Add a new link.
-	 *
-	 * @param array $item
-	 * @return int $id
-	 */
-	public static function addLink(array $item)
-	{
-		$id = BackendModel::getDB(true)->insert('links', $item);
-		return (int) $id;
-	}
-
-	/**
-	 * Convert the title to a widgetlabel
-	 *
-	 * @param string $catname
-	 * @return string $label
-	 */
-	public static function createWidgetLabel($catname)
-	{
-		// convert the item to camelcase
-		$label = preg_replace('/\s+/', '_', $catname);
-		$label = SpoonFilter::toCamelCase((string) $label);
-		return (string) $label;
-	}
-
-	/**
 	 * Is the deletion of a category allowed?
 	 *
 	 * @param int $id
@@ -71,7 +45,8 @@ class BackendLinksModel
 			'SELECT COUNT(id)
 			 FROM links AS i
 			 WHERE i.category_id = ? AND i.language = ?',
-			array((int) $id, BL::getWorkingLanguage())) == 0);
+			array((int) $id, BL::getWorkingLanguage())) == 0
+		);
 	}
 
 	/**
@@ -131,7 +106,8 @@ class BackendLinksModel
 			'SELECT COUNT(id)
 			 FROM links AS i
 			 WHERE i.category_id = ? AND i.language = ?', 
-			array((int) $id, BL::getWorkingLanguage())) == 0);
+			array((int) $id, BL::getWorkingLanguage())) == 0
+		);
 	}
 
 	/**
@@ -158,7 +134,8 @@ class BackendLinksModel
 			'SELECT COUNT(i.id)
 			 FROM links_categories AS i
 			 WHERE i.id = ? AND i.language = ?', 
-			array((int) $id, BL::getWorkingLanguage()));
+			array((int) $id, BL::getWorkingLanguage())
+		);
 	}
 
 	/**
@@ -173,7 +150,8 @@ class BackendLinksModel
 			'SELECT COUNT(i.id)
 			 FROM links AS i
 			 WHERE i.id = ? AND i.language = ?', 
-			array((int) $id, BL::getWorkingLanguage()));
+			array((int) $id, BL::getWorkingLanguage())
+		);
 	}
 
 	/**
@@ -187,7 +165,8 @@ class BackendLinksModel
 			'SELECT i.*
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence', 
-			array(BL::getWorkingLanguage(), 'N'));
+			array(BL::getWorkingLanguage(), 'N')
+		);
 	}
 
 	/**
@@ -202,7 +181,8 @@ class BackendLinksModel
 			 FROM links_categories AS i
 			 WHERE i.language = ?
 			 ORDER BY i.id ASC', 
-			array(BL::getWorkingLanguage()));
+			array(BL::getWorkingLanguage())
+		);
 	}
 
 	/**
@@ -217,7 +197,8 @@ class BackendLinksModel
 			'SELECT i.*
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND i.id = ?', 
-			array(BL::getWorkingLanguage(),(int) $id));
+			array(BL::getWorkingLanguage(), (int) $id)
+		);
 	}
 
 	/**
@@ -232,7 +213,8 @@ class BackendLinksModel
 			'SELECT i.title
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND i.id = ?', 
-			array(BL::getWorkingLanguage(),(int) $id));
+			array(BL::getWorkingLanguage(), (int) $id)
+		);
 	}
 
 	/**
@@ -247,7 +229,8 @@ class BackendLinksModel
 			'SELECT i.*
 			 FROM links AS i
 			 WHERE i.id = ? AND i.language = ?', 
-			array((int) $id, BL::getWorkingLanguage()));
+			array((int) $id, BL::getWorkingLanguage())
+		);
 	}
 
 	/**
@@ -261,7 +244,8 @@ class BackendLinksModel
 			'SELECT i.*
 			 FROM links AS i
 			 WHERE i.language = ? AND hidden = ?', 
-			array(BL::getWorkingLanguage(), 'N'));
+			array(BL::getWorkingLanguage(), 'N')
+		);
 	}
 
 	/**
@@ -275,7 +259,8 @@ class BackendLinksModel
 			'SELECT MAX(i.sequence)
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND hidden = ?', 
-			array(BL::getWorkingLanguage(), 'N'));
+			array(BL::getWorkingLanguage(), 'N')
+		);
 	}
 
 	/**
@@ -292,7 +277,7 @@ class BackendLinksModel
 		$extra = array(
 			'module' => 'links', 
 			'type' => 'widget', 
-			'label' => BackendLinksModel::createWidgetLabel($item['title']), 
+			'label' => 'links', 
 			'action' => 'widget', 
 			'data' => NULL, 
 			'hidden' => 'N', 
@@ -336,6 +321,18 @@ class BackendLinksModel
 	}
 
 	/**
+	 * Add a new link.
+	 *
+	 * @param array $item
+	 * @return int $id
+	 */
+	public static function insertLink(array $item)
+	{
+		$id = BackendModel::getDB(true)->insert('links', $item);
+		return (int) $id;
+	}
+
+	/**
 	 * Update an existing item.
 	 *
 	 * @param array $item The new data.
@@ -350,7 +347,7 @@ class BackendLinksModel
 			'id' => $item['extra_id'], 
 			'module' => 'links', 
 			'type' => 'widget', 
-			'label' => BackendLinksModel::createWidgetLabel($item['title']), 
+			'label' => 'links', 
 			'action' => 'widget', 
 			'data' => serialize(array(
 									'id' => $item['id'], 
@@ -378,7 +375,7 @@ class BackendLinksModel
 	 */
 	public static function updateCategorySequence(array $item)
 	{
-		BackendModel::getDB(true)->update('links_categories',(array) $item, 'id = ?', array($item['id']));
+		BackendModel::getDB(true)->update('links_categories', (array) $item, 'id = ?', array($item['id']));
 	}
 
 	/**
@@ -389,7 +386,7 @@ class BackendLinksModel
 	 */
 	public static function updateLink(array $item)
 	{
-		$update = BackendModel::getDB(true)->update('links',(array) $item, 'id = ?', array($item['id']));
+		$update = BackendModel::getDB(true)->update('links', (array) $item, 'id = ?', array($item['id']));
 		return $update;
 	}
 }

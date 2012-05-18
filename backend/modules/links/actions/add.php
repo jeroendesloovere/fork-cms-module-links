@@ -152,10 +152,10 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				$item['created_on'] = BackendModel::getUTCDate();
 
 				// insert the item
-				$add = BackendLinksModel::addLink($item);
+				$insert = BackendLinksModel::insertLink($item);
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $add);
+				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);
 			}
 		}
 	}

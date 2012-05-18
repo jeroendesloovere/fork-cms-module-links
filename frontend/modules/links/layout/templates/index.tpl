@@ -18,7 +18,7 @@
 					<ul>
 						{iteration:categories.links}
 							<li>
-								<a href="{$categories.links.protocol}{$categories.links.url}" title="{$categories.links.description|ucfirst}"target="_blank">{$categories.links.title|ucfirst}</a>
+								<a href="{$categories.links.protocol}{$categories.links.url}" title="{$categories.links.description|ucfirst}">{$categories.links.title|ucfirst}</a>
 							</li>
 						{/iteration:categories.links}
 					</ul>

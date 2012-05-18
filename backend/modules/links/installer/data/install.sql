@@ -1,7 +1,3 @@
----
---- structure for the categories table
----
-
 CREATE TABLE IF NOT EXISTS `links_categories` (
  `id` INT (11) NOT NULL auto_increment,
  `extra_id` INT (11) NOT NULL,
@@ -11,10 +7,6 @@ CREATE TABLE IF NOT EXISTS `links_categories` (
  `sequence` INT (11) NOT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
----
---- structure for the links table
----
 
 CREATE TABLE IF NOT EXISTS `links` (
  `id` INT (11) NOT NULL auto_increment,

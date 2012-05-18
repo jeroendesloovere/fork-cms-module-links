@@ -46,7 +46,6 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	 *
 	 * @return void
 	 */
-
 	private function getData()
 	{	
 		// make sure $this->categories is an array

@@ -14,7 +14,6 @@
  */
 class FrontendLinksWidgetWidget extends FrontendBaseWidget
 {
-
 	/**
  	* The links
  	*
@@ -67,7 +66,7 @@ class FrontendLinksWidgetWidget extends FrontendBaseWidget
 
 		else
 		{
-			$this->category = array();
+			$this->links = array();
 		}
 	}
 
