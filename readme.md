@@ -15,14 +15,16 @@
 The links module is created for people who need to display some links to other websites on the internet.
 
 ### What are it's features?
-The links module has a lot of features allready builtin but there will be added some in the future. Whenever I have some time to add some functionality, it will be added!
+The links module has a lot of features allready built in but there will be added some in the future. Whenever I have some time to add some functionality, it will be added!
 
 * Linkcategories.
 * Show each category on a widget throughout the website by giving it a position through the pages system.
 * Show all lnks in a categorised way by adding the module to a page.
 * Organise the categories in the backend by drag 'n drop.
+* Automatic search for dead links (through cronjob)
+* Display dead links in a dashboard widget
 
 ### Some of the upcomming features
-* Linkschecker
+* Blogroll
 * Clickcounter
 * ...
