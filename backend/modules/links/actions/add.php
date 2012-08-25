@@ -84,14 +84,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 			'value' => 'N'
 		);
 
-		// protocols
-		$protocols = array(
-			'http://' => 'http://', 
-			'https://' => 'https://', 
-			'news://' => 'news://', 
-			'ftp://' => 'ftp://'
-		);
-
 		// create elements
 		$this->frm->addText('title')->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
@@ -99,7 +91,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->frm->addText('description')->setAttribute('id', 'description');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories);
-		$this->frm->addDropdown('protocol', $protocols);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
 	}
 
@@ -132,11 +123,13 @@ class BackendLinksAdd extends BackendBaseActionAdd
 
 			// validate fields
 			$this->frm->getField('title')->isFilled(BL::err('TitleIsRequired'));
-			$this->frm->getField('url')->isFilled(BL::err('urlIsRequired'));
+			$this->frm->getField('url')->isFilled(BL::err('UrlIsRequired'));
+			
+			// check if url is well formed
+			$this->frm->getField('url')->isURL(BL::err('InvalidUrl'));
 			$this->frm->getField('description')->isFilled(BL::err('DescriptionIsRequired'));
 			$this->frm->getField('categories')->isFilled(BL::err('CategoryIsRequired'));
-			$this->frm->getField('protocol')->isFilled(BL::err('ProtocolIsRequired'));
-
+			
 			// no errors?
 			if($this->frm->isCorrect())
 			{
@@ -145,7 +138,6 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
 				$item['language'] = BL::getWorkingLanguage();
 				$item['title'] = $this->frm->getField('title')->getValue();
-				$item['protocol'] = $this->frm->getField('protocol')->getValue();
 				$item['url'] = $this->frm->getField('url')->getValue();
 				$item['description'] = $this->frm->getField('description')->getValue(true);
 				$item['hidden'] = $this->frm->getField('hidden')->getValue();
@@ -153,6 +145,9 @@ class BackendLinksAdd extends BackendBaseActionAdd
 
 				// insert the item
 				$insert = BackendLinksModel::insertLink($item);
+				
+				// trigger event
+				BackendModel::triggerEvent($this->getModule(), 'after_add', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);

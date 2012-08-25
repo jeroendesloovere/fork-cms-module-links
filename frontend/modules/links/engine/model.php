@@ -58,8 +58,8 @@ class FrontendLinksModel
 		$items = (array) FrontendModel::getDB()->getRecords(
 				'SELECT l.*
 				 FROM links AS l
-				 WHERE l.category_id = ? AND l.language = ? AND l.hidden = ?', 
-				array($id, FRONTEND_LANGUAGE, 'N')
+				 WHERE l.category_id = ? AND l.language = ? AND l.hidden = ? AND l.alive = ?', 
+				array($id, FRONTEND_LANGUAGE, 'N', 'Y')
 		);
 		return $items;
 	}

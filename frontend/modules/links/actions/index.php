@@ -72,5 +72,8 @@ class FrontendLinksIndex extends FrontendBaseBlock
 	{
 		// assign links
 		$this->tpl->assign('categories', $this->categories);
+		
+		// add some CSS
+		$this->header->addCSS('/frontend/modules/links/layout/css/links.css');
 	}
 }

@@ -92,14 +92,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 			'value' => 'N' 
 		);
 
-		// protocols
-		$protocols = array(
-			'http://' => 'http://', 
-			'https://' => 'https://', 
-			'news://' => 'news://', 
-			'ftp://' => 'ftp://'
-		);
-
 		// create elements
 		$this->frm->addText('title', $this->record['title'])->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
@@ -108,7 +100,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories, $this->record['category_id']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
-		$this->frm->addDropdown('protocol', $protocols, $this->record['protocol']);
 	}
 
 	/**
@@ -144,9 +135,11 @@ class BackendLinksEdit extends BackendBaseActionEdit
 			// validate fields
 			$this->frm->getField('title')->isFilled(BL::err('TitleIsRequired'));
 			$this->frm->getField('url')->isFilled(BL::err('UrlIsRequired'));
+			
+			// check if url is well formed
+			$this->frm->getField('url')->isURL(BL::err('InvalidUrl'));
 			$this->frm->getField('description')->isFilled(BL::err('DescriptionIsRequired'));
 			$this->frm->getField('categories')->isFilled(BL::err('CategoryIsRequired'));
-			$this->frm->getField('protocol')->isFilled(BL::err('ProtocolIsRequired'));
 
 			// no errors?
 			if($this->frm->isCorrect())
@@ -156,7 +149,6 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				$item['id'] = (int) $this->id;
 				$item['language'] = (string) $this->record['language'];
 				$item['category_id'] = (string) $this->frm->getField('categories')->getValue();
-				$item['protocol'] = (string) $this->frm->getField('protocol')->getValue();
 				$item['url'] = (string) $this->frm->getField('url')->getValue();
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['description'] = (string) $this->frm->getField('description')->getValue(true);
@@ -164,7 +156,10 @@ class BackendLinksEdit extends BackendBaseActionEdit
 
 				// update link values in database
 				$update = BackendLinksModel::updateLink($item);
-
+				
+				// trigger event
+				BackendModel::triggerEvent($this->getModule(), 'after_edit', array('item' => $item));
+				
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $update);
 			}

@@ -15,6 +15,22 @@
 class LinksInstaller extends ModuleInstaller
 {
 	/**
+	 * Insert an empty admin dashboard sequence
+	 */
+	private function insertWidget()
+	{
+		$invalidLinks = array(
+			'column' => 'middle',
+			'position' => 2,
+			'hidden' => false,
+			'present' => true
+		);
+		
+		// insert the dashboardwidget
+		$this->insertDashboardWidget('links', 'invalid_links', $invalidLinks);
+	}
+
+	/**
 	 * Install the module
 	 */
 	public function install()
@@ -38,6 +54,7 @@ class LinksInstaller extends ModuleInstaller
 		$this->setActionRights(1, 'links', 'add_category');
 		$this->setActionRights(1, 'links', 'edit_category');
 		$this->setActionRights(1, 'links', 'delete_category');
+		$this->setActionRights(1, 'links', 'check_links');
 
 		// set navigation
 		$navigationModulesId = $this->setNavigation(null, 'Modules');
@@ -52,7 +69,15 @@ class LinksInstaller extends ModuleInstaller
 			'links/add_category',
 			'links/edit_category'
 		));
-
+		
+		// settings
+		$this->setSetting('links', 'autodelete', false);
+		
+		// settings navigation
+		$navigationSettingsId = $this->setNavigation(null, 'Settings');
+		$navigationModulesId = $this->setNavigation($navigationSettingsId, 'Modules');
+		$this->setNavigation($navigationModulesId, 'Links', 'links/settings');
+		
 		// add extra
 		$linksID = $this->insertExtra('links', 'block', 'Links', null, null, 'N', 1000);
 
@@ -77,5 +102,8 @@ class LinksInstaller extends ModuleInstaller
 					array('extra_id' => $linksID, 'position' => 'main'));
 			}
 		}
+		
+		// insert dashboard widgets
+		$this->insertWidget();
 	}
 }

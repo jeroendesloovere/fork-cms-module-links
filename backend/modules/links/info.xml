@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
 	<name>links</name>
-	<version>1.0</version>
+	<version>2.0.0</version>
 	<requirements>
 		<minimum_version>3.0.0</minimum_version>
 	</requirements>
 	<description>
 		<![CDATA[
 			This module is used to display your favourite links in a categorised way.
+			It features an automatic link checker, a logo per category and a blogroll.
 		]]>
 	</description>
 	<authors>
@@ -17,5 +18,16 @@
 		</author>
 	</authors>
 	<events>
+		<event application="backend" name="after_add"><![CDATA[Triggered when a link is added.]]></event>
+		<event application="backend" name="after_edit"><![CDATA[Triggered when a link is edited.]]></event>
+		<event application="backend" name="after_delete"><![CDATA[Triggered when a link is deleted.]]></event>
+		<event application="backend" name="after_add_category"><![CDATA[Triggered when a category is added.]]></event>
+		<event application="backend" name="after_edit_category"><![CDATA[Triggered when a category is edited.]]></event>
+		<event application="backend" name="after_delete_category"><![CDATA[Triggered when a category is deleted.]]></event>
 	</events>
+	<cronjobs>
+		<cronjob minute="0" hour="0" day-of-month="*" month="*" day-of-week="0" action="check_links">
+			<![CDATA[Once a week every link in the database gets checked for validity.]]>
+		</cronjob>
+	</cronjobs>
 </module>

@@ -40,11 +40,18 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 			}
 			else
 			{
+				// define imagePath
+				$imagePath = FRONTEND_FILES_PATH . '/links/images';
+				
+				// delete the images
+				SpoonFile::delete($imagePath . '/source/' . $this->category['logo']);
+				SpoonFile::delete($imagePath . '/128x128/' . $this->category['logo']);
+				
 				// delete the item
 				BackendLinksModel::deleteCategoryById($this->id);
 
 				// trigger event
-				BackendModel::triggerEvent($this->getModule(), 'after_delete', array('id' => $this->id));
+				BackendModel::triggerEvent($this->getModule(), 'after_delete_category', array('id' => $this->id));
 
 				// item was deleted, so redirect
 				$this->redirect(BackendModel::createURLForAction('categories') . '&report=category-deleted&var=' . urlencode($this->category['title']));

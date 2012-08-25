@@ -65,7 +65,7 @@ class BackendLinksIndex extends BackendBaseActionIndex
 					'language', 
 					'category_id', 
 					'created_on', 
-					'protocol'
+					'alive'
 				));
 				$dataGrid->setRowAttributes(array('id' => '[id]'));
 

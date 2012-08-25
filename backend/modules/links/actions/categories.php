@@ -56,7 +56,7 @@ class BackendLinksCategories extends BackendBaseActionIndex
 		// add drag and dropp stuff
 		$this->dataGrid->enableSequenceByDragAndDrop();
 
-		// add edit column
+		// add columns
 		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));
 	}
 

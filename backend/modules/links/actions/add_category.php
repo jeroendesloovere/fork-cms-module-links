@@ -15,6 +15,13 @@
 class BackendLinksAddCategory extends BackendBaseActionAdd
 {
 	/**
+	 * Is the user God?
+	 *
+	 * @var	bool
+	 */
+	private $god;
+	
+	/**
 	 * Execute the action
 	 *
 	 * @return void
@@ -61,6 +68,29 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 		// create elements
 		$this->frm->addText('title');
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
+		
+		// check if user is almighty
+		$this->god = BackendAuthentication::getUser()->isGod();
+		
+		// if he is show an image field
+		if($this->god)
+		{
+			$this->frm->addImage('logo');
+		}
+	}
+
+	/**
+	 * Parse the form
+	 *
+	 * @return void
+	 */
+	protected function parse()
+	{
+		// call parent
+		parent::parse();
+
+		// assign godstatus
+		$this->tpl->assign('isGod', $this->god);
 	}
 
 	/**
@@ -88,10 +118,38 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['sequence'] = (int) BackendLinksModel::getMaximumCategorySequence() + 1;
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
+				
+				// check for filetype
+				if($this->frm->getField('logo')->isFilled())
+				{
+					// image extension and mime type
+					$this->frm->getField('logo')->isAllowedExtension(array('jpg', 'png', 'gif', 'jpeg'), BL::err('JPGGIFAndPNGOnly'));
+					$this->frm->getField('logo')->isAllowedMimeType(array('image/jpg', 'image/png', 'image/gif', 'image/jpeg'), BL::err('JPGGIFAndPNGOnly'));
+				}
+					
+				// the image path
+				$imagePath = FRONTEND_FILES_PATH . '/links/images';
 
+				// create folders if needed
+				if(!SpoonDirectory::exists($imagePath . '/source')) SpoonDirectory::create($imagePath . '/source');
+				if(!SpoonDirectory::exists($imagePath . '/128x128')) SpoonDirectory::create($imagePath . '/128x128');
+
+				// image provided?
+				if($this->frm->getField('logo')->isFilled())
+				{
+					// build the image name
+					$item['logo'] = time() . '.' . $this->frm->getField('logo')->getExtension();
+
+					// upload the image & generate thumbnails
+					$this->frm->getField('logo')->generateThumbnails($imagePath, $item['logo']);
+				}
+				
 				// insert the item
 				$insert = BackendLinksModel::insertCategory($item);
-
+				
+				// trigger event
+				BackendModel::triggerEvent($this->getModule(), 'after_add_category', array('item' => $item));
+				
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('categories') . '&report=added-category&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);
 			}

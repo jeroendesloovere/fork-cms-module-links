@@ -12,13 +12,33 @@
 						<tr>
 							<td id="leftColumn">
 								<div class="box">
-									<div class="optionsRTE">
+									<div class="heading">
+										<h3>
+											<label for="text">{$lblImage|ucfirst}</label>
+										</h3>
+									</div>
+									<div class="options clearfix">
 										<p>
 											<label for="title">{$lblTitle|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
 											{$txtTitle} {$txtTitleError}
 										</p>
 									</div>
 								</div>
+								{option:isGod}
+								<div class="box">
+									<div class="heading">
+										<h3>
+											<label for="text">{$lblImage|ucfirst}</label>
+										</h3>
+									</div>
+									<div class="options clearfix">
+										<p>
+											<label for="logo">{$lblLogo|ucfirst}</label>
+											{$fileLogo}{$fileLogoError}
+										</p>
+									</div>
+								</div>
+								{/option:isGod}
 							</td>
 							<td id="sidebar">
 								<div id="publishOptions" class="box">

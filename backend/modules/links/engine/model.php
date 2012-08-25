@@ -218,6 +218,21 @@ class BackendLinksModel
 	}
 
 	/**
+	 * Get invalid links
+	 *
+	 * @return array
+	 */
+	public static function getInvalidLinks()
+	{
+		return (array) BackendModel::getDB()->getRecords(
+			'SELECT i.*
+			 FROM links AS i
+			 WHERE i.language = ? AND i.alive = ?', 
+			array(BL::getWorkingLanguage(), 'N')
+		);
+	}
+
+	/**
 	 * Fetch a link
 	 *
 	 * @param int $id
@@ -388,5 +403,37 @@ class BackendLinksModel
 	{
 		$update = BackendModel::getDB(true)->update('links', (array) $item, 'id = ?', array($item['id']));
 		return $update;
+	}
+
+	/**
+	 * Check if given url is valid
+	 * 
+	 * @param type $url
+	 * @return boolean
+	 */
+	public static function urlExists($url=NULL)  
+	{
+		// if no url, return false
+		if($url == NULL) return false;
+		
+		// if url given, check for validity
+		$ch = curl_init($url);  
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);  
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);  
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+		$data = curl_exec($ch);  
+		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);  
+		curl_close($ch); 
+
+		// result
+		if($httpcode >= 200 && $httpcode < 300)
+		{
+			return true;  
+		}
+		
+		else
+		{
+			return false;
+		}
 	}
 }

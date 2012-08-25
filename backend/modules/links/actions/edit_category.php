@@ -15,6 +15,20 @@
 class BackendLinksEditCategory extends BackendBaseActionEdit
 {
 	/**
+	 * Is the user God?
+	 *
+	 * @var	bool
+	 */
+	private $god;
+	
+	/**
+	 * Category data
+	 *
+	 * @var	array
+	 */
+	private $category;
+	
+	/**
 	 * Execute the action
 	 *
 	 * @return void
@@ -84,6 +98,16 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 		// create elements
 		$this->frm->addText('title', $this->category['title']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->category['hidden']);
+		
+		// check if user is almighty
+		$this->god = BackendAuthentication::getUser()->isGod();
+		
+		// if he is show an image field
+		if($this->god)
+		{
+			$this->frm->addImage('logo');
+			$this->frm->addCheckbox('delete_logo');
+		}
 	}
 
 	/**
@@ -98,6 +122,7 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 
 		// assign the category
 		$this->tpl->assign('category', $this->category);
+		$this->tpl->assign('isGod', $this->god);
 
 		// can the category be deleted?
 		if(BackendLinksModel::deleteCategoryAllowed($this->id)) $this->tpl->assign('showDelete', true);
@@ -129,10 +154,77 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['language'] = (string) BL::getWorkingLanguage();
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
+				
+				if($this->god)
+				{
+					$item['logo'] = $this->category['logo'];
+					
+					// the image path
+					$imagePath = FRONTEND_FILES_PATH . '/links/images';
 
+					// create folders if needed
+					if(!SpoonDirectory::exists($imagePath . '/source')) SpoonDirectory::create($imagePath . '/source');
+					if(!SpoonDirectory::exists($imagePath . '/128x128')) SpoonDirectory::create($imagePath . '/128x128');
+					
+					// if the image should be deleted
+					if($this->frm->getField('delete_logo')->isChecked())
+					{
+						// delete the image
+						SpoonFile::delete($imagePath . '/source/' . $item['logo']);
+						SpoonFile::delete($imagePath . '/128x128/' . $item['logo']);
+
+						// reset the name
+						$item['logo'] = null;
+					}
+
+					// new image given?
+					if($this->frm->getField('logo')->isFilled())
+					{
+						// delete the old image
+						SpoonFile::delete($imagePath . '/source/' . $item['logo']);
+						SpoonFile::delete($imagePath . '/128x128/' . $item['logo']);
+
+						// build the image name
+						$item['logo'] = time() . '.' . $this->frm->getField('logo')->getExtension();
+						
+						// upload the image & generate thumbnails
+						$this->frm->getField('logo')->generateThumbnails($imagePath, $item['logo']);
+					}
+					
+					// rename the old image
+					elseif($item['logo'] != null)
+					{
+						// get the old file extension
+						$imageExtension = SpoonFile::getExtension($imagePath . '/source/' . $item['logo']);
+						
+						// build the image name
+						$newName = time() . '.' . $this->frm->getField('logo')->getExtension();
+
+						// only change the name if there is a difference
+						if($newName != $item['logo'])
+						{
+							// loop folders
+							foreach(BackendModel::getThumbnailFolders($imagePath, true) as $folder)
+							{
+								// move the old file to the new name
+								SpoonFile::move($folder['path'] . '/' . $item['logo'], $folder['path'] . '/' . $newName);
+							}
+
+							// assign the new name to the database
+							$item['logo'] = $newName;
+						}
+					}
+				}
+				
+				// otherwise nullify the logofield
+				else $item['logo'] = null;
+				
 				// update the item
 				$update = BackendLinksModel::updateCategory($item);
-
+				
+				// trigger event
+				BackendModel::triggerEvent($this->getModule(), 'after_edit_category', array('item' => $item));
+				
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('categories') . '&report=edited-category&var=' . urlencode($item['title']) . '&highlight=row-' . $update);
 			}

@@ -18,8 +18,24 @@
 			<translation language="nl"><![CDATA[links]]></translation>
 			<translation language="en"><![CDATA[links]]></translation>
 		</item>
+		<item type="label" name="InactiveLinks">
+			<translation language="nl"><![CDATA[inactieve links]]></translation>
+			<translation language="en"><![CDATA[inactive links]]></translation>
+		</item>
+		<item type="message" name="AutodeleteIsActive">
+			<translation language="nl"><![CDATA[Er zijn geen inactieve links aangezien de module geconfigureerd is om automatische inactieve links te verwijderen]]></translation>
+			<translation language="en"><![CDATA[There are no inactive links present because this module is configured to autodelete them]]></translation>
+		</item>
+		<item type="message" name="NoInvalidLinks">
+			<translation language="nl"><![CDATA[Er zijn geen inactieve links]]></translation>
+			<translation language="en"><![CDATA[There are no inactive links]]></translation>
+		</item>
 	</core>
 	<links>
+		<item type="label" name="Autodelete">
+			<translation language="nl"><![CDATA[autodelete ongeldige links]]></translation>
+			<translation language="en"><![CDATA[autodelete invalid links]]></translation>
+		</item>
 		<item type="label" name="Links">
 			<translation language="nl"><![CDATA[links]]></translation>
 			<translation language="en"><![CDATA[links]]></translation>
@@ -115,6 +131,10 @@
 		<item type="error" name="ProtocolIsRequired">
 			<translation language="nl"><![CDATA[Een protocol is vereist]]></translation>
 			<translation language="en"><![CDATA[A protocol is required]]></translation>
+		</item>
+		<item type="error" name="InvalidUrl">
+			<translation language="nl"><![CDATA[Deze url is niet correct opgebouwd]]></translation>
+			<translation language="en"><![CDATA[This url is not well formed]]></translation>
 		</item>
 	</links>
 	</backend>
