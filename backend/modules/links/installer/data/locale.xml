@@ -36,6 +36,10 @@
 			<translation language="nl"><![CDATA[autodelete ongeldige links]]></translation>
 			<translation language="en"><![CDATA[autodelete invalid links]]></translation>
 		</item>
+		<item type="label" name="Logo">
+			<translation language="nl"><![CDATA[logo]]></translation>
+			<translation language="en"><![CDATA[logo]]></translation>
+		</item>
 		<item type="label" name="Links">
 			<translation language="nl"><![CDATA[links]]></translation>
 			<translation language="en"><![CDATA[links]]></translation>
