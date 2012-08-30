@@ -22,11 +22,11 @@
 					<img src="{$FRONTEND_FILES_URL}/links/images/128x128/{$categories.logo}" class="logo" alt="{$categories.title}"/>
 				</div>
 			{/option:categories.logo}
-				<div class="links">	
+				<div class="links">
 					<ul>
 					{iteration:categories.links}
 						<li>
-							<a href="{$categories.links.url}" title="{$categories.links.description|ucfirst}">{$categories.links.title|ucfirst}</a>
+							<a href="{$categories.links.url}" title="{$categories.links.description|ucfirst}" onclick="_gaq.push(['_trackEvent', 'Outbound Links', 'Click', '{$categories.links.title|ucfirst}']);">{$categories.links.title|ucfirst}</a>
 						</li>
 					{/iteration:categories.links}
 					</ul>

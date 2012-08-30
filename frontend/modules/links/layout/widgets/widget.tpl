@@ -20,7 +20,7 @@
 			<h3>{$category.title|ucfirst}</h3>
 				<ul>
 					{iteration:links}
-						<li><a href="{$links.url}" title="{$links.description|ucfirst}">{$links.title|ucfirst}</a></li>
+						<li><a href="{$links.url}" title="{$links.description|ucfirst}" onclick="_gaq.push(['_trackEvent', 'Outbound Links', 'Click', '{$links.title|ucfirst}']);">{$links.title|ucfirst}</a></li>
 					{/iteration:links}
 				</ul>
 		{/option:links}
