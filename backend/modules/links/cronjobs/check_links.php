@@ -39,12 +39,9 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 			$result = BackendLinksModel::urlExists($link['url']);
 			
 			if(!$result)
-			{
-				// check if autodelete is enabled
-				$autodelete = BackendModel::getModuleSetting($this->module(), 'autodelete');
-				
+			{				
 				// delete link if autodelete is enabled
-				if($autodelete)
+				if($this->deleteSetting)
 				{
 					// delete the link when it's allowed to be deleted
 					if(BackendLinksModel::deleteLinkAllowed($link['id']))
@@ -71,9 +68,6 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 				}
 			}
 		}
-		
-		// delete busy status
-		$this->clearBusyFile();
 	}
 
 	/**
@@ -82,22 +76,24 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 	 * @return void
 	 */
 	public function execute()
-	{
+	{		
 		// call parent, this will probably add some general CSS/JS or other required files
 		parent::execute();
 		
-		// check if this cronjob is allowed to run
+		// set to busy
+		$this->setBusyFile();
+		
+		// are links allowed to be deleted automatically?
 		$this->deleteSetting = BackendModel::getModuleSetting('links', 'autodelete');
 		
-		// run the job because deleteSetting is TRUE
-		if($this->deleteSetting)
-		{
-			// load links
-			$this->getData();
+		// load links
+		$this->getData();
 		
-			// check links
-			$this->checkLinks();
-		}
+		// check links
+		$this->checkLinks();
+		
+		// delete busy status
+		$this->clearBusyFile();
 	}
 
 	/**
@@ -107,9 +103,6 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 	 */
 	private function getData()
 	{
-		// set to busy
-		$this->setBusyFile();
-		
 		// init var
 		$this->links = array();
 		
