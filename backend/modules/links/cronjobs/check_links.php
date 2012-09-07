@@ -39,7 +39,7 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 			$result = BackendLinksModel::urlExists($link['url']);
 			
 			if(!$result)
-			{				
+			{
 				// delete link if autodelete is enabled
 				if($this->deleteSetting)
 				{
@@ -62,7 +62,7 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 					$item['description'] = (string) $link['description'];
 					$item['hidden'] = (string) $link['hidden'];
 					$item['alive'] = (string) 'N';
-				
+
 					// now the item is built, update the database
 					BackendLinksModel::updateLink($item);
 				}
@@ -76,7 +76,7 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 	 * @return void
 	 */
 	public function execute()
-	{		
+	{
 		// call parent, this will probably add some general CSS/JS or other required files
 		parent::execute();
 		
@@ -105,7 +105,7 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 	{
 		// init var
 		$this->links = array();
-		
+
 		// get all links from DB
 		$this->links = BackendLinksModel::getLinks();
 	}
