@@ -7,9 +7,8 @@
 	</requirements>
 	<description>
 		<![CDATA[
-			This module is used to display your favourite links in a categorised way.
-			It features an automatic link checker, a logo per category and a blogroll.
-		]]>
+			This module is used to display your favourite links in a categorised way. You can give each category his own logo.
+			Links module features an automatic link checker with the ability to autodelete the incorrect links if you like.		]]>
 	</description>
 	<authors>
 		<author>
