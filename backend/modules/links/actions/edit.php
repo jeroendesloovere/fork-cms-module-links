@@ -153,6 +153,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 				$item['title'] = (string) $this->frm->getField('title')->getValue();
 				$item['description'] = (string) $this->frm->getField('description')->getValue(true);
 				$item['hidden'] = (string) $this->frm->getField('hidden')->getValue();
+				$item['alive'] = (string) 'Y';
 
 				// update link values in database
 				$update = BackendLinksModel::updateLink($item);
