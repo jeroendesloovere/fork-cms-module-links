@@ -411,24 +411,44 @@ class BackendLinksModel
 	 * @param type $url
 	 * @return boolean
 	 */
-	public static function urlExists($url=NULL)  
+	public static function urlExists($url)
 	{
-		// if no url, return false
-		if($url == NULL) return false;
-		
+		$parts = parse_url($url);
+		if(!$parts) return false;
+
 		// if url given, check for validity
-		$ch = curl_init($url);  
-		curl_setopt($ch, CURLOPT_TIMEOUT, 5);  
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);  
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
-		$data = curl_exec($ch);  
-		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);  
-		curl_close($ch); 
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_NOBODY, true);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		
+		if($parts['scheme']=='https')
+		{
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,  1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		}
+		
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		if(preg_match('/HTTP\/1\.\d+\s+(\d+)/', $response, $matches))
+		{
+			$httpcode = intval($matches[1]);
+		}
+
+		else
+		{
+			return false;
+		};
 
 		// result
 		if($httpcode >= 200 && $httpcode < 300)
 		{
-			return true;  
+			return true;
 		}
 		
 		else
