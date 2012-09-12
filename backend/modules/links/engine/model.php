@@ -447,7 +447,7 @@ class BackendLinksModel
 		};
 
 		// result
-		if($httpcode >= 200 && $httpcode < 301)
+		if($httpcode >= 200 && $httpcode < 307)
 		{
 			return true;
 		}
