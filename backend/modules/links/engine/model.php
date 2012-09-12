@@ -426,15 +426,16 @@ class BackendLinksModel
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		curl_setopt($ch, CURLOPT_HEADER, true);
 		
-		if($parts['scheme']=='https')
+		if($parts['scheme'] == 'https')
 		{
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,  1);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		}
 		
 		$response = curl_exec($ch);
+		$info = curl_getinfo($ch);
 		curl_close($ch);
-
+		
 		if(preg_match('/HTTP\/1\.\d+\s+(\d+)/', $response, $matches))
 		{
 			$httpcode = intval($matches[1]);
@@ -446,7 +447,7 @@ class BackendLinksModel
 		};
 
 		// result
-		if($httpcode >= 200 && $httpcode < 300)
+		if($httpcode >= 200 && $httpcode < 301)
 		{
 			return true;
 		}
