@@ -60,7 +60,7 @@ class LinksInstaller extends ModuleInstaller
 		$navigationModulesId = $this->setNavigation(null, 'Modules');
 		$navigationLinksId = $this->setNavigation($navigationModulesId, 'Links');
 
-		$this->setNavigation($navigationLinksId, 'Links', 'links/index', array(
+		$this->setNavigation($navigationLinksId, 'Overview', 'links/index', array(
 			'links/add',
 			'links/edit'
 		));
