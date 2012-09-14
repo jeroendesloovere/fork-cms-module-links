@@ -88,8 +88,10 @@ class BackendLinksAdd extends BackendBaseActionAdd
 		$this->frm->addText('title')->setAttribute('id', 'title');
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
 		$this->frm->addText('url')->setAttribute('id', 'url');
+		$this->frm->getField('url')->setAttribute('class', 'title ' . $this->frm->getField('url')->getAttribute('class'));
 		$this->frm->addText('description')->setAttribute('id', 'description');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
+		$this->frm->addText('tags', null, null, 'inputText tagBox', 'inputTextError tagBox');
 		$this->frm->addDropdown('categories', $this->categories);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, 'N');
 	}
@@ -135,6 +137,7 @@ class BackendLinksAdd extends BackendBaseActionAdd
 			{
 				// build item
 				$item = array();
+				$item['id'] = BackendLinksModel::getMaximumId()+1;
 				$item['category_id'] = $this->frm->getField('categories')->getValue();
 				$item['language'] = BL::getWorkingLanguage();
 				$item['title'] = $this->frm->getField('title')->getValue();
@@ -149,6 +152,9 @@ class BackendLinksAdd extends BackendBaseActionAdd
 				// trigger event
 				BackendModel::triggerEvent($this->getModule(), 'after_add', array('item' => $item));
 
+				// save the tags
+				BackendTagsModel::saveTags($item['id'], $this->frm->getField('tags')->getValue(), $this->URL->getModule());
+				
 				// everything is saved, so redirect to the overview
 				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);
 			}

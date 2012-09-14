@@ -279,6 +279,16 @@ class BackendLinksModel
 	}
 
 	/**
+	 * Get the maximum id
+	 *
+	 * @return int
+	 */
+	public static function getMaximumId()
+	{
+		return (int) BackendModel::getDB()->getVar('SELECT MAX(id) FROM links LIMIT 1');
+	}
+
+	/**
 	 * Add a new item.
 	 *
 	 * @param array $item The data to insert.

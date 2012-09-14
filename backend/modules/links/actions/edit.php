@@ -97,6 +97,7 @@ class BackendLinksEdit extends BackendBaseActionEdit
 		$this->frm->getField('title')->setAttribute('class', 'title ' . $this->frm->getField('title')->getAttribute('class'));
 		$this->frm->addText('url', $this->record['url'])->setAttribute('id', 'title');
 		$this->frm->addText('description', $this->record['description'])->setAttribute('id', 'title');
+		$this->frm->addText('tags', BackendTagsModel::getTags($this->URL->getModule(), $this->id), null, 'inputText tagBox', 'inputTextError tagBox');
 		$this->frm->getField('description')->setAttribute('class', 'title ' . $this->frm->getField('description')->getAttribute('class'));
 		$this->frm->addDropdown('categories', $this->categories, $this->record['category_id']);
 		$this->frm->addRadiobutton('hidden', $rbtHiddenValues, $this->record['hidden']);
@@ -157,6 +158,9 @@ class BackendLinksEdit extends BackendBaseActionEdit
 
 				// update link values in database
 				$update = BackendLinksModel::updateLink($item);
+				
+				// save the tags
+				BackendTagsModel::saveTags($item['id'], $this->frm->getField('tags')->getValue(), $this->URL->getModule());
 				
 				// trigger event
 				BackendModel::triggerEvent($this->getModule(), 'after_edit', array('item' => $item));
