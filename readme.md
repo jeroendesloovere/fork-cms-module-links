@@ -18,6 +18,7 @@ The links module is created for people who need to display some links to other w
 The links module has a lot of features allready built in but there will be added some in the future. Whenever I have some time to add some functionality, it will be added!
 
 * Linkcategories.
+* Tag module is usable for links
 * Show each category on a widget throughout the website by giving it a position through the pages system.
 * Show all lnks in a categorised way by adding the module to a page.
 * Organise the categories in the backend by drag 'n drop.
