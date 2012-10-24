@@ -17,7 +17,7 @@
 					{iteration:invalidLinks}
 					<tr class="{cycle:'odd':'even'}">
 						<td><a href="{$var|geturl:'edit':'links':'&id={$invalidLinks.id}'}">{$invalidLinks.title}</a></td>
-						<td class="name">{$invalidLinks.protocol}{$invalidLinks.url}</td>
+						<td class="name">{$invalidLinks.url}</td>
 					</tr>
 					{/iteration:invalidLinks}
 				</tbody>
