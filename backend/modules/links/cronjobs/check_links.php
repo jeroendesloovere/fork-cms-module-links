@@ -37,17 +37,14 @@ class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
 		{
 			// check if links is active
 			$result = BackendLinksModel::urlExists($link['url']);
-			
+
 			if(!$result)
 			{
 				// delete link if autodelete is enabled
 				if($this->deleteSetting)
 				{
-					// delete the link when it's allowed to be deleted
-					if(BackendLinksModel::deleteLinkAllowed($link['id']))
-					{
-						BackendLinksModel::deleteLinkById($link['id']);
-					}
+					// delete the link
+					BackendLinksModel::deleteLinkById($link['id']);
 				}
 				
 				else
