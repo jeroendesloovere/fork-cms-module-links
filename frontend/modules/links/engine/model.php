@@ -21,7 +21,7 @@ class FrontendLinksModel
 	 */
 	public static function getCategories()
 	{
-		$items = (array) FrontendModel::getDB()->getRecords(
+		$items = (array) FrontendModel::getContainer()->get('database')->getRecords(
 				'SELECT i.*
 				 FROM links_categories AS i
 				 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence ASC', 
@@ -38,7 +38,7 @@ class FrontendLinksModel
 	 */
  	public static function getCategory($id)
 	{
-		$item = (array) FrontendModel::getDB()->getRecord(
+		$item = (array) FrontendModel::getContainer()->get('database')->getRecord(
 				'SELECT i.*
 				 FROM links_categories AS i
 				 WHERE i.language = ? AND i.hidden = ? AND i.id = ?', 
@@ -55,7 +55,7 @@ class FrontendLinksModel
 	 */
 	public static function getLinksForCategory($id)
 	{
-		$items = (array) FrontendModel::getDB()->getRecords(
+		$items = (array) FrontendModel::getContainer()->get('database')->getRecords(
 				'SELECT l.*
 				 FROM links AS l
 				 WHERE l.category_id = ? AND l.language = ? AND l.hidden = ? AND l.alive = ?', 

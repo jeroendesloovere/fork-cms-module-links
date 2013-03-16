@@ -41,7 +41,7 @@ class BackendLinksModel
 	 */
 	public static function deleteCategoryAllowed($id)
 	{
-		return (bool) (BackendModel::getDB()->getVar(
+		return (bool) (BackendModel::getContainer()->get('database')->getVar(
 			'SELECT COUNT(id)
 			 FROM links AS i
 			 WHERE i.category_id = ? AND i.language = ?',
@@ -57,7 +57,7 @@ class BackendLinksModel
 	public static function deleteCategoryById($id)
 	{
 		$id = (int) $id;
-		$db = BackendModel::getDB(true);
+		$db = BackendModel::getContainer()->get('database');
 
 		// get item
 		$item = self::getCategoryFromId($id);
@@ -102,7 +102,7 @@ class BackendLinksModel
 	 */
 	public static function deleteLinkAllowed($id)
 	{
-		return (bool) (BackendModel::getDB()->getVar(
+		return (bool) (BackendModel::getContainer()->get('database')->getVar(
 			'SELECT COUNT(id)
 			 FROM links AS i
 			 WHERE i.category_id = ? AND i.language = ?', 
@@ -119,7 +119,7 @@ class BackendLinksModel
 	public static function deleteLinkById($id)
 	{
 		// delete the link
-		return (bool) BackendModel::getDB(true)->delete('links', 'id = ?', array((int) $id));
+		return (bool) BackendModel::getContainer()->get('database')->delete('links', 'id = ?', array((int) $id));
 	}
 
 	/**
@@ -130,7 +130,7 @@ class BackendLinksModel
 	 */
 	public static function existsCategory($id)
 	{
-		return (bool) BackendModel::getDB()->getVar(
+		return (bool) BackendModel::getContainer()->get('database')->getVar(
 			'SELECT COUNT(i.id)
 			 FROM links_categories AS i
 			 WHERE i.id = ? AND i.language = ?', 
@@ -146,7 +146,7 @@ class BackendLinksModel
 	 */
 	public static function existsLink($id)
 	{
-		return (bool) BackendModel::getDB()->getVar(
+		return (bool) BackendModel::getContainer()->get('database')->getVar(
 			'SELECT COUNT(i.id)
 			 FROM links AS i
 			 WHERE i.id = ? AND i.language = ?', 
@@ -161,7 +161,7 @@ class BackendLinksModel
 	 */
 	public static function getCategories()
 	{
-		return (array) BackendModel::getDB()->getRecords(
+		return (array) BackendModel::getContainer()->get('database')->getRecords(
 			'SELECT i.*
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND i.hidden = ? ORDER BY i.sequence', 
@@ -176,7 +176,7 @@ class BackendLinksModel
 	 */
 	public static function getCategoriesForDropdown()
 	{
-		return (array) BackendModel::getDB()->getPairs(
+		return (array) BackendModel::getContainer()->get('database')->getPairs(
 			'SELECT i.id, i.title
 			 FROM links_categories AS i
 			 WHERE i.language = ?
@@ -193,7 +193,7 @@ class BackendLinksModel
 	 */
 	public static function getCategoryFromId($id)
 	{
-		return (array) BackendModel::getDB()->getRecord(
+		return (array) BackendModel::getContainer()->get('database')->getRecord(
 			'SELECT i.*
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND i.id = ?', 
@@ -209,7 +209,7 @@ class BackendLinksModel
 	 */
 	public static function getCatNameFromId($id)
 	{
-		return (string) BackendModel::getDB()->getRecord(
+		return (string) BackendModel::getContainer()->get('database')->getRecord(
 			'SELECT i.title
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND i.id = ?', 
@@ -224,7 +224,7 @@ class BackendLinksModel
 	 */
 	public static function getInvalidLinks()
 	{
-		return (array) BackendModel::getDB()->getRecords(
+		return (array) BackendModel::getContainer()->get('database')->getRecords(
 			'SELECT i.*
 			 FROM links AS i
 			 WHERE i.language = ? AND i.alive = ?', 
@@ -240,7 +240,7 @@ class BackendLinksModel
 	 */
 	public static function getLinkById($id)
 	{
-		return (array) BackendModel::getDB()->getRecord(
+		return (array) BackendModel::getContainer()->get('database')->getRecord(
 			'SELECT i.*
 			 FROM links AS i
 			 WHERE i.id = ? AND i.language = ?', 
@@ -255,7 +255,7 @@ class BackendLinksModel
 	 */
 	public static function getLinks()
 	{
-		return (array) BackendModel::getDB()->getRecords(
+		return (array) BackendModel::getContainer()->get('database')->getRecords(
 			'SELECT i.*
 			 FROM links AS i
 			 WHERE i.language = ? AND hidden = ?', 
@@ -270,7 +270,7 @@ class BackendLinksModel
 	 */
 	public static function getMaximumCategorySequence()
 	{
-		return (int) BackendModel::getDB()->getVar(
+		return (int) BackendModel::getContainer()->get('database')->getVar(
 			'SELECT MAX(i.sequence)
 			 FROM links_categories AS i
 			 WHERE i.language = ? AND hidden = ?', 
@@ -285,7 +285,7 @@ class BackendLinksModel
 	 */
 	public static function getMaximumId()
 	{
-		return (int) BackendModel::getDB()->getVar('SELECT MAX(id) FROM links LIMIT 1');
+		return (int) BackendModel::getContainer()->get('database')->getVar('SELECT MAX(id) FROM links LIMIT 1');
 	}
 
 	/**
@@ -296,7 +296,7 @@ class BackendLinksModel
 	 */
 	public static function insertCategory(array $item)
 	{
-		$db = BackendModel::getDB(true);
+		$db = BackendModel::getContainer()->get('database');
 
 		// build extra
 		$extra = array(
@@ -353,7 +353,7 @@ class BackendLinksModel
 	 */
 	public static function insertLink(array $item)
 	{
-		$id = BackendModel::getDB(true)->insert('links', $item);
+		$id = BackendModel::getContainer()->get('database')->insert('links', $item);
 		return (int) $id;
 	}
 
@@ -365,7 +365,7 @@ class BackendLinksModel
 	 */
 	public static function updateCategory(array $item)
 	{
-		$db = BackendModel::getDB(true);
+		$db = BackendModel::getContainer()->get('database');
 
 		// build extra
 		$extra = array(
@@ -400,7 +400,7 @@ class BackendLinksModel
 	 */
 	public static function updateCategorySequence(array $item)
 	{
-		BackendModel::getDB(true)->update('links_categories', (array) $item, 'id = ?', array($item['id']));
+		BackendModel::getContainer()->get('database')->update('links_categories', (array) $item, 'id = ?', array($item['id']));
 	}
 
 	/**
@@ -411,7 +411,7 @@ class BackendLinksModel
 	 */
 	public static function updateLink(array $item)
 	{
-		$update = BackendModel::getDB(true)->update('links', (array) $item, 'id = ?', array($item['id']));
+		$update = BackendModel::getContainer()->get('database')->update('links', (array) $item, 'id = ?', array($item['id']));
 		return $update;
 	}
 
