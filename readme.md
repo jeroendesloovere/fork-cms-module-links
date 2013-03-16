@@ -1,7 +1,8 @@
 # Links module for [Fork-cms](http://www.fork-cms.com)
 
 ## About
-* Version: 2.0.0
+* Version: 2.1.0
+* ForkCMS version: 3.5.0 - to user earlier versions use the module tagged v2.0.0.
 * Name: Links
 * Author: [Guy Tarded](http://www.bloobz.be/contact)
 * Website: [www.bloobz.be (dutch blog)](http://www.bloobz.be) 
