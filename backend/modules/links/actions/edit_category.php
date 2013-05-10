@@ -7,6 +7,10 @@
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
+
 /**
  * This is the edit_category action for the links module
  *
@@ -163,15 +167,17 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 					$imagePath = FRONTEND_FILES_PATH . '/links/images';
 
 					// create folders if needed
-					if(!SpoonDirectory::exists($imagePath . '/source')) SpoonDirectory::create($imagePath . '/source');
-					if(!SpoonDirectory::exists($imagePath . '/128x128')) SpoonDirectory::create($imagePath . '/128x128');
+					$fs = new Filesystem();
+					if(!$fs->exists($imagePath . '/source')) $fs->mkdir($imagePath . '/source');
+					if(!$fs->exists($imagePath . '/128x128')) $fs->mkdir($imagePath . '/128x128');
 					
 					// if the image should be deleted
 					if($this->frm->getField('delete_logo')->isChecked())
 					{
 						// delete the image
-						SpoonFile::delete($imagePath . '/source/' . $item['logo']);
-						SpoonFile::delete($imagePath . '/128x128/' . $item['logo']);
+						$fs = new Filesystem();
+						$fs->remove($imagePath . '/source/' . $item['logo']);
+						$fs->remove($imagePath . '/128x128/' . $item['logo']);
 
 						// reset the name
 						$item['logo'] = null;
@@ -181,8 +187,9 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 					if($this->frm->getField('logo')->isFilled())
 					{
 						// delete the old image
-						SpoonFile::delete($imagePath . '/source/' . $item['logo']);
-						SpoonFile::delete($imagePath . '/128x128/' . $item['logo']);
+						$fs = new Filesystem();
+						$fs->remove($imagePath . '/source/' . $item['logo']);
+						$fs->remove($imagePath . '/128x128/' . $item['logo']);
 
 						// build the image name
 						$item['logo'] = time() . '.' . $this->frm->getField('logo')->getExtension();
@@ -195,10 +202,10 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 					elseif($item['logo'] != null)
 					{
 						// get the old file extension
-						$imageExtension = SpoonFile::getExtension($imagePath . '/source/' . $item['logo']);
+						$imageExtension = new File($imagePath . '/source/' . $item['logo']);
 						
 						// build the image name
-						$newName = time() . '.' . $this->frm->getField('logo')->getExtension();
+						$newName = time() . '.' . $imageExtension;
 
 						// only change the name if there is a difference
 						if($newName != $item['logo'])
@@ -207,7 +214,8 @@ class BackendLinksEditCategory extends BackendBaseActionEdit
 							foreach(BackendModel::getThumbnailFolders($imagePath, true) as $folder)
 							{
 								// move the old file to the new name
-								SpoonFile::move($folder['path'] . '/' . $item['logo'], $folder['path'] . '/' . $newName);
+								$fs = new Filesystem();
+								$fs->rename($folder['path'] . '/' . $item['logo'], $folder['path'] . '/' . $newName);
 							}
 
 							// assign the new name to the database

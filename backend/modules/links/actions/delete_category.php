@@ -7,6 +7,9 @@
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
+
 /**
  * This is the delete_category action for the links module
  *
@@ -44,8 +47,9 @@ class BackendLinksDeleteCategory extends BackendBaseActionDelete
 				$imagePath = FRONTEND_FILES_PATH . '/links/images';
 				
 				// delete the images
-				SpoonFile::delete($imagePath . '/source/' . $this->category['logo']);
-				SpoonFile::delete($imagePath . '/128x128/' . $this->category['logo']);
+				$fs = new Filesystem();
+				$fs->remove($imagePath . '/source/' . $this->category['logo']);
+				$fs->remove($imagePath . '/128x128/' . $this->category['logo']);
 				
 				// delete the item
 				BackendLinksModel::deleteCategoryById($this->id);

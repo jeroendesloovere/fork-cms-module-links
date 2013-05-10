@@ -7,6 +7,9 @@
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
+
 /**
  * This is the add category action for the links module
  *
@@ -131,8 +134,9 @@ class BackendLinksAddCategory extends BackendBaseActionAdd
 				$imagePath = FRONTEND_FILES_PATH . '/links/images';
 
 				// create folders if needed
-				if(!SpoonDirectory::exists($imagePath . '/source')) SpoonDirectory::create($imagePath . '/source');
-				if(!SpoonDirectory::exists($imagePath . '/128x128')) SpoonDirectory::create($imagePath . '/128x128');
+				$fs = new Filesystem();
+				if(!$fs->exists($imagePath . '/source')) $fs->mkdir($imagePath . '/source');
+				if(!$fs->exists($imagePath . '/128x128')) $fs->mkdir($imagePath . '/128x128');
 
 				// image provided?
 				if($this->frm->getField('logo')->isFilled())
