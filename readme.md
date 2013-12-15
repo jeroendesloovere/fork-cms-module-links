@@ -31,3 +31,6 @@ The links module has a lot of features allready built in but there will be added
 * Blogroll
 * Clickcounter
 * ...
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/guytarded/forkcms-links-module/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
