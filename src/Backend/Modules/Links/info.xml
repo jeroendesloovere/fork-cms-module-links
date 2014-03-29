@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
-	<name>links</name>
+	<name>Links</name>
 	<version>2.2.0</version>
 	<requirements>
 		<minimum_version>3.7.0</minimum_version>
