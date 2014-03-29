@@ -16,7 +16,7 @@ use Frontend\Core\Engine\Base\Config as FrontendBaseConfig;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class FrontendLinksConfig extends FrontendBaseConfig
+class Config extends FrontendBaseConfig
 {
 	/**
 	 * The default action

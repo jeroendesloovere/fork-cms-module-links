@@ -16,7 +16,7 @@ use Frontend\Core\Engine\Model as FrontendModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class FrontendLinksModel
+class Model
 {
 	/**
 	 * Get all categories

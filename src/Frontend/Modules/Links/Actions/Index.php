@@ -17,7 +17,7 @@ use Frontend\Modules\Links\Engine\Model as FrontendLinksModel;
  * 
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class FrontendLinksIndex extends FrontendBaseBlock
+class Index extends FrontendBaseBlock
 {
 	/**
 	 * The categories

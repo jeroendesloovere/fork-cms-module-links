@@ -17,7 +17,7 @@ use Frontend\Modules\Links\Engine\Model as FrontendLinksModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class FrontendLinksWidgetWidget extends FrontendBaseWidget
+class Widget extends FrontendBaseWidget
 {
 	/**
  	* The links
