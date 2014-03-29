@@ -9,6 +9,8 @@ namespace Backend\Modules\Links\Installer;
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Installer\ModuleInstaller;
+
 /**
  * Installer for the links module
  *

@@ -9,6 +9,8 @@ namespace Backend\Modules\Links;
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+
 /**
  * This is the configuration-object for the links module
  *

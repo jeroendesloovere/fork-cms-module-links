@@ -9,6 +9,10 @@ namespace Backend\Modules\Links\Widgets;
  * file that was distributed with this source code.
  */
 
+ use Backend\Core\Engine\Base as BackendBaseWidget;
+ use Backend\Core\Engine\Model as BackendModel;
+ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
+
 /**
  * This widget will show the invalid links
  *

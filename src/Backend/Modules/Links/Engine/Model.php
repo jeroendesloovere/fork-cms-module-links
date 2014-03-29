@@ -9,6 +9,9 @@ namespace Backend\Modules\Links\Engine;
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Engine\Language as BL;
+
 /**
  * In this file we store all generic functions that we will be using in the links module
  *

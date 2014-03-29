@@ -9,6 +9,9 @@ namespace Backend\Modules\Links\Ajax;
  * file that was distributed with this source code.
  */
 
+ use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
+ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
+
 /**
  * Reorder categories
  *

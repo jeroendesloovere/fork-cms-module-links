@@ -9,6 +9,10 @@ namespace Backend\Modules\Links\Cronjobs;
  * file that was distributed with this source code.
  */
 
+ use Backend\Core\Engine\Cronjob as BackendBaseCronjob;
+ use Backend\Core\Engine\Model as BackendModel;
+ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
+
 /**
  * This cronjob will check the database for broken links
  *
