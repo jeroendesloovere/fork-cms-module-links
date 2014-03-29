@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
-<frontend>
-	<links>
+<Frontend>
+	<Links>
 		<item type="message" name="LinksNoItems">
 			<translation language="nl"><![CDATA[Er werden nog geen links geplaatst]]></translation>
 			<translation language="en"><![CDATA[We haven't posted any links yet]]></translation>
@@ -10,10 +10,10 @@
 			<translation language="nl"><![CDATA[Er zijn nog geen links in deze categorie.]]></translation>
 			<translation language="en"><![CDATA[There are no links posted in this category]]></translation>
 		</item>
-	</links>
-</frontend>	
-<backend>
-	<core>
+	</Links>
+</Frontend>
+<Backend>
+	<Core>
 		<item type="label" name="Links">
 			<translation language="nl"><![CDATA[links]]></translation>
 			<translation language="en"><![CDATA[links]]></translation>
@@ -30,8 +30,8 @@
 			<translation language="nl"><![CDATA[Er zijn geen inactieve links]]></translation>
 			<translation language="en"><![CDATA[There are no inactive links]]></translation>
 		</item>
-	</core>
-	<links>
+	</Core>
+	<Links>
 		<item type="label" name="Autodelete">
 			<translation language="nl"><![CDATA[autodelete ongeldige links]]></translation>
 			<translation language="en"><![CDATA[autodelete invalid links]]></translation>
@@ -140,6 +140,6 @@
 			<translation language="nl"><![CDATA[Deze url is niet correct opgebouwd]]></translation>
 			<translation language="en"><![CDATA[This url is not well formed]]></translation>
 		</item>
-	</links>
-	</backend>
+	</Links>
+	</Backend>
 </locale>
