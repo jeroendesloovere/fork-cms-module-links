@@ -14,6 +14,7 @@ namespace Backend\Modules\Links\Actions;
  use Backend\Core\Engine\Form as BackendForm;
  use Backend\Core\Engine\Language as BL;
  use Backend\Modules\Links\Engine\Model as BackendLinksModel;
+ use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
 
 /**
  * This is the add-action for the links module
