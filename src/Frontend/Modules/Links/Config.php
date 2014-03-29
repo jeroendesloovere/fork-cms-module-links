@@ -1,5 +1,7 @@
 <?php
 
+namespace Frontend\Modules\Links;
+
 /*
  * This file is part of Fork CMS.
  *
