@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\Links\Widgets;
+
 /*
  * This file is part of Fork CMS.
  *
