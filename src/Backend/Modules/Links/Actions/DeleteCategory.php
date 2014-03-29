@@ -12,6 +12,9 @@ namespace Backend\Modules\Links\Actions;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Links\Engine\Model as BackendLinksModel;
+
 /**
  * This is the delete_category action for the links module
  *

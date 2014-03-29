@@ -9,6 +9,9 @@ namespace Backend\Modules\Links\Actions;
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Links\Engine\Model as BackendLinksModel;
+
 /**
  * This is the delete action for the links module
  *
