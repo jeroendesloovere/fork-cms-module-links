@@ -31,7 +31,7 @@ class Installer extends ModuleInstaller
 		);
 		
 		// insert the dashboardwidget
-		$this->insertDashboardWidget('links', 'invalid_links', $invalidLinks);
+		$this->insertDashboardWidget('Links', 'InvalidLinks', $invalidLinks);
 	}
 
 	/**
@@ -43,22 +43,22 @@ class Installer extends ModuleInstaller
 		$this->importSQL(dirname(__FILE__) . '/data/install.sql');
 
 		// add 'links' as a module
-		$this->addModule('links');
+		$this->addModule('Links');
 
 		// import locale
 		$this->importLocale(dirname(__FILE__) . '/data/locale.xml');
 
 		// module rights
-		$this->setModuleRights(1, 'links');
+		$this->setModuleRights(1, 'Links');
 
 		// action rights
-		$this->setActionRights(1, 'links', 'add');
-		$this->setActionRights(1, 'links', 'edit');
-		$this->setActionRights(1, 'links', 'delete');
-		$this->setActionRights(1, 'links', 'add_category');
-		$this->setActionRights(1, 'links', 'edit_category');
-		$this->setActionRights(1, 'links', 'delete_category');
-		$this->setActionRights(1, 'links', 'check_links');
+		$this->setActionRights(1, 'Links', 'Add');
+		$this->setActionRights(1, 'Links', 'Edit');
+		$this->setActionRights(1, 'Links', 'Delete');
+		$this->setActionRights(1, 'Links', 'AddCategory');
+		$this->setActionRights(1, 'Links', 'EditCategory');
+		$this->setActionRights(1, 'Links', 'DeleteCategory');
+		$this->setActionRights(1, 'Links', 'CheckLinks');
 
 		// set navigation
 		$navigationModulesId = $this->setNavigation(null, 'Modules');
@@ -75,7 +75,7 @@ class Installer extends ModuleInstaller
 		));
 		
 		// settings
-		$this->setSetting('links', 'autodelete', false);
+		$this->setSetting('Links', 'autodelete', false);
 		
 		// settings navigation
 		$navigationSettingsId = $this->setNavigation(null, 'Settings');
@@ -83,7 +83,7 @@ class Installer extends ModuleInstaller
 		$this->setNavigation($navigationModulesId, 'Links', 'links/settings');
 		
 		// add extra
-		$linksID = $this->insertExtra('links', 'block', 'Links', null, null, 'N', 1000);
+		$linksID = $this->insertExtra('Links', 'block', 'Links', null, null, 'N', 1000);
 
 		// loop languages
 		foreach($this->getLanguages() as $language)
