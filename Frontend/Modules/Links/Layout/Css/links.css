@@ -1,0 +1,19 @@
+img.logo{
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	    -moz-border-radius-bottomright: 5px;
+        -webkit-border-top-left-radius: 5px;
+		-moz-box-shadow: 5px 5px 2px #999;
+		-webkit-box-shadow: 5px 5px 2px #999;
+		box-shadow: 5px 5px 2px #999; 
+}
+.logo {
+	float: left;
+	margin-right: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+.links {
+	float: left;
+}
+
