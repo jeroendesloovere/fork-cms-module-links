@@ -9,6 +9,8 @@ namespace Frontend\Modules\Links;
  * file that was distributed with this source code.
  */
 
+use Frontend\Core\Engine\Base\Config as FrontendBaseConfig;
+
 /**
  * This is the configuration-object
  *

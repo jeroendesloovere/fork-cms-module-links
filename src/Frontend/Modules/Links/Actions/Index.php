@@ -9,6 +9,9 @@ namespace Frontend\Modules\Links\Actions;
  * file that was distributed with this source code.
  */
 
+use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
+use Frontend\Modules\Links\Engine\Model as FrontendLinksModel;
+
 /**
  * This is the index -action
  * 
@@ -76,6 +79,6 @@ class FrontendLinksIndex extends FrontendBaseBlock
 		$this->tpl->assign('categories', $this->categories);
 		
 		// add some CSS
-		$this->header->addCSS('/frontend/modules/links/layout/css/links.css');
+		$this->header->addCSS('/src/Frontend/Modules/Links/Layout/Css/links.css');
 	}
 }

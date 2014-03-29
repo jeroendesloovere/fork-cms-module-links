@@ -9,6 +9,8 @@ namespace Frontend\Modules\Links\Engine;
  * file that was distributed with this source code.
  */
 
+use Frontend\Core\Engine\Model as FrontendModel;
+
 /**
  * This is the frontend model
  *

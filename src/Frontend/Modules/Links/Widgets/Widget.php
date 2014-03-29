@@ -9,6 +9,9 @@ namespace Frontend\Modules\Links\Widgets;
  * file that was distributed with this source code.
  */
 
+use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
+use Frontend\Modules\Links\Engine\Model as FrontendLinksModel;
+
 /**
  * This is the widget widget
  *
