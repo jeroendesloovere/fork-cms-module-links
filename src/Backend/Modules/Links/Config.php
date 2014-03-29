@@ -16,7 +16,7 @@ use Backend\Core\Engine\Base\Config as BackendBaseConfig;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-final class BackendLinksConfig extends BackendBaseConfig
+final class Config extends BackendBaseConfig
 {
 	/**
 	 * The default action

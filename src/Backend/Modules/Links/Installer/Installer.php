@@ -16,7 +16,7 @@ use Backend\Core\Installer\ModuleInstaller;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class LinksInstaller extends ModuleInstaller
+class Installer extends ModuleInstaller
 {
 	/**
 	 * Insert an empty admin dashboard sequence

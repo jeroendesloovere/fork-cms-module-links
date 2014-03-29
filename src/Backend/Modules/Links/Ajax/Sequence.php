@@ -18,7 +18,7 @@ namespace Backend\Modules\Links\Ajax;
  * @author Lester Lievens <lester.lievens@netlash.com>
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksAjaxSequence extends BackendBaseAJAXAction
+class Sequence extends BackendBaseAJAXAction
 {
 	/**
 	 * Execute the action

@@ -18,7 +18,7 @@ namespace Backend\Modules\Links\Cronjobs;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksCronjobCheckLinks extends BackendBaseCronjob
+class CheckLinks extends BackendBaseCronjob
 {
 	/**
 	 * The links

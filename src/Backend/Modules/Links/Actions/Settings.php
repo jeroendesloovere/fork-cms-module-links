@@ -20,7 +20,7 @@ namespace Backend\Modules\Links\Actions;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksSettings extends BackendBaseActionEdit
+class Settings extends BackendBaseActionEdit
 {
 	/**
 	 * Does the user has God status

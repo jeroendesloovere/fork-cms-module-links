@@ -21,7 +21,7 @@ use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksEdit extends BackendBaseActionEdit
+class Edit extends BackendBaseActionEdit
 {
 	/**
 	 * The available categories

@@ -25,7 +25,7 @@ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksEditCategory extends BackendBaseActionEdit
+class EditCategory extends BackendBaseActionEdit
 {
 	/**
 	 * Is the user God?

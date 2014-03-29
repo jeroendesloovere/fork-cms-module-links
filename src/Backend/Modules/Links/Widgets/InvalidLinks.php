@@ -18,7 +18,7 @@ namespace Backend\Modules\Links\Widgets;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksWidgetInvalidLinks extends BackendBaseWidget
+class InvalidLinks extends BackendBaseWidget
 {
 	/**
 	 * The links

@@ -17,7 +17,7 @@ use Backend\Core\Engine\Language as BL;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksModel
+class Model
 {
 /**
  * Define constants
