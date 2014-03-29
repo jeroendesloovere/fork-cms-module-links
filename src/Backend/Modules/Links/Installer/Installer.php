@@ -40,13 +40,13 @@ class Installer extends ModuleInstaller
 	public function install()
 	{
 		// load install.sql
-		$this->importSQL(dirname(__FILE__) . '/data/install.sql');
+		$this->importSQL(dirname(__FILE__) . '/Data/install.sql');
 
 		// add 'links' as a module
 		$this->addModule('Links');
 
 		// import locale
-		$this->importLocale(dirname(__FILE__) . '/data/locale.xml');
+		$this->importLocale(dirname(__FILE__) . '/Data/locale.xml');
 
 		// module rights
 		$this->setModuleRights(1, 'Links');
