@@ -20,7 +20,7 @@ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksDeleteCategory extends BackendBaseActionDelete
+class DeleteCategory extends BackendBaseActionDelete
 {
 	/**
 	 * Execute the action

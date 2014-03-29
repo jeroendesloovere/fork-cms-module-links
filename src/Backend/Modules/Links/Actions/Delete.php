@@ -17,7 +17,7 @@ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksDelete extends BackendBaseActionDelete
+class Delete extends BackendBaseActionDelete
 {
 	/**
 	 * Execute the action

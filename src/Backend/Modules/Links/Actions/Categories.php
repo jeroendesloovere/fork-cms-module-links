@@ -23,7 +23,7 @@ use Backend\Modules\Links\Engine\Model as BackendLinksModel;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksCategories extends BackendBaseActionIndex
+class Categories extends BackendBaseActionIndex
 {
 	/**
 	 * Execute the action

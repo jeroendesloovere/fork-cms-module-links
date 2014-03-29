@@ -20,7 +20,7 @@ namespace Backend\Modules\Links\Actions;
  *
  * @author John Poelman <john.poelman@bloobz.be>
  */
-class BackendLinksAdd extends BackendBaseActionAdd
+class Add extends BackendBaseActionAdd
 {
 	/**
 	 * The available categories
