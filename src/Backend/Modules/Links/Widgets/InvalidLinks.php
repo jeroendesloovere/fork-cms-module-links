@@ -55,7 +55,7 @@ class InvalidLinks extends BackendBaseWidget
 		$this->links = BackendLinksModel::getInvalidLinks();
 		
 		// check if autodelete is set
-		$this->autodelete = BackendModel::getModuleSetting('links', 'autodelete');
+		$this->autodelete = BackendModel::getModuleSetting('Links', 'autodelete');
 	}
 
 	/**
