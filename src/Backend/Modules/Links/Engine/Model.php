@@ -308,7 +308,7 @@ class Model
 			'module' => 'links', 
 			'type' => 'widget', 
 			'label' => 'links', 
-			'action' => 'widget', 
+			'action' => 'Widget', 
 			'data' => NULL, 
 			'hidden' => 'N', 
 			'sequence' => $db->getVar(
