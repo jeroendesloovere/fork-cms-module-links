@@ -70,7 +70,7 @@ class Model
 		// build extra
 		$extra = array(
 			'id' => $item['extra_id'], 
-			'module' => 'links', 
+			'module' => 'Links', 
 			'type' => 'widget', 
 			'action' => 'widget'
 		);
@@ -305,9 +305,9 @@ class Model
 
 		// build extra
 		$extra = array(
-			'module' => 'links', 
+			'module' => 'Links', 
 			'type' => 'widget', 
-			'label' => 'links', 
+			'label' => 'Links', 
 			'action' => 'Widget', 
 			'data' => NULL, 
 			'hidden' => 'N', 
@@ -315,7 +315,7 @@ class Model
 				'SELECT MAX(i.sequence) + 1
 				 FROM modules_extras AS i
 				 WHERE i.module = ?', 
-				array('links')
+				array('Links')
 		));
 
 		if(is_null($extra['sequence'])) $extra['sequence'] = $db->getVar(
@@ -375,16 +375,16 @@ class Model
 		// build extra
 		$extra = array(
 			'id' => $item['extra_id'], 
-			'module' => 'links', 
+			'module' => 'Links', 
 			'type' => 'widget', 
-			'label' => 'links', 
+			'label' => 'Links', 
 			'action' => 'widget', 
 			'data' => serialize(array(
-									'id' => $item['id'], 
-									'extra_label' => $item['title'], 
-									'language' => $item['language'], 
-									'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])), 
-									'hidden' => 'N'
+				'id' => $item['id'], 
+				'extra_label' => $item['title'], 
+				'language' => $item['language'], 
+				'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])), 
+				'hidden' => 'N'
 		);
 
 		// update extra
