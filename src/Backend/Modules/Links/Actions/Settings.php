@@ -63,7 +63,7 @@ class Settings extends BackendBaseActionEdit
 		$settings = BackendModel::getModuleSettings();
 		
 		// store settings for this module
-		$this->settings = $settings['links'];
+		$this->settings = $settings['Links'];
 		
 		// add the formfields
 		$this->frm->addCheckbox('autodelete', $this->settings['autodelete']);
