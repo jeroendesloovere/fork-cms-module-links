@@ -62,13 +62,13 @@ class Categories extends BackendBaseActionIndex
 		$this->dataGrid->setColumnsHidden(array('language', 'sequence', 'extra_id'));
 
 		// set column URLs
-		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');
+		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('EditCategory') . '&amp;id=[id]');
 
 		// add drag and dropp stuff
 		$this->dataGrid->enableSequenceByDragAndDrop();
 
 		// add columns
-		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));
+		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('EditCategory') . '&amp;id=[id]', BL::lbl('Edit'));
 	}
 
 	/**
