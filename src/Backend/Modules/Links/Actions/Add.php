@@ -68,7 +68,7 @@ class Add extends BackendBaseActionAdd
 
 		if(empty($this->categories))
 		{
-			$this->redirect(BackendModel::createURLForAction('add_category'));
+			$this->redirect(BackendModel::createURLForAction('AddCategory'));
 		}
 	}
 
@@ -165,7 +165,7 @@ class Add extends BackendBaseActionAdd
 				BackendTagsModel::saveTags($item['id'], $this->frm->getField('tags')->getValue(), $this->URL->getModule());
 				
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);
+				$this->redirect(BackendModel::createURLForAction('Index') . '&report=link-saved&var=' . urlencode($item['title']) . '&highlight=row-' . $insert);
 			}
 		}
 	}
