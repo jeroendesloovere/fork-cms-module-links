@@ -195,10 +195,12 @@ class EditCategory extends BackendBaseActionEdit
 					// new image given?
 					if($this->frm->getField('logo')->isFilled())
 					{
-						// delete the old image
-						$fs = new Filesystem();
-						$fs->remove($imagePath . '/source/' . $item['logo']);
-						$fs->remove($imagePath . '/128x128/' . $item['logo']);
+						if($item['logo'] !== null) {
+							// delete the old image
+							$fs = new Filesystem();
+							$fs->remove($imagePath . '/source/' . $item['logo']);
+							$fs->remove($imagePath . '/128x128/' . $item['logo']);	
+						}
 
 						// build the image name
 						$item['logo'] = time() . '.' . $this->frm->getField('logo')->getExtension();
