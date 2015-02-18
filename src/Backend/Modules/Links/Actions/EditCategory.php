@@ -212,6 +212,7 @@ class EditCategory extends BackendBaseActionEdit
 					{
 						// get the old file extension
 						$imageExtension = new File($imagePath . '/source/' . $item['logo']);
+						$imageExtension = $imageExtension->getExtension();
 						
 						// build the image name
 						$newName = time() . '.' . $imageExtension;
@@ -243,7 +244,7 @@ class EditCategory extends BackendBaseActionEdit
 				BackendModel::triggerEvent($this->getModule(), 'after_edit_category', array('item' => $item));
 				
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('Categories') . '&report=edited-category&var=' . urlencode($item['title']) . '&highlight=row-' . $update);
+				$this->redirect(BackendModel::createURLForAction('Categories') . '&report=edited-category&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}
